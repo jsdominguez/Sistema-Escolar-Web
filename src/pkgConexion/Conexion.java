@@ -29,7 +29,7 @@ public class Conexion {
 			server = "localhost";//prop.getProperty("server");
 			port = "3306";//prop.getProperty("port");
 			database = "demodb";//prop.getProperty("database");
-			user = "rootfafafa";//prop.getProperty("user");
+			user = "root";//prop.getProperty("user");
 			password = "";//prop.getProperty("password");
 			
 			//unimos la ruta y obtenemos de conexion
