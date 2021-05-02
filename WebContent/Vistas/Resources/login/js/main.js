@@ -19,14 +19,34 @@
     [ Validate ]*/
     var input = $('.validate-input .input100');
 
-    $('.validate-form').on('submit',function(){
+    $('.validate-form').on('submit',function(event){
+        event.preventDefault()
         var check = true;
+        var formCampos = []; 
 
         for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
                 showValidate(input[i]);
                 check=false;
             }
+            formCampos[i] = input[i].value;
+        }
+
+        if(check){
+            var formUsuario = formCampos[0];
+            var formPass = formCampos[1];
+
+            $.ajax({
+                url: 'Srvlt_Login',
+                type: 'POST',
+                data: {
+                    "txtUser" : formUsuario,
+                    "txtPass" : formPass
+                }
+            })
+            .done(function(result) {
+               (result == 0) ? showErrorLogin() : location.href="Vistas/index.jsp";
+            });
         }
 
         return check;
@@ -64,5 +84,14 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
+    function showErrorLogin(){
+        var msgLoginIncorrecto = "<div class='alert alert-danger' role='alert'>"+
+                                    "<button type='button' class='close' data-dismiss='alert'>"+
+                                        "<span aria-hidden='true'>&times</span><span class='sr-only'>Close</span>"+
+                                    "</button><strong>Error!</strong> Datos incorrectos"+
+                                 "</div>";
+
+        $("#divMsgLoginIncorrecto").html(msgLoginIncorrecto);
+    }
 
 })(jQuery);

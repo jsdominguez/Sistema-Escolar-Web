@@ -1,7 +1,9 @@
 package pkgServlet;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
+import pkgController.CtrlLoguin;
+import pkgModel.MdlAlumno;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,32 +41,24 @@ public class Srvlt_Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		String txtUser = request.getParameter("txtUser");
 		String txtPass = request.getParameter("txtPass");
 		
-		System.out.println(txtUser + " - " + txtPass );
+		boolean loguinSucces = CtrlLoguin.CtrlValidarUsuario(txtUser,txtPass);
 		
-		if(txtUser.equals("admin") && txtPass.equals("123")) {
-			System.out.println("login correcto");
-			
-			//crea u obtiene la session actual
+		if(loguinSucces) {
+			//crea y obtiene la session actual
 			HttpSession sesion = request.getSession();
-
 			if(sesion.getAttribute("user") == null) {
-				sesion.setAttribute("user", txtUser +""+txtPass);
-				LoginUser loginUser = new LoginUser();
-				loginUser.setUsuario("Administrador");
-				sesion.setAttribute("loginUserBean",loginUser);
+				MdlAlumno objAlumno =  CtrlLoguin.CtrlObtenerDatosLoguin(txtUser,txtPass);
+				sesion.setAttribute("MdlAlumno",objAlumno);
 			}
-			response.sendRedirect("Vistas/index.jsp");
+			out.print(1);
 		}else {
-			System.out.println("login incorrecto");
+			out.print(0);
 		}
-		
-		/*response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println("demo");*/
 	}
 
 }
