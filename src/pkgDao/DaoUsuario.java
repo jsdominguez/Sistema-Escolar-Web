@@ -10,14 +10,14 @@ import pkgModel.MdlUsuario;
 
 public class DaoUsuario {
 	
-	Connection cn;
 	PreparedStatement consultaPreparada;
 	ResultSet resultadoDatos;
 	String sql;
+	Connection cn;
 	
 	public boolean DaoValidarLoguin(String usuario,String pass) {
-		
-		this.cn = new Conexion().conectar();
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
 		boolean loguinSucces = false;
 		
 		try {
@@ -38,6 +38,7 @@ public class DaoUsuario {
 			System.out.println("[X] DAO 'DaoLoguin' FALLIDA [X]");
 			e.printStackTrace();
 		}finally {
+			objConectar.desconectar();
 			this.cn = null;
 		}
 		return loguinSucces;
@@ -45,11 +46,12 @@ public class DaoUsuario {
 	
 	public MdlUsuario DaoObtenerDatosLoguin(String usuario,String pass) {
 		
-		this.cn = new Conexion().conectar();
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
 		MdlUsuario objUsuario = null;
 		
 		try {
-			this.sql = "select inf.nombreUsuario,inf.apellidoUsuario,tuser.tipoUsuarioString,tuser.idTipoUsuario from infoUsuario inf\r\n" + 
+			this.sql = "select inf.nombreUsuario,inf.apellidoUsuario,tuser.tipoUsuarioString,tuser.idTipoUsuario from infoUsuario inf" + 
 					   " inner join usuario u" + 
 					   " on inf.idInfUsuario=u.idInfoUsuario" + 
 					   " inner join tipoUsuario tuser" + 
@@ -73,6 +75,7 @@ public class DaoUsuario {
 			System.out.println(this.sql);
 			
 		}finally {
+			objConectar.desconectar();
 			this.cn = null;
 		}
 		return objUsuario;

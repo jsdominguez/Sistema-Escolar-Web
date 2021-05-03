@@ -17,7 +17,8 @@ public class DaoAlumno {
 	
 	public ArrayList<MdlAlumno> daoGetListaAlumnos() {
 	
-		this.cn = new Conexion().conectar();
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
 		ArrayList<MdlAlumno> arrAlumno = new ArrayList<MdlAlumno>();
 		MdlAlumno objAlumno;
 		
@@ -40,6 +41,7 @@ public class DaoAlumno {
 			System.out.println("[X] DAO 'Alumno.getListaAlumnos' FALLIDA [X]");
 			e.printStackTrace();
 		}finally {
+			objConectar.desconectar();
 			this.cn = null;
 		}
 		
@@ -48,7 +50,8 @@ public class DaoAlumno {
 	
 	public int daoGetCountListAlumno() {
 		
-		this.cn = new Conexion().conectar();
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
 		int cantidadRegistros=0;
 		
 		try {
@@ -62,6 +65,7 @@ public class DaoAlumno {
 			System.out.println("[X] DAO 'Alumno.countListAlumno' FALLIDA [X]");
 			e.printStackTrace();
 		}finally {
+			objConectar.desconectar();
 			this.cn = null;
 		}
 		
@@ -73,7 +77,8 @@ public class DaoAlumno {
 		
 		int idAlumno = this.daoGetCountListAlumno();
 		idAlumno +=1;
-		this.cn = new Conexion().conectar();
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
 		
 		try {
 			
@@ -91,6 +96,7 @@ public class DaoAlumno {
 			e.printStackTrace();
 			return 500;
 		}finally {
+			objConectar.desconectar();
 			this.cn = null;
 		}
 		
@@ -99,7 +105,8 @@ public class DaoAlumno {
 	
 	public int daoUpdateAlumno(MdlAlumno objAlumno,int paramIdAlumno) {
 		
-		this.cn = new Conexion().conectar();
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
 		
 		try {
 			
@@ -117,6 +124,7 @@ public class DaoAlumno {
 			e.printStackTrace();
 			return 500;
 		}finally {
+			objConectar.desconectar();
 			this.cn = null;
 		}
 		
@@ -125,7 +133,8 @@ public class DaoAlumno {
 	
 	public int daoEliminarAlumno(int idAlumno) {
 		
-		this.cn = new Conexion().conectar();
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
 		
 		try {
 			
@@ -139,6 +148,7 @@ public class DaoAlumno {
 			e.printStackTrace();
 			return 500;
 		}finally {
+			objConectar.desconectar();
 			this.cn = null;
 		}
 		return 200;
