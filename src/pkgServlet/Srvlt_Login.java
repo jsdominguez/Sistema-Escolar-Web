@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import pkgController.CtrlLoguin;
 import pkgModel.MdlAlumno;
+import pkgModel.MdlUsuario;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,12 +53,14 @@ public class Srvlt_Login extends HttpServlet {
 		if(loguinSucces) {
 			//crea y obtiene la session actual
 			HttpSession sesion = request.getSession();
-			if(sesion.getAttribute("user") == null) {
-				MdlAlumno objAlumno =  CtrlLoguin.CtrlObtenerDatosLoguin(txtUser,txtPass);
-				sesion.setAttribute("MdlAlumno",objAlumno);
+			if(sesion.getAttribute("MdlUsuario") == null) {
+				MdlUsuario objUsuario =  CtrlLoguin.CtrlObtenerDatosLoguin(txtUser,txtPass);
+				sesion.setAttribute("MdlUsuario",objUsuario);
 			}
+			//loguin ok
 			out.print(1);
 		}else {
+			//loguin bad
 			out.print(0);
 		}
 	}

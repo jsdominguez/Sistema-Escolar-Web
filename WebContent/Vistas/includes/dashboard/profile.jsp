@@ -1,14 +1,14 @@
 <li class="xn-profile">
     <a href="#" class="profile-mini">
-        <img src="Resources/dashboard/assets/images/users/avatar.jpg" alt="John Doe"/>
+        <img src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/assets/images/users/avatar.jpg" alt="John Doe"/>
     </a>
     <div class="profile">
         <div class="profile-image">
-            <img src="Resources/dashboard/assets/images/users/avatar.jpg" alt="John Doe"/>
+            <img src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/assets/images/users/avatar.jpg" alt="John Doe"/>
         </div>
         <div class="profile-data">
-            <div class="profile-data-name">${MdlAlumno.apellido}</div>
-            <div class="profile-data-title">${MdlAlumno.tipo_usuario_string}</div>
+            <div class="profile-data-name">${MdlUsuario.apellidoUsuario}</div>
+            <div class="profile-data-title">${MdlUsuario.tipoUsuarioString}</div>
         </div>
         <div class="profile-controls">
             <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>

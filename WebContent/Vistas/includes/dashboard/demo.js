@@ -12,7 +12,7 @@ $("document").ready(function(){
         /*"processing": true,*/
         /*"serverSide": true,*/
         "ajax": {
-            url: "../Srvlt_Alumno",
+            url: "/ProyectoIntegrador2/Srvlt_Alumno",
             type: "POST",
 			dataSrc: "datos",
             data: {
@@ -87,7 +87,7 @@ $("document").ready(function(){
         var idAlumno = datosFila.id;
 
         $.ajax({
-             url: "../Srvlt_Alumno",
+             url: "/ProyectoIntegrador2/Srvlt_Alumno",
              type: "POST",
              data: {
                 "metodo": "ctrlEliminarAlumno",
@@ -95,7 +95,7 @@ $("document").ready(function(){
             }
          })
          .done(function(response) {
-            tblDemo.ajax.url( '../Srvlt_Alumno?metodo=ctrlListarAlumno').load();
+            tblDemo.ajax.url( '/ProyectoIntegrador2/Srvlt_Alumno?metodo=ctrlListarAlumno').load();
              console.log(response);
          });
         
@@ -116,7 +116,7 @@ $("document").ready(function(){
         }
 
          $.ajax({
-             url: "../Srvlt_Alumno",
+             url: "/ProyectoIntegrador2/Srvlt_Alumno",
              type: "POST",
              data: formData,
              cache: false,
@@ -125,7 +125,7 @@ $("document").ready(function(){
          })
          .done(function(response) {
             $('#mimodal').modal('hide')
-            tblDemo.ajax.url( '../Srvlt_Alumno?metodo=ctrlListarAlumno').load();
+            tblDemo.ajax.url( '/ProyectoIntegrador2/Srvlt_Alumno?metodo=ctrlListarAlumno').load();
             if(response == 200){
             	var alert = "<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times</span><span class='sr-only'>Close</span></button>"+
             				"<strong>Well done!</strong> You successfully read this important alert message.</div>";

@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import pkgConexion.Conexion;
-import pkgModel.MdlAlumno;
+import pkgModel.MdlUsuario;
 
-public class DaoLoguin {
+public class DaoUsuario {
 	
 	Connection cn;
 	PreparedStatement consultaPreparada;
@@ -22,7 +22,7 @@ public class DaoLoguin {
 		
 		try {
 			
-			this.sql = "select * from alumno where nombre = ? and apellido = ?";
+			this.sql = "select * from usuario where nomUsuario = ? and passUsuario = ?";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,usuario);
 			consultaPreparada.setString(2,pass);
@@ -43,30 +43,38 @@ public class DaoLoguin {
 		return loguinSucces;
 	}
 	
-	public MdlAlumno DaoObtenerDatosLoguin(String usuario,String pass) {
+	public MdlUsuario DaoObtenerDatosLoguin(String usuario,String pass) {
 		
 		this.cn = new Conexion().conectar();
-		MdlAlumno objAlumno = null;
+		MdlUsuario objUsuario = null;
 		
 		try {
-			this.sql = "select nombre,apellido,tipo_usuario_string from alumno where nombre = ? and apellido = ?";
+			this.sql = "select inf.nombreUsuario,inf.apellidoUsuario,tuser.tipoUsuarioString,tuser.idTipoUsuario from infoUsuario inf\r\n" + 
+					   " inner join usuario u" + 
+					   " on inf.idInfUsuario=u.idInfoUsuario" + 
+					   " inner join tipoUsuario tuser" + 
+					   " on u.idTipoUsuario=tuser.idTipoUsuario" + 
+					   " where u.nomUsuario = ? and u.passUsuario = ?";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,usuario);
 			consultaPreparada.setString(2,pass);
 			resultadoDatos = consultaPreparada.executeQuery();
 			
 			while(resultadoDatos.next()) {
-				objAlumno = new MdlAlumno();
-				objAlumno.setNombre(resultadoDatos.getString("nombre"));
-				objAlumno.setApellido(resultadoDatos.getString("apellido"));
-				objAlumno.setTipo_usuario_string(resultadoDatos.getString("tipo_usuario_string"));
+				objUsuario = new MdlUsuario();
+				objUsuario.setNombreUsuario(resultadoDatos.getString("nombreUsuario"));
+				objUsuario.setApellidoUsuario(resultadoDatos.getString("apellidoUsuario"));
+				objUsuario.setTipoUsuarioString(resultadoDatos.getString("tipoUsuarioString"));
+				objUsuario.setIdTipoUsuario(resultadoDatos.getInt("idTipoUsuario"));
 			}
 		}catch(Exception e) {
 			System.out.println("[X] DAO 'DaoObtenerDatosLoguin' FALLIDA [X]");
 			e.printStackTrace();
+			System.out.println(this.sql);
+			
 		}finally {
 			this.cn = null;
 		}
-		return objAlumno;
+		return objUsuario;
 	}
 }

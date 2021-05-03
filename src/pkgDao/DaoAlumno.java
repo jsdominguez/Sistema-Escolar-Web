@@ -77,7 +77,7 @@ public class DaoAlumno {
 		
 		try {
 			
-			this.sql = "insert into alumno(id,nombre,apellido,edad) values(?,?,?,?);";
+			this.sql = "insert into alumno(id,nombre,apellido,edad,tipo_usuario,tipo_usuario_string) values(?,?,?,?,0,0);";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setInt(1,idAlumno);
 			consultaPreparada.setString(2,objAlumno.getNombre());

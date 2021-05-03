@@ -9,7 +9,7 @@
             </div>
             <div class="mb-footer">
                 <div class="pull-right">
-                    <a href="includes/logOut.jsp" class="btn btn-success btn-lg">Yes</a>
+                    <a href="${pageContext.request.contextPath}/Vistas/includes/logOut.jsp" class="btn btn-success btn-lg">Yes</a>
                     <button class="btn btn-default btn-lg mb-control-close">No</button>
                 </div>
             </div>

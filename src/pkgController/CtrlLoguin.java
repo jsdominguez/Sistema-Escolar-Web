@@ -1,17 +1,18 @@
 package pkgController;
 
-import pkgDao.DaoLoguin;
+import pkgDao.DaoUsuario;
 import pkgModel.MdlAlumno;
+import pkgModel.MdlUsuario;
 
 public class CtrlLoguin {
 	
 	public static boolean CtrlValidarUsuario(String txtUser,String txtPass) {
-		return new DaoLoguin().DaoValidarLoguin(txtUser,txtPass);
+		return new DaoUsuario().DaoValidarLoguin(txtUser,txtPass);
 	}
 	 
-	public static MdlAlumno CtrlObtenerDatosLoguin(String txtUser,String txtPass) {
-		MdlAlumno objAlumno = new MdlAlumno();
-		objAlumno = new DaoLoguin().DaoObtenerDatosLoguin(txtUser,txtPass);
-		return objAlumno;
+	public static MdlUsuario CtrlObtenerDatosLoguin(String txtUser,String txtPass) {
+		MdlUsuario objUsuario = new MdlUsuario();
+		objUsuario = new DaoUsuario().DaoObtenerDatosLoguin(txtUser,txtPass);
+		return objUsuario;
 	}
 }
