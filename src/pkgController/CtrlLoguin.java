@@ -1,7 +1,7 @@
 package pkgController;
 
 import pkgDao.DaoUsuario;
-import pkgModel.MdlAlumno;
+import pkgModel.MdlDocente;
 import pkgModel.MdlUsuario;
 
 public class CtrlLoguin {

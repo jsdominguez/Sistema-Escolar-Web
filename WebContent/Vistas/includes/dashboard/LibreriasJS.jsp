@@ -34,4 +34,3 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins.js"></script>        
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/actions.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/demo_dashboard.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/includes/dashboard/demo.js"></script>

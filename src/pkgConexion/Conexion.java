@@ -1,18 +1,21 @@
 package pkgConexion;
 
 import java.util.Properties;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
 import java.sql.Connection;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.sql.DriverManager;
 
 public class Conexion {
 		
-	Connection conn;
+	public static Connection conn;
+	private Logger log = Logger.getLogger(Conexion.class);
 	
 	public Conexion() {
-		
+		BasicConfigurator.configure();
 		Properties prop;
 		String dbgestor,server,port,database,user,password;
 		
@@ -37,22 +40,22 @@ public class Conexion {
 			this.conn = DriverManager.getConnection("jdbc:"+dbgestor+"://"+server+":"+port+"/"+database,user,password);
 		
 		}catch(Exception e){
-			System.out.println("[X] CONEXION FALLIDA[X]");
+			log.error("[X] CONEXION FALLIDA[X]");
+			//System.out.println("[X] CONEXION FALLIDA[X]");
 			e.printStackTrace();
 		}
 	}
 	
 	public Connection conectar() {
-		System.out.println("Conectado");
+		log.info("Conectado");
 		return this.conn;
 	}
 	
 	public void desconectar() {
-		
 		if(this.conn != null) {
 			try {
 				this.conn.close();
-				System.out.println("Desconectado");
+				log.info("Desconectado");
 			}catch(Exception e) {
 				System.out.println("[X] DESCONEXION FALLIDA[X]");
 				e.printStackTrace();

@@ -76,6 +76,6 @@
    </body>
 	
 	<%@ include file="../includes/dashboard/LibreriasJS.jsp" %>
-	
+	<script type="text/javascript" src="AdminCrudDocente.js"></script>
 </html>
 

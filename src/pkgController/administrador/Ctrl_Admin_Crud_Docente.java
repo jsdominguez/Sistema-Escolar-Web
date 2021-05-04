@@ -1,4 +1,5 @@
-package pkgController;
+package pkgController.administrador;
+
 
 import java.util.ArrayList;
 
@@ -7,15 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import pkgDao.DaoAlumno;
-import pkgModel.MdlAlumno;
+import pkgDao.administrador.Dao_Admin_Crud_Docente;
+import pkgModel.MdlDocente;
 
-public class CtrlAlumno {
+public class Ctrl_Admin_Crud_Docente {
 	
 	public static JsonObject ctrlListarAlumno() {
 
-		DaoAlumno objDaoAlumno = new DaoAlumno();
-		ArrayList<MdlAlumno> arrObjAlumno = new ArrayList<MdlAlumno>();
+		Dao_Admin_Crud_Docente objDaoAlumno = new Dao_Admin_Crud_Docente();
+		ArrayList<MdlDocente> arrObjAlumno = new ArrayList<MdlDocente>();
 		JsonArray data = new JsonArray();
 		JsonObject item;
 		
@@ -30,7 +31,7 @@ public class CtrlAlumno {
 		String btnEliminar = "<button type='button' id='btnShowModalDelete' class='btn btn-danger btn-square' data-tooltip='tooltip' data-placement='bottom' title='Eliminar'><span class='fa fa-trash-o'></span></button>";
 		String columnAcciones = btnEditar+btnEliminar;
 		
-		for(MdlAlumno o : arrObjAlumno) {
+		for(MdlDocente o : arrObjAlumno) {
 			item = new JsonObject();
 			item.addProperty("id",o.getIdAlumno());
 			item.addProperty("nombre",o.getNombre());
@@ -58,8 +59,8 @@ public class CtrlAlumno {
 		String edad = request.getParameter("inputEdad");
 		int codigoExitoOperacion = 0;
 		
-		MdlAlumno objAlumno = new MdlAlumno();
-		DaoAlumno objDaoAlumno = new DaoAlumno();
+		MdlDocente objAlumno = new MdlDocente();
+		Dao_Admin_Crud_Docente objDaoAlumno = new Dao_Admin_Crud_Docente();
 		
 		objAlumno.setNombre(nombre);
 		objAlumno.setApellido(apellido);
@@ -77,8 +78,8 @@ public class CtrlAlumno {
 		String edad = request.getParameter("inputEdad");
 		int codigoExitoOperacion = 0;
 		
-		MdlAlumno objAlumno = new MdlAlumno();
-		DaoAlumno objDaoAlumno = new DaoAlumno();
+		MdlDocente objAlumno = new MdlDocente();
+		Dao_Admin_Crud_Docente objDaoAlumno = new Dao_Admin_Crud_Docente();
 		
 		objAlumno.setIdAlumno(idalumno);
 		objAlumno.setNombre(nombre);
@@ -92,7 +93,7 @@ public class CtrlAlumno {
 	public static int ctrlEliminarAlumno(String idAlumno) {
 		int codigoExitoOperacion = 0;
 		int parseIdAlumno = Integer.parseInt(idAlumno);
-		DaoAlumno objDaoAlumno = new DaoAlumno();
+		Dao_Admin_Crud_Docente objDaoAlumno = new Dao_Admin_Crud_Docente();
 		codigoExitoOperacion = objDaoAlumno.daoEliminarAlumno(parseIdAlumno);
 		return codigoExitoOperacion;
 	}

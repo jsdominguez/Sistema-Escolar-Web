@@ -1,4 +1,4 @@
-package pkgDao;
+package pkgDao.administrador;
 
 import pkgConexion.Conexion;
 import java.sql.Connection;
@@ -6,21 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import pkgModel.MdlAlumno;
+import pkgModel.MdlDocente;
 
-public class DaoAlumno {
+public class Dao_Admin_Crud_Docente {
 	
 	Connection cn;
 	PreparedStatement consultaPreparada;
 	ResultSet resultadoDatos;
 	String sql;
 	
-	public ArrayList<MdlAlumno> daoGetListaAlumnos() {
+	public ArrayList<MdlDocente> daoGetListaAlumnos() {
 	
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
-		ArrayList<MdlAlumno> arrAlumno = new ArrayList<MdlAlumno>();
-		MdlAlumno objAlumno;
+		ArrayList<MdlDocente> arrAlumno = new ArrayList<MdlDocente>();
+		MdlDocente objAlumno;
 		
 		try {
 			
@@ -29,7 +29,7 @@ public class DaoAlumno {
 			resultadoDatos = consultaPreparada.executeQuery();
 			
 			while(resultadoDatos.next()) {
-				objAlumno = new MdlAlumno();
+				objAlumno = new MdlDocente();
 				objAlumno.setIdAlumno(resultadoDatos.getInt("id"));
 				objAlumno.setNombre(resultadoDatos.getString("nombre"));
 				objAlumno.setApellido(resultadoDatos.getString("apellido"));
@@ -73,7 +73,7 @@ public class DaoAlumno {
 	}
 	
 	
-	public int daoRegistrarAlumno(MdlAlumno objAlumno) {
+	public int daoRegistrarAlumno(MdlDocente objAlumno) {
 		
 		int idAlumno = this.daoGetCountListAlumno();
 		idAlumno +=1;
@@ -103,7 +103,7 @@ public class DaoAlumno {
 		return 200;
 	}
 	
-	public int daoUpdateAlumno(MdlAlumno objAlumno,int paramIdAlumno) {
+	public int daoUpdateAlumno(MdlDocente objAlumno,int paramIdAlumno) {
 		
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();

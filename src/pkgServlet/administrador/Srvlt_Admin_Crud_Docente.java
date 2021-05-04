@@ -1,4 +1,4 @@
-package pkgServlet;
+package pkgServlet.administrador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,20 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 
-import pkgController.CtrlAlumno;
+import pkgController.administrador.Ctrl_Admin_Crud_Docente;
 
 /**
  * Servlet implementation class CtrlAlumno
  */
 @MultipartConfig
-@WebServlet(name = "Srvlt_Alumno" , urlPatterns = {"/Srvlt_Alumno"})
-public class Srvlt_Alumno extends HttpServlet {
+@WebServlet(name = "Srvlt_Admin_Crud_Docente" , urlPatterns = {"/Srvlt_Admin_Crud_Docente"})
+public class Srvlt_Admin_Crud_Docente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Srvlt_Alumno() {
+    public Srvlt_Admin_Crud_Docente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -53,21 +53,21 @@ public class Srvlt_Alumno extends HttpServlet {
 		switch(metodo) {
 			case "ctrlListarAlumno":
 				tipoRespuesta = "application/json";
-				res = CtrlAlumno.ctrlListarAlumno().toString();
+				res = Ctrl_Admin_Crud_Docente.ctrlListarAlumno().toString();
 			break;
 			case "ctrlRegisterAlumno":
 				tipoRespuesta = "text/html";
-				res = CtrlAlumno.ctrlRegisterAlumno(request);
+				res = Ctrl_Admin_Crud_Docente.ctrlRegisterAlumno(request);
 				break;
 			case "ctrlUpdateAlumno":
 				tipoRespuesta = "text/html";
 				String paramIdAlumno = request.getParameter("hiddenIdAlumno");
-				res = CtrlAlumno.ctrlUpdateAlumno(request,paramIdAlumno);
+				res = Ctrl_Admin_Crud_Docente.ctrlUpdateAlumno(request,paramIdAlumno);
 			break;
 			case "ctrlEliminarAlumno":
 				tipoRespuesta = "text/html";
 				String idAlumno = request.getParameter("idAlumno");
-				res = CtrlAlumno.ctrlEliminarAlumno(idAlumno);
+				res = Ctrl_Admin_Crud_Docente.ctrlEliminarAlumno(idAlumno);
 			break;
 			
 		}

@@ -1,6 +1,6 @@
 package pkgModel;
 
-public class MdlAlumno {
+public class MdlDocente {
 	
 	private int idAlumno;
 	private String nombre;
@@ -8,7 +8,7 @@ public class MdlAlumno {
 	private int edad;
 	private String tipo_usuario_string;
 	
-	public MdlAlumno() {}
+	public MdlDocente() {}
 	
 	public int getIdAlumno() {
 		return idAlumno;
