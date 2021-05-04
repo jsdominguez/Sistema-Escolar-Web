@@ -2,51 +2,71 @@ package pkgModel;
 
 public class MdlDocente {
 	
-	private int idAlumno;
-	private String nombre;
-	private String apellido;
-	private int edad;
-	private String tipo_usuario_string;
+	private String codDocente;
+	private String nomDocente;
+	private String apeDocente;
+	private int edadDocente;
+	private int dniDocente;
+	private String fechaNac;
+	private int idTipoUsuario;
 	
 	public MdlDocente() {}
-	
-	public int getIdAlumno() {
-		return idAlumno;
+
+	public String getCodDocente() {
+		return codDocente;
+	}
+
+	public void setCodDocente(String codDocente) {
+		this.codDocente = codDocente;
+	}
+
+	public String getNomDocente() {
+		return nomDocente;
+	}
+
+	public void setNomDocente(String nomDocente) {
+		this.nomDocente = nomDocente;
+	}
+
+	public String getApeDocente() {
+		return apeDocente;
+	}
+
+	public void setApeDocente(String apeDocente) {
+		this.apeDocente = apeDocente;
+	}
+
+	public int getEdadDocente() {
+		return edadDocente;
+	}
+
+	public void setEdadDocente(int edadDocente) {
+		this.edadDocente = edadDocente;
+	}
+
+	public int getDniDocente() {
+		return dniDocente;
+	}
+
+	public void setDniDocente(int dniDocente) {
+		this.dniDocente = dniDocente;
+	}
+
+	public String getFechaNac() {
+		return fechaNac;
+	}
+
+	public void setFechaNac(String fechaNac) {
+		this.fechaNac = fechaNac;
+	}
+
+	public int getIdTipoUsuario() {
+		return idTipoUsuario;
+	}
+
+	public void setIdTipoUsuario(int idTipoUsuario) {
+		this.idTipoUsuario = idTipoUsuario;
 	}
 	
-	public void setIdAlumno(int idAlumno) {
-		this.idAlumno = idAlumno;
-	}
 	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getApellido() {
-		return apellido;
-	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	public int getEdad() {
-		return edad;
-	}
-	public void setEdad(int edad) {
-		this.edad = edad;
-	}
-	
-	public String getTipo_usuario_string() {
-		return tipo_usuario_string;
-	}
-	public void setTipo_usuario_string(String tipo_usuario) {
-		this.tipo_usuario_string = tipo_usuario;
-	}
-	
-	@Override
-	 public String toString(){
-		return this.idAlumno+" - " + this.nombre + " - " + this.apellido + " - " + this.edad;
-	}
 }

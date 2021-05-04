@@ -5,7 +5,7 @@
 <li class="xn-openable">
     <a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">Docente</span></a>
     <ul>
-        <li><a href="Docente.jsp">Docente</a></li>
+        <li><a href="CrudDocente.jsp">Docente</a></li>
         <li><a href="blank.html">Reportes</a></li>
     </ul>
 </li>

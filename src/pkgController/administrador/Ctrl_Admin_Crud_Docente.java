@@ -13,32 +13,39 @@ import pkgModel.MdlDocente;
 
 public class Ctrl_Admin_Crud_Docente {
 	
-	public static JsonObject ctrlListarAlumno() {
+	public static JsonObject ctrlListarDocente() {
 
-		Dao_Admin_Crud_Docente objDaoAlumno = new Dao_Admin_Crud_Docente();
-		ArrayList<MdlDocente> arrObjAlumno = new ArrayList<MdlDocente>();
+		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		ArrayList<MdlDocente> arrObjDocente = new ArrayList<MdlDocente>();
 		JsonArray data = new JsonArray();
 		JsonObject item;
 		
 		//String paramLength = request.getParameter("length");
 		//String paramStart = request.getParameter("start");
 		
-		int cantidadRegistros = objDaoAlumno.daoGetCountListAlumno();
+		int cantidadRegistros = objDaoDocente.daoGetCountListDocente();
 		
-		arrObjAlumno  = objDaoAlumno.daoGetListaAlumnos();
+		arrObjDocente  = objDaoDocente.daoGetListaDocente();
 
 		String btnEditar = "<button type='button' id='btnShowModalEdit' class='btn btn-info btn-square' data-toggle='modal' data-target='#mimodal' data-tooltip='tooltip' data-placement='bottom' title='Editar'><span class='fa fa-edit'></span></button>";
-		String btnEliminar = "<button type='button' id='btnShowModalDelete' class='btn btn-danger btn-square' data-tooltip='tooltip' data-placement='bottom' title='Eliminar'><span class='fa fa-trash-o'></span></button>";
-		String columnAcciones = btnEditar+btnEliminar;
-		
-		for(MdlDocente o : arrObjAlumno) {
+		//String btnEliminar = "<button type='button' id='btnShowModalDelete' class='btn btn-danger btn-square' data-tooltip='tooltip' data-placement='bottom' title='Eliminar'><span class='fa fa-trash-o'></span></button>";
+		String btnSwitchAccess = "";
+		String columnAcciones = btnEditar;
+		for(MdlDocente o : arrObjDocente) {
 			item = new JsonObject();
-			item.addProperty("id",o.getIdAlumno());
-			item.addProperty("nombre",o.getNombre());
-			item.addProperty("apellido",o.getApellido());
-			item.addProperty("edad",o.getEdad());
-			item.addProperty("campo1",1);
-			item.addProperty("campo2",columnAcciones);
+			item.addProperty("Codigo",o.getCodDocente());
+			item.addProperty("Nombre",o.getNomDocente());
+			item.addProperty("Apellido",o.getApeDocente());
+			item.addProperty("Edad",o.getEdadDocente());
+			item.addProperty("Dni",o.getDniDocente());
+			item.addProperty("FechaNac",o.getFechaNac());
+			btnSwitchAccess = "<label class='switch switch-small'>" + 
+								 "<input type='checkbox' id='btnSwitchAccess' value='1'/>" + 
+								 "<span></span>" + 
+							   "</label>";
+			//onclick=\"fnSinAccesoDocente(this,'"+o.getCodDocente()+"')\"
+			item.addProperty("Acceso",btnSwitchAccess);
+			item.addProperty("acciones",columnAcciones);
 			data.add(item);
 		}
 		
@@ -52,49 +59,61 @@ public class Ctrl_Admin_Crud_Docente {
 	}
 	
 	
-	public static int ctrlRegisterAlumno(HttpServletRequest request) {
-				
-		String nombre = request.getParameter("inputNombre");
-		String apellido = request.getParameter("inputApellido");
-		String edad = request.getParameter("inputEdad");
+	public static int ctrlRegisterDocente(HttpServletRequest request) {
+		
+		String nombre = request.getParameter("txtNombre");
+		String apellido = request.getParameter("txtApellido");
+		String edad = request.getParameter("txtEdad");
+		String dni = request.getParameter("txtDni");
+		String fechaNac = request.getParameter("txtFechaNac");
+
 		int codigoExitoOperacion = 0;
 		
-		MdlDocente objAlumno = new MdlDocente();
-		Dao_Admin_Crud_Docente objDaoAlumno = new Dao_Admin_Crud_Docente();
+		MdlDocente objDocente = new MdlDocente();
+		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
 		
-		objAlumno.setNombre(nombre);
-		objAlumno.setApellido(apellido);
-		objAlumno.setEdad(Integer.parseInt(edad));
+		String codigoGenerado = objDaoDocente.daoGetGenerarCodigoDocente();
+		objDocente.setCodDocente(codigoGenerado);
+		objDocente.setNomDocente(nombre);
+		objDocente.setApeDocente(apellido);
+		objDocente.setEdadDocente(Integer.parseInt(edad));
+		objDocente.setDniDocente(Integer.parseInt(dni));
+		objDocente.setFechaNac(fechaNac);
 
-		codigoExitoOperacion = objDaoAlumno.daoRegistrarAlumno(objAlumno);
+		codigoExitoOperacion = objDaoDocente.daoRegistrarDocente(objDocente);
 		return codigoExitoOperacion;
 	}
 	
-	public static int ctrlUpdateAlumno(HttpServletRequest request, String paramIidAlumno) {
+	public static int ctrlUpdateDocente(HttpServletRequest request) {
 		
-		int idalumno = Integer.parseInt(paramIidAlumno);
-		String nombre = request.getParameter("inputNombre");
-		String apellido = request.getParameter("inputApellido");
-		String edad = request.getParameter("inputEdad");
+		String codDocente = request.getParameter("txtCodigo");
+		String nombre = request.getParameter("txtNombre");
+		String apellido = request.getParameter("txtApellido");
+		String edad = request.getParameter("txtEdad");
+		String dni = request.getParameter("txtDni");
+		String fechaNac = request.getParameter("txtFechaNac");
+		
 		int codigoExitoOperacion = 0;
 		
-		MdlDocente objAlumno = new MdlDocente();
-		Dao_Admin_Crud_Docente objDaoAlumno = new Dao_Admin_Crud_Docente();
+		MdlDocente objDocente = new MdlDocente();
+		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
 		
-		objAlumno.setIdAlumno(idalumno);
-		objAlumno.setNombre(nombre);
-		objAlumno.setApellido(apellido);
-		objAlumno.setEdad(Integer.parseInt(edad));
+		objDocente.setCodDocente(codDocente);
+		objDocente.setNomDocente(nombre);
+		objDocente.setApeDocente(apellido);
+		objDocente.setEdadDocente(Integer.parseInt(edad));
+		objDocente.setDniDocente(Integer.parseInt(dni));
+		objDocente.setFechaNac(fechaNac);
 
-		codigoExitoOperacion = objDaoAlumno.daoUpdateAlumno(objAlumno,idalumno);
+		codigoExitoOperacion = objDaoDocente.daoUpdateDocente(objDocente);
 		return codigoExitoOperacion;
 	}
 	
-	public static int ctrlEliminarAlumno(String idAlumno) {
+	public static int ctrlEliminarDocente(String idDocente) {
 		int codigoExitoOperacion = 0;
-		int parseIdAlumno = Integer.parseInt(idAlumno);
-		Dao_Admin_Crud_Docente objDaoAlumno = new Dao_Admin_Crud_Docente();
-		codigoExitoOperacion = objDaoAlumno.daoEliminarAlumno(parseIdAlumno);
+		int parseIdDocente = Integer.parseInt(idDocente);
+		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		codigoExitoOperacion = objDaoDocente.daoEliminarDocente(parseIdDocente);
 		return codigoExitoOperacion;
 	}
 }

@@ -49,12 +49,14 @@
                         
                         <table id="tblDemo" class="table table-bordered dt-responsive text-center">
                            <thead>
-                                 <th class="text-center">id</th>
-                                 <th class="text-center" data-priority="1">nombre</th>
-                                 <th class="text-center" data-priority="2">apellido</th>
-                                 <th class="text-center">edad</th>
-                                 <th class="text-center">campo1</th>
-                                 <th class="text-center">campo2</th>
+                                 <th class="text-center">Codigo</th>
+                                 <th class="text-center" data-priority="1">Nombre</th>
+                                 <th class="text-center" data-priority="2">Apellido</th>
+                                 <th class="text-center">Edad</th>
+                                 <th class="text-center">Dni</th>
+                                 <th class="text-center">FechaNac</th>
+                                 <th class="text-center">Acceso</th>
+                                 <th class="text-center">acciones</th>
                            </thead>
                         </table>
                      </div>
@@ -67,7 +69,7 @@
       </div>
       
       <!-- modals -->
-       <%@ include file="../includes/page1/modal.jsp" %>
+       <%@ include file="Modals/modalRegister_Update_Docente.jsp" %>
        <!-- Fin modal -->
 
    	  <%@ include file="../includes/dashboard/logOut.jsp" %>
@@ -76,6 +78,6 @@
    </body>
 	
 	<%@ include file="../includes/dashboard/LibreriasJS.jsp" %>
-	<script type="text/javascript" src="AdminCrudDocente.js"></script>
+	<script type="text/javascript" src="CrudDocente.js"></script>
 </html>
 

@@ -16,16 +16,18 @@ $("document").ready(function(){
             type: "POST",
 			dataSrc: "datos",
             data: {
-                "metodo": "ctrlListarAlumno"
+                "metodo": "ctrlListarDocente"
             }
         },
 		columns: [
-            {"data": "id"},
-			{"data": "nombre"},
-			{"data": "apellido"},
-			{"data": "edad"},
-            {"data": "campo1"},
-            {"data": "campo2"}
+            {"data": "Codigo"},
+			{"data": "Nombre"},
+			{"data": "Apellido"},
+			{"data": "Edad"},
+            {"data": "Dni"},
+            {"data": "FechaNac"},
+            {"data": "Acceso"},
+            {"data": "acciones"}
 		],/*
         columnDefs: [{
             "orderable": true,
@@ -54,11 +56,9 @@ $("document").ready(function(){
     });
 
     $("#btnRegistrar").click(function(){
+        document.getElementById("frmModalRegistro").reset();
+        $("#frmModalRegistroId").css("display","none");
         $("#opcRegisterorUpdate").val(1);
-        $("#hiddenIdAlumno").val("")
-        $("#inputNombre").val('');
-        $("#inputApellido").val('');
-        $("#inputEdad").val('');
     });
 
     $('#mimodal').modal({
@@ -69,17 +69,22 @@ $("document").ready(function(){
 
    $('#tblDemo tbody').on( 'click', '#btnShowModalEdit', function () {
         var datosFila = tblDemo.row($(this).parents("tr")).data();
-        var hiddenIdAlumno = datosFila.id;
-        var inputNombre = datosFila.nombre;
-        var inputApellido = datosFila.apellido;
-        var inputEdad = datosFila.edad;
+        var IdDocente = datosFila.Codigo;
+        var txtNombre = datosFila.Nombre;
+        var txtApellido = datosFila.Apellido;
+        var txtEdad = datosFila.Edad;
+        var txtDni = datosFila.Dni;
+        var txtFechaNac = datosFila.FechaNac;
 
+        $("#frmModalRegistroId").css("display","block");
         $("#opcRegisterorUpdate").val(2);
-        $("#hiddenIdAlumno").val(hiddenIdAlumno);
-        $("#inputNombre").val(inputNombre);
-        $("#inputApellido").val(inputApellido);
-        $("#inputEdad").val(inputEdad);
-
+        $("#txtCodigo").val(IdDocente);
+        
+        $("#txtNombre").val(txtNombre);
+        $("#txtApellido").val(txtApellido);
+        $("#txtEdad").val(txtEdad);
+        $("#txtDni").val(txtDni);
+        $("#txtFechaNac").val(txtFechaNac);
     } );
 
     $('#tblDemo tbody').on( 'click', '#btnShowModalDelete', function () {
@@ -95,24 +100,23 @@ $("document").ready(function(){
             }
          })
          .done(function(response) {
-            tblDemo.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente?metodo=ctrlListarAlumno').load();
+            tblDemo.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente?metodo=ctrlListarDocente').load();
              console.log(response);
          });
         
     });
 
     $("#btnSubmitFrmRegistro").click(function(){
+
         var formData = new FormData(document.getElementById("frmModalRegistro"));
-        var hiddenIdAlumno = $("#hiddenIdAlumno").val();
         var opcRegisterorUpdate = $("#opcRegisterorUpdate").val();
 
         if(opcRegisterorUpdate == 1){
-             formData.append("metodo","ctrlRegisterAlumno");
+             formData.append("metodo","ctrlRegisterDocente");
         }
 
         if(opcRegisterorUpdate == 2){
-            formData.append("metodo","ctrlUpdateAlumno");
-            formData.append("hiddenIdAlumno", hiddenIdAlumno);
+            formData.append("metodo","ctrlUpdateDocente");
         }
 
          $.ajax({
@@ -125,7 +129,7 @@ $("document").ready(function(){
          })
          .done(function(response) {
             $('#mimodal').modal('hide')
-            tblDemo.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente?metodo=ctrlListarAlumno').load();
+            tblDemo.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente?metodo=ctrlListarDocente').load();
             if(response == 200){
             	var alert = "<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times</span><span class='sr-only'>Close</span></button>"+
             				"<strong>Well done!</strong> You successfully read this important alert message.</div>";
@@ -134,5 +138,11 @@ $("document").ready(function(){
          });
     })
 
+
+    $("#tblDemo tbody").on( 'click', '#btnSwitchAccess', function () {
+        var datosFila = tblDemo.row($(this).parents("tr")).data();
+        console.log(datosFila.Codigo);
+        console.log($(this).attr("value"));
+    })
 
 });

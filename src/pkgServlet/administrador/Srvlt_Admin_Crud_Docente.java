@@ -51,23 +51,22 @@ public class Srvlt_Admin_Crud_Docente extends HttpServlet {
 		String tipoRespuesta = null;
 		
 		switch(metodo) {
-			case "ctrlListarAlumno":
+			case "ctrlListarDocente":
 				tipoRespuesta = "application/json";
-				res = Ctrl_Admin_Crud_Docente.ctrlListarAlumno().toString();
+				res = Ctrl_Admin_Crud_Docente.ctrlListarDocente().toString();
 			break;
-			case "ctrlRegisterAlumno":
+			case "ctrlRegisterDocente":
 				tipoRespuesta = "text/html";
-				res = Ctrl_Admin_Crud_Docente.ctrlRegisterAlumno(request);
+				res = Ctrl_Admin_Crud_Docente.ctrlRegisterDocente(request);
 				break;
-			case "ctrlUpdateAlumno":
+			case "ctrlUpdateDocente":
 				tipoRespuesta = "text/html";
-				String paramIdAlumno = request.getParameter("hiddenIdAlumno");
-				res = Ctrl_Admin_Crud_Docente.ctrlUpdateAlumno(request,paramIdAlumno);
+				res = Ctrl_Admin_Crud_Docente.ctrlUpdateDocente(request);
 			break;
 			case "ctrlEliminarAlumno":
 				tipoRespuesta = "text/html";
 				String idAlumno = request.getParameter("idAlumno");
-				res = Ctrl_Admin_Crud_Docente.ctrlEliminarAlumno(idAlumno);
+				res = Ctrl_Admin_Crud_Docente.ctrlEliminarDocente(idAlumno);
 			break;
 			
 		}

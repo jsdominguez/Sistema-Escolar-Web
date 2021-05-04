@@ -15,26 +15,51 @@ public class Dao_Admin_Crud_Docente {
 	ResultSet resultadoDatos;
 	String sql;
 	
-	public ArrayList<MdlDocente> daoGetListaAlumnos() {
+	
+	public String daoGetGenerarCodigoDocente() {
+		
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
+		String codGenerado= "";
+		try {
+			this.sql = "select concat('D000',(select count(*)+1 from docente)) as codigo_Generado";
+			consultaPreparada = this.cn.prepareCall(this.sql);
+			this.resultadoDatos = consultaPreparada.executeQuery();
+			this.resultadoDatos.last();
+			codGenerado = resultadoDatos.getString("codigo_Generado");
+			this.cn.close();
+		}catch(Exception e) {
+			System.out.println("[X] DAO 'Docente.daoGetGenerarCodigoDocente' FALLIDA [X]");
+			e.printStackTrace();
+		}finally {
+			objConectar.desconectar();
+			this.cn = null;
+		}
+		return codGenerado;
+	}
+	public ArrayList<MdlDocente> daoGetListaDocente() {
 	
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
-		ArrayList<MdlDocente> arrAlumno = new ArrayList<MdlDocente>();
-		MdlDocente objAlumno;
+		ArrayList<MdlDocente> arrDocente = new ArrayList<MdlDocente>();
+		MdlDocente objDocente;
 		
 		try {
 			
-			this.sql = "select id,nombre,apellido,edad from alumno order by id";
+			this.sql = "select codDocente,nomDocente,apeDocente,edadDocente,dniDocente,fechaNac" + 
+					   " from docente";
 			consultaPreparada = this.cn.prepareCall(this.sql);
 			resultadoDatos = consultaPreparada.executeQuery();
 			
 			while(resultadoDatos.next()) {
-				objAlumno = new MdlDocente();
-				objAlumno.setIdAlumno(resultadoDatos.getInt("id"));
-				objAlumno.setNombre(resultadoDatos.getString("nombre"));
-				objAlumno.setApellido(resultadoDatos.getString("apellido"));
-				objAlumno.setEdad(resultadoDatos.getInt("edad"));
-				arrAlumno.add(objAlumno);
+				objDocente = new MdlDocente();
+				objDocente.setCodDocente(resultadoDatos.getString("codDocente"));
+				objDocente.setNomDocente(resultadoDatos.getString("nomDocente"));
+				objDocente.setApeDocente(resultadoDatos.getString("apeDocente"));
+				objDocente.setEdadDocente(resultadoDatos.getInt("edadDocente"));
+				objDocente.setDniDocente(resultadoDatos.getInt("dniDocente"));
+				objDocente.setFechaNac(resultadoDatos.getString("fechaNac"));
+				arrDocente.add(objDocente);
 			}
 			this.cn.close();
 		}catch(SQLException e){
@@ -45,24 +70,24 @@ public class Dao_Admin_Crud_Docente {
 			this.cn = null;
 		}
 		
-		return arrAlumno;
+		return arrDocente;
 	}
 	
-	public int daoGetCountListAlumno() {
+	public int daoGetCountListDocente() {
 		
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
 		int cantidadRegistros=0;
 		
 		try {
-			this.sql = "select id from alumno order by id";
+			this.sql = "select count(*) from docente";
 			consultaPreparada = this.cn.prepareCall(this.sql);
 			resultadoDatos = consultaPreparada.executeQuery();
 			resultadoDatos.last();
 			cantidadRegistros = resultadoDatos.getInt(1);
 			this.cn.close();
 		}catch(Exception e) {
-			System.out.println("[X] DAO 'Alumno.countListAlumno' FALLIDA [X]");
+			System.out.println("[X] DAO 'Docente.countListDocente' FALLIDA [X]");
 			e.printStackTrace();
 		}finally {
 			objConectar.desconectar();
@@ -73,26 +98,38 @@ public class Dao_Admin_Crud_Docente {
 	}
 	
 	
-	public int daoRegistrarAlumno(MdlDocente objAlumno) {
+	public int daoRegistrarDocente(MdlDocente objDocente) {
 		
-		int idAlumno = this.daoGetCountListAlumno();
-		idAlumno +=1;
+		//int idDocente = this.daoGetCountListDocente();
+		//idDocente +=1;
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
 		
 		try {
 			
-			this.sql = "insert into alumno(id,nombre,apellido,edad,tipo_usuario,tipo_usuario_string) values(?,?,?,?,0,0);";
+			this.sql = "insert into docente(codDocente,nomDocente,apeDocente,edadDocente,dniDocente,fechaNac,idTipoUsuario,estado_acceso)" +
+					   " values(?,?,?,?,?,?,?,0)";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
-			consultaPreparada.setInt(1,idAlumno);
-			consultaPreparada.setString(2,objAlumno.getNombre());
-			consultaPreparada.setString(3,objAlumno.getApellido());
-			consultaPreparada.setInt(4,objAlumno.getEdad());
+			consultaPreparada.setString(1,objDocente.getCodDocente());
+			consultaPreparada.setString(2,objDocente.getNomDocente());
+			consultaPreparada.setString(3,objDocente.getApeDocente());
+			consultaPreparada.setInt(4,objDocente.getEdadDocente());
+			consultaPreparada.setInt(5,objDocente.getDniDocente());
+			consultaPreparada.setString(6,objDocente.getFechaNac());
+			consultaPreparada.setInt(7,2);
 			
 			consultaPreparada.execute();
+			
+			this.sql = "insert into infousuario() values(?,?,?)";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setString(1,objDocente.getCodDocente());
+			consultaPreparada.setString(2,objDocente.getNomDocente());
+			consultaPreparada.setString(3,objDocente.getApeDocente());
+			consultaPreparada.execute();
+			
 			this.cn.close();
 		}catch(Exception e) {
-			System.out.println("[X] DAO 'Alumno.registrarAlumno' FALLIDA [X]");
+			System.out.println("[X] DAO 'Docente.registrarDocente' FALLIDA [X]");
 			e.printStackTrace();
 			return 500;
 		}finally {
@@ -103,24 +140,36 @@ public class Dao_Admin_Crud_Docente {
 		return 200;
 	}
 	
-	public int daoUpdateAlumno(MdlDocente objAlumno,int paramIdAlumno) {
+	public int daoUpdateDocente(MdlDocente objDocente) {
 		
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
 		
 		try {
 			
-			this.sql = "update alumno set nombre = ?,apellido = ?,edad = ? where id = ?";
+			this.sql = "update docente set nomDocente = ?,apeDocente = ?,edadDocente = ?,dniDocente = ?,fechaNac = ?"+
+					   " where codDocente = ?";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
-			consultaPreparada.setString(1,objAlumno.getNombre());
-			consultaPreparada.setString(2,objAlumno.getApellido());
-			consultaPreparada.setInt(3,objAlumno.getEdad());
-			consultaPreparada.setInt(4,objAlumno.getIdAlumno());
+			consultaPreparada.setString(1,objDocente.getNomDocente());
+			consultaPreparada.setString(2,objDocente.getApeDocente());
+			consultaPreparada.setInt(3,objDocente.getEdadDocente());
+			consultaPreparada.setInt(4,objDocente.getDniDocente());
+			consultaPreparada.setString(5,objDocente.getFechaNac());
+			consultaPreparada.setString(6,objDocente.getCodDocente());
 			
 			consultaPreparada.execute();
+			
+			this.sql = "update infousuario set nombreUsuario = ?,apellidoUsuario = ?"+
+					   " where idInfUsuario = ?";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setString(1,objDocente.getNomDocente());
+			consultaPreparada.setString(2,objDocente.getApeDocente());
+			consultaPreparada.setString(3,objDocente.getCodDocente());
+			consultaPreparada.execute();
+			
 			this.cn.close();
 		}catch(Exception e) {
-			System.out.println("[X] DAO 'Alumno.daoUpdateAlumno' FALLIDA [X]");
+			System.out.println("[X] DAO 'Docente.daoUpdateDocente' FALLIDA [X]");
 			e.printStackTrace();
 			return 500;
 		}finally {
@@ -131,7 +180,7 @@ public class Dao_Admin_Crud_Docente {
 		return 200;
 	}
 	
-	public int daoEliminarAlumno(int idAlumno) {
+	public int daoEliminarDocente(int idDocente) {
 		
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
@@ -140,7 +189,7 @@ public class Dao_Admin_Crud_Docente {
 			
 			this.sql = "delete from alumno where id = ?";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
-			consultaPreparada.setInt(1,idAlumno);
+			consultaPreparada.setInt(1,idDocente);
 			consultaPreparada.execute();
 			this.cn.close();
 		}catch(Exception e) {
