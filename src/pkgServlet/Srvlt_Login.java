@@ -45,22 +45,25 @@ public class Srvlt_Login extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String txtUser = request.getParameter("txtUser");
 		String txtPass = request.getParameter("txtPass");
+		int msg = 0;
+		boolean credentialsOk = CtrlLoguin.CtrlValidarUsuario(txtUser,txtPass);
 		
-		boolean loguinSucces = CtrlLoguin.CtrlValidarUsuario(txtUser,txtPass);
-		
-		if(loguinSucces) {
-			//crea y obtiene la session actual
-			HttpSession sesion = request.getSession();
-			if(sesion.getAttribute("MdlUsuario") == null) {
-				MdlUsuario objUsuario =  CtrlLoguin.CtrlObtenerDatosLoguin(txtUser,txtPass);
-				sesion.setAttribute("MdlUsuario",objUsuario);
+		if(credentialsOk) {
+			if(CtrlLoguin.CtrlValidarAccesoLoguin(txtUser,txtPass)) {
+				HttpSession sesion = request.getSession();
+				if(sesion.getAttribute("MdlUsuario") == null) {
+					MdlUsuario objUsuario =  CtrlLoguin.CtrlObtenerDatosLoguin(txtUser,txtPass);
+					sesion.setAttribute("MdlUsuario",objUsuario);
+					msg = 2; //acceso autorizado y datos correctos
+				}
+			}else {
+				msg = 1; //no tiene acceso
 			}
-			//loguin ok
-			out.print(1);
 		}else {
-			//loguin bad
-			out.print(0);
+			msg = 0; //datos incorrectos
 		}
+		
+		out.print(msg);
 	}
 
 }

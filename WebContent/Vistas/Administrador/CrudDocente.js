@@ -87,6 +87,7 @@ $("document").ready(function(){
         $("#txtFechaNac").val(txtFechaNac);
     } );
 
+/*
     $('#tblDemo tbody').on( 'click', '#btnShowModalDelete', function () {
         var datosFila = tblDemo.row($(this).parents("tr")).data();
         var idAlumno = datosFila.id;
@@ -104,7 +105,7 @@ $("document").ready(function(){
              console.log(response);
          });
         
-    });
+    });*/
 
     $("#btnSubmitFrmRegistro").click(function(){
 
@@ -131,9 +132,16 @@ $("document").ready(function(){
             $('#mimodal').modal('hide')
             tblDemo.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente?metodo=ctrlListarDocente').load();
             if(response == 200){
-            	var alert = "<div class='alert alert-success' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times</span><span class='sr-only'>Close</span></button>"+
-            				"<strong>Well done!</strong> You successfully read this important alert message.</div>";
-            	$("#alertMessageResponse").html(alert);
+            	var alert = "<div class='alert alert-success' id='alertMsg' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times</span><span class='sr-only'>Close</span></button>"+
+            				"<strong>Exito!</strong> El evento se realizo satisfactoriamente .</div>";
+            	
+                $("#alertMessageResponse").html(alert);
+
+                window.setTimeout(function() {
+                    $("#alertMsg").fadeTo(1000, 0).slideUp(1000, function(){
+                      $("#alertMsg").alert('close');
+                    });
+                }, 3000);
             }
          });
     })
@@ -141,8 +149,78 @@ $("document").ready(function(){
 
     $("#tblDemo tbody").on( 'click', '#btnSwitchAccess', function () {
         var datosFila = tblDemo.row($(this).parents("tr")).data();
-        console.log(datosFila.Codigo);
-        console.log($(this).attr("value"));
+        var codigoDocente = datosFila.Codigo;
+        var valorEstado = $(this).attr("value");
+        (valorEstado == 1) ? valorEstado = 0 : valorEstado = 1;
+        $(this).val(valorEstado);
+        valorEstado = $(this).attr("value");
+
+        $.ajax({
+             url: "/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente",
+             type: "POST",
+             data: {
+                'valorEstado': valorEstado,
+                'codDocente' : codigoDocente,
+                'metodo': 'ctrlSetAccesoUsuario'
+             }
+         }).done(function() {
+                var alert = "<div class='alert alert-success' id='alertMsg' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times</span><span class='sr-only'>Close</span></button>"+
+                              "<strong>Exito!</strong> El evento se realizo satisfactoriamente ."+
+                            "</div>";
+            
+            $("#alertMessageResponse").html(alert);
+
+            window.setTimeout(function() {
+                    $("#alertMsg").fadeTo(1000, 0).slideUp(1000, function(){
+                      $("#alertMsg").alert('close');
+                    });
+            }, 3000);
+
+        }); 
+    })
+
+
+    $("#tblDemo tbody").on( 'click', '#btnSetCredentials', function () {
+        
+        document.getElementById("frmCredentialDocente").reset();
+        var datosFila = tblDemo.row($(this).parents("tr")).data();
+        var IdDocente = datosFila.Codigo;
+        $("#txtCod").val(IdDocente);       
+    })
+
+    $("#btnSubmitSetPassword").click(function(){
+        var formData = new FormData(document.getElementById("frmCredentialDocente"));
+         formData.append("metodo","ctrlSetCredentialDocentes");
+
+        $.ajax({
+             url: "/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente",
+             type: "POST",
+             data: formData,
+             cache: false,
+            contentType: false,
+             processData: false
+         }).done(function(){
+            
+            $("#mdlSetCredentialDocente").modal('hide')
+            tblDemo.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente?metodo=ctrlListarDocente').load();
+            var alert = "<div class='alert alert-success' id='alertMsg' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times</span><span class='sr-only'>Close</span></button>"+
+                            "<strong>Exito!</strong> El evento se realizo satisfactoriamente ."+
+                        "</div>";
+            
+            $("#alertMessageResponse").html(alert);
+
+            window.setTimeout(function() {
+                    $("#alertMsg").fadeTo(1000, 0).slideUp(1000, function(){
+                      $("#alertMsg").alert('close');
+                    });
+            }, 3000);
+
+        })
     })
 
 });
+
+
+
+        
+    

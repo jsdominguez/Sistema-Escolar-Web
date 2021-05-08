@@ -55,8 +55,8 @@
                                     <span class="fa fa-user"></span>
                                 </div>
                                 <div class="widget-data" style="margin-top:16px;margin-left:3px;">
-                                    <div class="widget-int num-count centerTextWidget">1024</div>
-                                     <div class="widget-title centerTextWidget">Alumnos</div>
+                                    <div class="widget-int num-count centerTextWidget">10</div>
+                                     <div class="widget-title centerTextWidget">Secciones</div>
                                 </div>                           
                             </div>
 
@@ -68,8 +68,8 @@
                                     <span class="fa fa-briefcase"></span>
                                 </div>
                                 <div class="widget-data" style="margin-top:16px;margin-left:3px;">
-                                    <div class="widget-int num-count centerTextWidget">1024</div>
-                                     <div class="widget-title centerTextWidget">Docentes</div>
+                                    <div class="widget-int num-count centerTextWidget">45</div>
+                                     <div class="widget-title centerTextWidget">Tareas</div>
                                 </div>                           
                             </div>
 
@@ -81,8 +81,8 @@
                                     <span class="fa fa-user"></span>
                                 </div>
                                 <div class="widget-data" style="margin-top:16px;margin-left:3px;">
-                                    <div class="widget-int num-count centerTextWidget">1024</div>
-                                     <div class="widget-title centerTextWidget">Padres</div>
+                                    <div class="widget-int num-count centerTextWidget">10</div>
+                                     <div class="widget-title centerTextWidget">Anuncios</div>
                                 </div>                           
                             </div>
 
@@ -94,7 +94,7 @@
                                     <span class="fa fa-book"></span>
                                 </div>
                                 <div class="widget-data" style="margin-top:16px;margin-left:3px;">
-                                    <div class="widget-int num-count centerTextWidget">68</div>
+                                    <div class="widget-int num-count centerTextWidget">6</div>
                                     <div class="widget-title centerTextWidget">Cursos</div>
                                 </div>                           
                             </div>

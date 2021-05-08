@@ -2,12 +2,9 @@ package pkgController.administrador;
 
 
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import pkgDao.administrador.Dao_Admin_Crud_Docente;
 import pkgModel.MdlDocente;
 
@@ -29,9 +26,12 @@ public class Ctrl_Admin_Crud_Docente {
 
 		String btnEditar = "<button type='button' id='btnShowModalEdit' class='btn btn-info btn-square' data-toggle='modal' data-target='#mimodal' data-tooltip='tooltip' data-placement='bottom' title='Editar'><span class='fa fa-edit'></span></button>";
 		//String btnEliminar = "<button type='button' id='btnShowModalDelete' class='btn btn-danger btn-square' data-tooltip='tooltip' data-placement='bottom' title='Eliminar'><span class='fa fa-trash-o'></span></button>";
+		String btnSetCredentials = "<button type='button' id='btnSetCredentials' class='btn btn-default btn-square' data-toggle='modal' data-target='#mdlSetCredentialDocente' data-tooltip='tooltip' data-placement='bottom' title='Credenciales'><span class='fa fa-user'></span></button>";
 		String btnSwitchAccess = "";
-		String columnAcciones = btnEditar;
+		String columnAcciones = btnEditar+btnSetCredentials;
+		
 		for(MdlDocente o : arrObjDocente) {
+			String estado_acceso = "";
 			item = new JsonObject();
 			item.addProperty("Codigo",o.getCodDocente());
 			item.addProperty("Nombre",o.getNomDocente());
@@ -39,8 +39,10 @@ public class Ctrl_Admin_Crud_Docente {
 			item.addProperty("Edad",o.getEdadDocente());
 			item.addProperty("Dni",o.getDniDocente());
 			item.addProperty("FechaNac",o.getFechaNac());
+			if(o.getEstado_acceso() == 1) {  estado_acceso = "checked"; }
+			if(o.getEstado_acceso() == 2 ) { estado_acceso = "disabled";  }
 			btnSwitchAccess = "<label class='switch switch-small'>" + 
-								 "<input type='checkbox' id='btnSwitchAccess' value='1'/>" + 
+								 "<input type='checkbox' id='btnSwitchAccess' "+estado_acceso+" value= '"+ o.getEstado_acceso() +"'>" + 
 								 "<span></span>" + 
 							   "</label>";
 			//onclick=\"fnSinAccesoDocente(this,'"+o.getCodDocente()+"')\"
@@ -115,5 +117,22 @@ public class Ctrl_Admin_Crud_Docente {
 		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
 		codigoExitoOperacion = objDaoDocente.daoEliminarDocente(parseIdDocente);
 		return codigoExitoOperacion;
+	}
+	
+	public static int ctrlSetCredentialDocentes(HttpServletRequest request) {
+		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		String codigo = request.getParameter("txtCod");
+		String pass = request.getParameter("txtPass");
+		int codigoExitoOperacion = 0;
+		codigoExitoOperacion = objDaoDocente.daoSetCredentialDocentes(codigo,pass);
+		return codigoExitoOperacion;
+	}
+	
+	public static boolean ctrlSetAccesoUsuario(HttpServletRequest request) {
+		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		String codigo = request.getParameter("codDocente");
+		String valorEstado = request.getParameter("valorEstado");
+		boolean cambioOk = objDaoDocente.daoSetAccesoUsuario(codigo, Integer.parseInt(valorEstado));
+		return cambioOk;
 	}
 }

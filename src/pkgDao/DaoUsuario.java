@@ -3,8 +3,6 @@ package pkgDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import pkgConexion.Conexion;
 import pkgModel.MdlUsuario;
 
@@ -42,6 +40,37 @@ public class DaoUsuario {
 			this.cn = null;
 		}
 		return loguinSucces;
+	}
+	
+	public boolean daoValidarAccesoLoguin(String txtUser,String txtPass) {
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
+		boolean accessOk = false;
+		
+		try {
+			this.sql = "select * from usuario where nomUsuario = ? and passUsuario = ? and estado_acceso = ?";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setString(1,txtUser);
+			consultaPreparada.setString(2,txtPass);
+			consultaPreparada.setInt(3,1);
+			resultadoDatos = consultaPreparada.executeQuery();
+			
+			if(resultadoDatos.last()) {
+				accessOk = true;
+			}else {
+				System.out.println("Usuario sin Acceso");
+			}
+			
+		}catch(Exception e) {
+			System.out.println("[X] DAO 'daoValidarAccesoLoguin' FALLIDA [X]");
+			e.printStackTrace();
+			System.out.println(this.sql);
+			
+		}finally {
+			objConectar.desconectar();
+			this.cn = null;
+		}
+		return accessOk;
 	}
 	
 	public MdlUsuario DaoObtenerDatosLoguin(String usuario,String pass) {

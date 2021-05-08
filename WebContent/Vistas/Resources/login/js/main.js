@@ -45,7 +45,7 @@
                 }
             })
             .done(function(result) {
-               (result == 0) ? showErrorLogin() : location.href="Vistas/index.jsp";
+                (result == 0 || result == 1) ? showInformation(result) : location.href="Vistas/index.jsp";
             });
         }
 
@@ -84,14 +84,34 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
-    function showErrorLogin(){
-        var msgLoginIncorrecto = "<div class='alert alert-danger' role='alert'>"+
+    function showInformation(result){
+
+        var msgLoginIncorrecto = "";
+        var tipoMsg=""; 
+        var msg ="";
+
+        if(result == 1){
+            tipoMsg = "info";
+            msg = "<strong>Info!</strong> Su usuario aun no esta habilitado para acceder al sistema";
+        }else{
+            tipoMsg = "danger";
+             msg ="<strong>Error!</strong> Datos incorrectos";
+        }
+        
+        msgLoginIncorrecto = "<div class='alert alert-"+tipoMsg+"' id='alertMsgLoguin' role='alert'>"+
                                     "<button type='button' class='close' data-dismiss='alert'>"+
                                         "<span aria-hidden='true'>&times</span><span class='sr-only'>Close</span>"+
-                                    "</button><strong>Error!</strong> Datos incorrectos"+
+                                    "</button>"+msg+
                                  "</div>";
 
+
         $("#divMsgLoginIncorrecto").html(msgLoginIncorrecto);
+
+        window.setTimeout(function() {
+            $("#alertMsgLoguin").fadeTo(1000, 0).slideUp(1000, function(){
+                $("#alertMsgLoguin").alert('close');
+            });
+        }, 3000);
     }
 
 })(jQuery);

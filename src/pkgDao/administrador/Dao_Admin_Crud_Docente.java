@@ -46,7 +46,7 @@ public class Dao_Admin_Crud_Docente {
 		
 		try {
 			
-			this.sql = "select codDocente,nomDocente,apeDocente,edadDocente,dniDocente,fechaNac" + 
+			this.sql = "select codDocente,nomDocente,apeDocente,edadDocente,dniDocente,fechaNac,estado_acceso" + 
 					   " from docente";
 			consultaPreparada = this.cn.prepareCall(this.sql);
 			resultadoDatos = consultaPreparada.executeQuery();
@@ -59,6 +59,7 @@ public class Dao_Admin_Crud_Docente {
 				objDocente.setEdadDocente(resultadoDatos.getInt("edadDocente"));
 				objDocente.setDniDocente(resultadoDatos.getInt("dniDocente"));
 				objDocente.setFechaNac(resultadoDatos.getString("fechaNac"));
+				objDocente.setEstado_acceso(resultadoDatos.getInt("estado_acceso"));
 				arrDocente.add(objDocente);
 			}
 			this.cn.close();
@@ -108,7 +109,7 @@ public class Dao_Admin_Crud_Docente {
 		try {
 			
 			this.sql = "insert into docente(codDocente,nomDocente,apeDocente,edadDocente,dniDocente,fechaNac,idTipoUsuario,estado_acceso)" +
-					   " values(?,?,?,?,?,?,?,0)";
+					   " values(?,?,?,?,?,?,?,2)";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,objDocente.getCodDocente());
 			consultaPreparada.setString(2,objDocente.getNomDocente());
@@ -125,6 +126,16 @@ public class Dao_Admin_Crud_Docente {
 			consultaPreparada.setString(1,objDocente.getCodDocente());
 			consultaPreparada.setString(2,objDocente.getNomDocente());
 			consultaPreparada.setString(3,objDocente.getApeDocente());
+			consultaPreparada.execute();
+			
+		
+			this.sql = "insert into usuario(nomUsuario,passUsuario,idInfoUsuario,idTipoUsuario,estado_acceso) values(?,?,?,?,?)";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setString(1,objDocente.getCodDocente());
+			consultaPreparada.setString(2,"");
+			consultaPreparada.setString(3,objDocente.getCodDocente());
+			consultaPreparada.setInt(4,2);
+			consultaPreparada.setInt(5,2);
 			consultaPreparada.execute();
 			
 			this.cn.close();
@@ -193,7 +204,7 @@ public class Dao_Admin_Crud_Docente {
 			consultaPreparada.execute();
 			this.cn.close();
 		}catch(Exception e) {
-			System.out.println("[X] DAO 'Alumno.daoEliminarAlumno' FALLIDA [X]");
+			System.out.println("[X] DAO 'Docente.daoEliminarAlumno' FALLIDA [X]");
 			e.printStackTrace();
 			return 500;
 		}finally {
@@ -201,5 +212,70 @@ public class Dao_Admin_Crud_Docente {
 			this.cn = null;
 		}
 		return 200;
+	}
+	
+	public int daoSetCredentialDocentes(String codigo,String pass) {
+		
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
+		int finalizadoOk = 0;
+		
+		try {
+			this.sql = "update usuario set passUsuario=?,estado_acceso = ? where idInfoUsuario = ?";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setString(1,pass);
+			consultaPreparada.setInt(2,0);
+			consultaPreparada.setString(3,codigo);
+			consultaPreparada.execute();
+			
+			this.sql = "update docente set estado_acceso = ? where codDocente = ?";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setInt(1,0);
+			consultaPreparada.setString(2,codigo);
+			consultaPreparada.execute();
+			
+			finalizadoOk = 1;
+			
+		}catch(Exception e) {
+			System.out.println("[X] DAO 'Docente.daoSetCredentialDocentes' FALLIDA [X]");
+			e.printStackTrace();
+		}finally {
+			objConectar.desconectar();
+			this.cn = null;
+		}
+		
+		return finalizadoOk;
+	}
+	
+	public boolean daoSetAccesoUsuario(String codigo, int valorEstado) {
+		
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
+		boolean cambioOk = false;
+		
+		try {
+			this.sql = "update usuario set estado_acceso = ? where idInfoUsuario = ?";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setInt(1,valorEstado);
+			consultaPreparada.setString(2,codigo);
+			consultaPreparada.execute();
+			
+			
+			this.sql = "update docente set estado_acceso = ? where codDocente = ?";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setInt(1,valorEstado);
+			consultaPreparada.setString(2,codigo);
+			consultaPreparada.execute();
+			
+			cambioOk = true;
+		}catch(Exception e) {
+			System.out.println("[X] DAO 'Docente.daoSetAccesoUsuario' FALLIDA [X]");
+			e.printStackTrace();
+		}finally {
+			objConectar.desconectar();
+			this.cn = null;
+		}
+		
+		return cambioOk;
 	}
 }

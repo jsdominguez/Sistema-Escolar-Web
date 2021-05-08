@@ -9,7 +9,10 @@ public class MdlDocente {
 	private int dniDocente;
 	private String fechaNac;
 	private int idTipoUsuario;
+	private int estado_acceso;
 	
+	
+
 	public MdlDocente() {}
 
 	public String getCodDocente() {
@@ -68,5 +71,11 @@ public class MdlDocente {
 		this.idTipoUsuario = idTipoUsuario;
 	}
 	
-	
+	public int getEstado_acceso() {
+		return estado_acceso;
+	}
+
+	public void setEstado_acceso(int estado_acceso) {
+		this.estado_acceso = estado_acceso;
+	}
 }

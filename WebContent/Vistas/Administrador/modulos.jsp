@@ -12,7 +12,7 @@
 <li class="xn-openable">
     <a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">Alumnos</span></a>
     <ul>
-        <li><a href="layout-boxed.html">Alumnos</a></li>
+        <li><a href="CrudAlumno.jsp">Alumnos</a></li>
         <li><a href="blank.html">Reportes</a></li>
     </ul>
 </li>
