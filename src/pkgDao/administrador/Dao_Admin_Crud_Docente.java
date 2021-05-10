@@ -37,6 +37,7 @@ public class Dao_Admin_Crud_Docente {
 		}
 		return codGenerado;
 	}
+	
 	public ArrayList<MdlDocente> daoGetListaDocente() {
 	
 		Conexion objConectar = new Conexion();

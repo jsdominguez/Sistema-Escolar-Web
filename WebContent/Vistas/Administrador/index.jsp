@@ -12,11 +12,13 @@
        <%@ include file="../includes/dashboard/LibreriasCss.jsp" %>
        
    </head>
+   
    <style type="text/css">
       .centerTextWidget{
          text-align: center !important;
       }
    </style>
+
    <body>
 
       <div class="page-container">
@@ -28,9 +30,10 @@
             
             	<%@ include file="../includes/dashboard/logo.jsp" %>
             	<%@ include file="../includes/dashboard/profile.jsp" %>
-            	<jsp:include page="modulos.jsp" flush="true" />
+            	<%@ include file="modulos.jsp" %>
             	
             </ul>
+
          </div>
          <!-- fin barra lateral -->        
 
@@ -44,62 +47,12 @@
             <%@ include file="../includes/dashboard/ruta.jsp" %>
             
             <!-- area de contenido -->
-            <div class="page-content-wrap">
+            <div class="page-content-wrap" style="background-color: #f1f1f0 !important;">
                <div class="row">
                   <div class="panel-body">
+                    
+                     <%@ include file="infoInicio.jsp" %>
                      
-                     <div class="col-md-3">
-
-                            <div class="widget widget-primary widget-item-icon">
-                                <div class="widget-item-left">
-                                    <span class="fa fa-user"></span>
-                                </div>
-                                <div class="widget-data" style="margin-top:16px;margin-left:3px;">
-                                    <div class="widget-int num-count centerTextWidget">1024</div>
-                                     <div class="widget-title centerTextWidget">Alumnos</div>
-                                </div>                           
-                            </div>
-
-                        </div>
-                        <div class="col-md-3">
-
-                            <div class="widget widget-danger widget-item-icon">
-                                <div class="widget-item-left">
-                                    <span class="fa fa-briefcase"></span>
-                                </div>
-                                <div class="widget-data" style="margin-top:16px;margin-left:3px;">
-                                    <div class="widget-int num-count centerTextWidget">1024</div>
-                                     <div class="widget-title centerTextWidget">Docentes</div>
-                                </div>                           
-                            </div>
-
-                        </div>
-                        <div class="col-md-3">
-
-                            <div class="widget widget-success widget-item-icon">
-                                <div class="widget-item-left">
-                                    <span class="fa fa-user"></span>
-                                </div>
-                                <div class="widget-data" style="margin-top:16px;margin-left:3px;">
-                                    <div class="widget-int num-count centerTextWidget">1024</div>
-                                     <div class="widget-title centerTextWidget">Padres</div>
-                                </div>                           
-                            </div>
-
-                        </div>
-                        <div class="col-md-3">
-
-                            <div class="widget widget-default widget-item-icon">
-                                <div class="widget-item-left">
-                                    <span class="fa fa-book"></span>
-                                </div>
-                                <div class="widget-data" style="margin-top:16px;margin-left:3px;">
-                                    <div class="widget-int num-count centerTextWidget">68</div>
-                                    <div class="widget-title centerTextWidget">Cursos</div>
-                                </div>                           
-                            </div>
-
-                        </div>
                   </div>
                </div>
             </div>
@@ -115,6 +68,5 @@
    </body>
 	
 	<%@ include file="../includes/dashboard/LibreriasJS.jsp" %>
-	
 </html>
 

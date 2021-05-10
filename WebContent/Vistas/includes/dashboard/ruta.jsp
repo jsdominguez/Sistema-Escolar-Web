@@ -1,4 +1,3 @@
-<ul class="breadcrumb">
-    <li><a href="#">Home</a></li>                    
+<ul class="breadcrumb">                 
     <li class="#">Dashboard</li>
 </ul>

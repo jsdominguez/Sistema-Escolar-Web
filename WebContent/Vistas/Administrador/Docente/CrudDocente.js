@@ -1,10 +1,9 @@
 $("document").ready(function(){
-
-     $('body').tooltip({
+  
+  $('body').tooltip({
         selector: "[data-tooltip=tooltip]",
         container: "body"
     });
-
 
 	var tblDemo = $('#tblDemo').DataTable({
 	    "filter": true,
@@ -14,16 +13,16 @@ $("document").ready(function(){
         "ajax": {
             url: "/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente",
             type: "POST",
-			dataSrc: "datos",
+			      dataSrc: "datos",
             data: {
                 "metodo": "ctrlListarDocente"
             }
         },
 		columns: [
             {"data": "Codigo"},
-			{"data": "Nombre"},
-			{"data": "Apellido"},
-			{"data": "Edad"},
+      			{"data": "Nombre"},
+      			{"data": "Apellido"},
+      			{"data": "Edad"},
             {"data": "Dni"},
             {"data": "FechaNac"},
             {"data": "Acceso"},

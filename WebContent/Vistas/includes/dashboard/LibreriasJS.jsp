@@ -34,3 +34,11 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins.js"></script>        
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/actions.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/demo_dashboard.js"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-file-input.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-select.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+
