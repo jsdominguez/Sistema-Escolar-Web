@@ -31,7 +31,7 @@ public class Ctrl_Admin_Crud_Alumno {
 		arrObjAlumno  = objDaoAlumno.daoGetListaAlumno();
 
 		String btnEditar = "<button type='button' id='btnEditDatosModalAlumno' class='btn btn-info btn-square' data-toggle='modal' data-target='#modalRegisterOrUpdate' data-tooltip='tooltip' data-placement='bottom' title='Editar'><span class='fa fa-edit'></span></button>";
-		String btnSetCredentials = "<button type='button' id='btnSetModalCredentials' class='btn btn-default btn-square' data-toggle='modal' data-target='#mdlSetCredentialAlumno' data-tooltip='tooltip' data-placement='bottom' title='Credenciales'><span class='fa fa-user'></span></button>";
+		String btnSetCredentials = "<button type='button' id='btnShowModalCredentials' class='btn btn-default btn-square' data-toggle='modal' data-target='#mdlSetCredentialAlumno' data-tooltip='tooltip' data-placement='bottom' title='Credenciales'><span class='fa fa-user'></span></button>";
 		String btnSwitchAccess = "";
 		String columnAcciones = btnEditar+btnSetCredentials;
 		

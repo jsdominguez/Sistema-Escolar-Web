@@ -62,6 +62,7 @@ $(function() {
   });
 
   $('#tblAlumno tbody').on( 'click', '#btnEditDatosModalAlumno', function () {
+        document.getElementById("frmModalRegistroAlumno").reset();
         var datosFila = tblAlumno.row($(this).parents("tr")).data();
         var idAlumno = datosFila.Codigo;
         var txtNombre = datosFila.Nombre;
@@ -97,7 +98,7 @@ $(function() {
   })
 
 
-  $("#tblAlumno tbody").on( 'click', '#btnSetModalCredentials', function () {
+  $("#tblAlumno tbody").on( 'click', '#btnShowModalCredentials', function () {
         
         document.getElementById("frmCredentialAlumno").reset();
         var datosFila = tblAlumno.row($(this).parents("tr")).data();
@@ -154,9 +155,9 @@ $(function() {
 
 
   function fnShowResponse(response){
-
-      $('#mimodal').modal('hide')
-            
+        
+      $('#modalRegisterOrUpdate').modal('hide')    
+      
       tblAlumno.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno?metodo=ctrlListarAlumno').load();
       
       var tipoAlert = ""

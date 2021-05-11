@@ -50,9 +50,9 @@
                                 
                                 <div id="alertMessageResponse"></div>
                                
-                                <button type="button" class="btn btn-primary" id="btnRegistrar" data-toggle="modal" data-target="#mimodal">Registrar</button>
+                                <button type="button" class="btn btn-primary" id="btnModalRegistrar" data-toggle="modal" data-target="#modalRegisterOrUpdate">Registrar</button>
 
-                                <table id="tblDemo" class="table table-bordered dt-responsive text-center">
+                                <table id="tblDocente" class="table table-bordered dt-responsive text-center">
                                     <thead>
                                         <th class="text-center">Codigo</th>
                                         <th class="text-center" data-priority="1">Nombre</th>

@@ -24,9 +24,9 @@ public class Ctrl_Admin_Crud_Docente {
 		
 		arrObjDocente  = objDaoDocente.daoGetListaDocente();
 
-		String btnEditar = "<button type='button' id='btnShowModalEdit' class='btn btn-info btn-square' data-toggle='modal' data-target='#mimodal' data-tooltip='tooltip' data-placement='bottom' title='Editar'><span class='fa fa-edit'></span></button>";
+		String btnEditar = "<button type='button' id='btnShowModalEdit' class='btn btn-info btn-square' data-toggle='modal' data-target='#modalRegisterOrUpdate' data-tooltip='tooltip' data-placement='bottom' title='Editar'><span class='fa fa-edit'></span></button>";
 		//String btnEliminar = "<button type='button' id='btnShowModalDelete' class='btn btn-danger btn-square' data-tooltip='tooltip' data-placement='bottom' title='Eliminar'><span class='fa fa-trash-o'></span></button>";
-		String btnSetCredentials = "<button type='button' id='btnSetCredentials' class='btn btn-default btn-square' data-toggle='modal' data-target='#mdlSetCredentialDocente' data-tooltip='tooltip' data-placement='bottom' title='Credenciales'><span class='fa fa-user'></span></button>";
+		String btnSetCredentials = "<button type='button' id='btnShowModalCredentials' class='btn btn-default btn-square' data-toggle='modal' data-target='#mdlSetCredentialDocente' data-tooltip='tooltip' data-placement='bottom' title='Credenciales'><span class='fa fa-user'></span></button>";
 		String btnSwitchAccess = "";
 		String columnAcciones = btnEditar+btnSetCredentials;
 		
@@ -128,11 +128,11 @@ public class Ctrl_Admin_Crud_Docente {
 		return codigoExitoOperacion;
 	}
 	
-	public static boolean ctrlSetAccesoUsuario(HttpServletRequest request) {
+	public static int ctrlSetAccesoUsuario(HttpServletRequest request) {
 		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
 		String codigo = request.getParameter("codDocente");
 		String valorEstado = request.getParameter("valorEstado");
-		boolean cambioOk = objDaoDocente.daoSetAccesoUsuario(codigo, Integer.parseInt(valorEstado));
+		int cambioOk = objDaoDocente.daoSetAccesoUsuario(codigo, Integer.parseInt(valorEstado));
 		return cambioOk;
 	}
 }

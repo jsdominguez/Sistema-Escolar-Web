@@ -74,7 +74,7 @@ public class Srvlt_Admin_Crud_Docente extends HttpServlet {
 			break;
 			case "ctrlSetAccesoUsuario":
 				tipoRespuesta = "text/html";
-				Ctrl_Admin_Crud_Docente.ctrlSetAccesoUsuario(request);
+				res = Ctrl_Admin_Crud_Docente.ctrlSetAccesoUsuario(request);
 			break;
 		}
 		

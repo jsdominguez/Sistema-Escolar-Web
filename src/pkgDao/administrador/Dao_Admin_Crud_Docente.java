@@ -248,11 +248,11 @@ public class Dao_Admin_Crud_Docente {
 		return finalizadoOk;
 	}
 	
-	public boolean daoSetAccesoUsuario(String codigo, int valorEstado) {
+	public int daoSetAccesoUsuario(String codigo, int valorEstado) {
 		
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
-		boolean cambioOk = false;
+		int cambioOk = 500;
 		
 		try {
 			this.sql = "update usuario set estado_acceso = ? where idInfoUsuario = ?";
@@ -268,7 +268,7 @@ public class Dao_Admin_Crud_Docente {
 			consultaPreparada.setString(2,codigo);
 			consultaPreparada.execute();
 			
-			cambioOk = true;
+			cambioOk = 200;
 		}catch(Exception e) {
 			System.out.println("[X] DAO 'Docente.daoSetAccesoUsuario' FALLIDA [X]");
 			e.printStackTrace();
