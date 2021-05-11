@@ -55,61 +55,24 @@ public class Srvlt_Admin_Crud_Alumno extends HttpServlet {
 			break;
 			case "ctrlRegisterAlumno":
 				tipoRespuesta = "text/html";
-				String UPLOAD_DIR = "C:/Users/Jhosep/Desktop/Eclipse/ProyectoIntegrador2/WebContent/Vistas/Administrador/Alumno/imgAlumnos/";
-
-		        
-		        File fileSaveDir = new File(UPLOAD_DIR);
-		        if (!fileSaveDir.exists()) {
-		            fileSaveDir.mkdirs();
-		        }
-		        System.out.println("Upload File Directory="+fileSaveDir.getAbsolutePath());
-		        
-		        String fileName = null;
-		        
-		        for (Part part : request.getParts()) {
-		            fileName = getFileName(part);
-		            if(fileName!=""){
-		            	System.out.println(UPLOAD_DIR+"/" + fileName);
-		            	part.write(UPLOAD_DIR+ fileName);
-		            }
-		            
-		        }
-		        
 				res = Ctrl_Admin_Crud_Alumno.ctrlRegisterAlumno(request);
 				break;
 			case "ctrlUpdateAlumno":
 				tipoRespuesta = "text/html";
-				//res = Ctrl_Admin_Crud_Docente.ctrlUpdateDocente(request);
+				res = Ctrl_Admin_Crud_Alumno.ctrlUpdateAlumno(request);
 			break;
-			case "ctrlEliminarAlumno":
+			case "ctrlSetCredentialAlumno":
 				tipoRespuesta = "text/html";
-				String idAlumno = request.getParameter("idAlumno");
-				//res = Ctrl_Admin_Crud_Docente.ctrlEliminarDocente(idAlumno);
-			break;
-			case "ctrlSetCredentialDocentes":
-				tipoRespuesta = "text/html";
-				//res = Ctrl_Admin_Crud_Docente.ctrlSetCredentialDocentes(request);
+				res = Ctrl_Admin_Crud_Alumno.ctrlSetCredentialAlumno(request);
 			break;
 			case "ctrlSetAccesoUsuario":
 				tipoRespuesta = "text/html";
-				//Ctrl_Admin_Crud_Docente.ctrlSetAccesoUsuario(request);
+				res = Ctrl_Admin_Crud_Alumno.ctrlSetAccesoUsuario(request);
 			break;
 		}
 		
 		response.setContentType(tipoRespuesta);
 		out.print(res);
 	}
-	
-	private String getFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
-        //System.out.println("content-disposition header= "+contentDisp);
-        String[] tokens = contentDisp.split(";");
-        for (String token : tokens) {
-            if (token.trim().startsWith("filename")) {
-                return token.substring(token.indexOf("=") + 2, token.length()-1);
-            }
-        }
-        return "";
-    }
 
 }

@@ -50,7 +50,7 @@
 		                        
 		                        <div id="alertMessageResponse"></div>
 		                       
-		                        <button type="button" class="btn btn-primary" id="btnRegistrar" data-toggle='modal' data-target='#mimodal'>Registrar</button>
+		                        <button type="button" class="btn btn-primary" id="btnModalRegistrar" data-toggle='modal' data-target='#modalRegisterOrUpdate'>Registrar</button>
 		                        
 		                        <table id="tblAlumno" class="table table-bordered dt-responsive text-center">
 		                           <thead>
@@ -59,7 +59,8 @@
 		                                 <th class="text-center" data-priority="2">Apellido</th>
 		                                 <th class="text-center">Edad</th>
 		                                 <th class="text-center">Dni</th>
-		                                 <th class="text-center">Acciones</th>
+                                         <th class="text-center">Acceso</th>
+		                                 <th class="text-center">acciones</th>
 		                           </thead>
 		                        </table>
 

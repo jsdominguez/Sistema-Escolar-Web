@@ -1,4 +1,4 @@
-$("document").ready(function(){
+$(function() {
 
   $('body').tooltip({
       selector: "[data-tooltip=tooltip]",
@@ -24,6 +24,7 @@ $("document").ready(function(){
 			      {"data": "Apellido"},
 			      {"data": "Edad"},
             {"data": "Dni"},
+            {"data": "Acceso"},
             {"data": "acciones"}
 		],/*
         columnDefs: [{
@@ -52,19 +53,15 @@ $("document").ready(function(){
         }
     });
 
-  $("#btnRegistrar").click(function(){
-        document.getElementById("frmModalRegistro").reset();
+  fnConfigModals();
+
+  $("#btnModalRegistrar").click(function(){
+        document.getElementById("frmModalRegistroAlumno").reset();
         $("#frmModalRegistroId").css("display","none");
         $("#opcRegisterorUpdate").val(1);
   });
 
-  $('#mimodal').modal({
-        keyboard: false,
-        backdrop : 'static',
-        show : false
-  });
-
-  $('#tblAlumno tbody').on( 'click', '#btnShowModalEdit', function () {
+  $('#tblAlumno tbody').on( 'click', '#btnEditDatosModalAlumno', function () {
         var datosFila = tblAlumno.row($(this).parents("tr")).data();
         var idAlumno = datosFila.Codigo;
         var txtNombre = datosFila.Nombre;
@@ -75,7 +72,6 @@ $("document").ready(function(){
         $("#frmModalRegistroId").css("display","block");
         $("#opcRegisterorUpdate").val(2);
         $("#txtCodigo").val(idAlumno);
-        
         $("#txtNombre").val(txtNombre);
         $("#txtApellido").val(txtApellido);
         $("#txtEdad").val(txtEdad);
@@ -84,63 +80,125 @@ $("document").ready(function(){
 
   $("#btnSubmitFrmRegistro").click(function(){
 
-        var formData = new FormData(document.getElementById("frmModalRegistro"));
-        var opcRegisterorUpdate = $("#opcRegisterorUpdate").val();
+      var formData = new FormData(document.getElementById("frmModalRegistroAlumno"));
+      var opcRegisterOrUpdate = $("#opcRegisterorUpdate").val();
 
-        if(opcRegisterorUpdate == 1){
-             formData.append("metodo","ctrlRegisterAlumno");
-        }
+      if(opcRegisterOrUpdate == 1){
+           formData.append("metodo","ctrlRegisterAlumno");
+      }
 
-        if(opcRegisterorUpdate == 2){
-            formData.append("metodo","ctrlUpdateAlumno");
-        }
+      if(opcRegisterOrUpdate == 2){
+          formData.append("metodo","ctrlUpdateAlumno");
+      }
 
-         $.ajax({
+      fnEnviarPeticion(formData);
+
+      $('#modalRegisterOrUpdate').modal('hide');
+  })
+
+
+  $("#tblAlumno tbody").on( 'click', '#btnSetModalCredentials', function () {
+        
+        document.getElementById("frmCredentialAlumno").reset();
+        var datosFila = tblAlumno.row($(this).parents("tr")).data();
+        var idAlumno = datosFila.Codigo;
+        $("#txtCod").val(idAlumno);       
+    })
+
+    $("#btnSubmitSetPassword").click(function(){
+        
+        var formData = new FormData(document.getElementById("frmCredentialAlumno"));
+        formData.append("metodo","ctrlSetCredentialAlumno");
+        fnEnviarPeticion(formData);
+        $('#mdlSetCredentialAlumno').modal('hide');
+        
+    })
+
+
+    $("#tblAlumno tbody").on( 'click', '#btnSwitchAccess', function () {
+        
+        var datosFila = tblAlumno.row($(this).parents("tr")).data();
+        var codigoAlumno = datosFila.Codigo;
+        var valorEstado = $(this).attr("value");
+        (valorEstado == 1) ? valorEstado = 0 : valorEstado = 1;
+        $(this).val(valorEstado);
+        valorEstado = $(this).attr("value");
+
+        var formData = new FormData();
+        formData.append("valorEstado",  valorEstado );
+        formData.append("codAlumno", codigoAlumno );
+        formData.append("metodo", "ctrlSetAccesoUsuario");
+
+       fnEnviarPeticion(formData);
+
+    })
+
+
+
+  /*******  FUNCIONES ******/
+
+  function fnEnviarPeticion(formData){
+
+    $.ajax({
              url: "/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno",
              type: "POST",
              data: formData,
              cache: false,
             contentType: false,
              processData: false
-         })
-         .done(function(response) {
+    }).done(function(response) {
+              fnShowResponse(response);
+    });
+
+  }
+
+
+  function fnShowResponse(response){
+
+      $('#mimodal').modal('hide')
             
-            $('#mimodal').modal('hide')
-            
-            tblAlumno.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno?metodo=ctrlListarAlumno').load();
-            
-            var tipoAlert = ""
-            var msg = "";
-            var alert = " id='alertMsg' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times</span><span class='sr-only'>Close</span></button>"+msg;
+      tblAlumno.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno?metodo=ctrlListarAlumno').load();
+      
+      var tipoAlert = ""
+      var msg = "";
+      var alert = " id='alertMsg' role='alert'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times</span><span class='sr-only'>Close</span></button>"+msg;
 
-            if(response == 200){
-              
-              msg = "<strong>Exito!</strong> El evento se realizo satisfactoriamente .</div>";
-              tipoAlert = "<div class='alert alert-success' ";  
+      if(response == 200 || response == 1){
+        
+        msg = "<strong>Exito!</strong> El evento se realizo satisfactoriamente .</div>";
+        tipoAlert = "<div class='alert alert-success' ";  
 
-            }else{
+      }else{
 
-              msg = "<strong>Error!</strong> Ha ocurrido un evento inesperado internamente .</div>";
-              tipoAlert = "<div class='alert alert-warning' ";  
+        msg = "<strong>Error!</strong> Ha ocurrido un evento inesperado internamente .</div>";
+        tipoAlert = "<div class='alert alert-danger' ";  
 
-            }
+      }
 
-            alert = tipoAlert+alert+msg;
+      alert = tipoAlert+alert+msg;
 
-            $("#alertMessageResponse").html(alert);
+      $("#alertMessageResponse").html(alert);
 
-            window.setTimeout(function() {
-                $("#alertMsg").fadeTo(1000, 0).slideUp(1000, function(){
-                  $("#alertMsg").alert('close');
-                });
-            }, 3000);
+      window.setTimeout(function() {
+          $("#alertMsg").fadeTo(1000, 0).slideUp(1000, function(){
+            $("#alertMsg").alert('close');
+          });
+      }, 3000);
 
-         });
-    })
+  }
+
+  function fnConfigModals(){
+    $('#modalRegisterOrUpdate').modal( fnOptions() );
+    $('#mdlSetCredentialAlumno').modal( fnOptions() );
+  }
+
+  function fnOptions(){
+    return {
+        keyboard: false,
+        backdrop : 'static',
+        show : false
+    }
+  }
+
 
 });
-
-
-
-        
-    

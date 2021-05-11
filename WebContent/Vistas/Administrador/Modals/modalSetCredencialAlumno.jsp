@@ -3,11 +3,11 @@
     <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="defModalHead">Credenciales Usuario</h4>
+            <h4 class="modal-title" id="defModalHead">Credenciales de Alumno</h4>
          </div>
          <div class="modal-body">
             
-            <form role="form" class="form-horizontal" enctype="multipart/form-data" name="frmCredentialDocente" id="frmCredentialDocente">
+            <form role="form" class="form-horizontal" enctype="multipart/form-data" name="frmCredentialAlumno" id="frmCredentialAlumno">
                
                <div class="form-group">
                   <label class="col-md-3 col-xs-12 control-label">Codigo</label>
