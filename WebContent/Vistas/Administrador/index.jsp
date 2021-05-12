@@ -1,4 +1,5 @@
 <%@ include file="../includes/validarSesion.jsp" %>
+<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
 

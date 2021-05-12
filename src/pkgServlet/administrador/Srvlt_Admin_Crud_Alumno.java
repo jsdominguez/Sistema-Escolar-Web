@@ -1,6 +1,6 @@
 package pkgServlet.administrador;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -9,14 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import pkgController.administrador.Ctrl_Admin_Crud_Alumno;
 
 /**
  * Servlet implementation class CtrlAlumno
  */
-@MultipartConfig
+@MultipartConfig(maxFileSize = 16177215)    // upload file's size up to 16MB
 @WebServlet(name = "Srvlt_Admin_Crud_Alumno" , urlPatterns = {"/Srvlt_Admin_Crud_Alumno"})
 public class Srvlt_Admin_Crud_Alumno extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +33,7 @@ public class Srvlt_Admin_Crud_Alumno extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 	/**
@@ -69,6 +68,7 @@ public class Srvlt_Admin_Crud_Alumno extends HttpServlet {
 				tipoRespuesta = "text/html";
 				res = Ctrl_Admin_Crud_Alumno.ctrlSetAccesoUsuario(request);
 			break;
+				//Ctrl_Admin_Crud_Alumno.ctrlObtenerImagenPerfil(request,response);
 		}
 		
 		response.setContentType(tipoRespuesta);

@@ -1,5 +1,7 @@
 package pkgModel;
 
+import java.io.InputStream;
+
 public class MdlAlumno {
 	
 	private String codAlumno;
@@ -10,8 +12,7 @@ public class MdlAlumno {
 	private String fechaNac;
 	private int idTipoUsuario;
 	private int estado_acceso;
-	
-	
+	private InputStream archivo;
 
 	public MdlAlumno() {}
 
@@ -111,5 +112,16 @@ public class MdlAlumno {
 		this.estado_acceso = estado_acceso;
 	}
 
+
+
+	public InputStream getArchivo() {
+		return archivo;
+	}
+
+
+
+	public void setArchivo(InputStream archivo) {
+		this.archivo = archivo;
+	}
 	
 }

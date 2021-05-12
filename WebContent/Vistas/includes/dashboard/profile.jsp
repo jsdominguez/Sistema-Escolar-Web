@@ -1,10 +1,12 @@
 <li class="xn-profile">
     <a href="#" class="profile-mini">
-        <img src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/assets/images/users/avatar.jpg" alt="John Doe"/>
+ 		<img src="/ProyectoIntegrador2/Srvlt_Obtener_Archivo?codigo=${MdlUsuario.codigo}" 
+ 			onerror="this.src='/ProyectoIntegrador2/Vistas/Resources/dashboard/assets/images/users/no-image.jpg'" />
     </a>
     <div class="profile">
         <div class="profile-image">
-            <img src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/assets/images/users/avatar.jpg" alt="John Doe"/>
+             		<img src="/ProyectoIntegrador2/Srvlt_Obtener_Archivo?codigo=${MdlUsuario.codigo}" 
+ 			onerror="this.src='/ProyectoIntegrador2/Vistas/Resources/dashboard/assets/images/users/no-image.jpg'" />
         </div>
         <div class="profile-data">
             <div class="profile-data-name">${MdlUsuario.apellidoUsuario}</div>

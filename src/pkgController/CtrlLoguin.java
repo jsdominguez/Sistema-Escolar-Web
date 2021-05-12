@@ -19,4 +19,5 @@ public class CtrlLoguin {
 		objUsuario = new DaoUsuario().DaoObtenerDatosLoguin(txtUser,txtPass);
 		return objUsuario;
 	}
+
 }

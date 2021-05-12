@@ -1,13 +1,14 @@
 package pkgDao.administrador;
 
 import pkgConexion.Conexion;
+
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import pkgModel.MdlAlumno;
-import pkgModel.MdlDocente;
 
 public class Dao_Admin_Crud_Alumno {
 	
@@ -45,7 +46,8 @@ public class Dao_Admin_Crud_Alumno {
 		
 		return codGenerado;
 	}
-
+	
+	
 	public int daoGetCountListAlumno() {
 		
 		Conexion objConectar = new Conexion();
@@ -86,7 +88,7 @@ public class Dao_Admin_Crud_Alumno {
 		
 		try {
 			
-			this.sql = "select idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,estado_acceso from alumnos";
+			this.sql = "select idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,estado_acceso,archivo from alumnos";
 			consultaPreparada = this.cn.prepareCall(this.sql);
 			resultadoDatos = consultaPreparada.executeQuery();
 			
@@ -117,15 +119,23 @@ public class Dao_Admin_Crud_Alumno {
 		return arrAlumno;
 	}
 	
-	
-	public int daoRegistrarAlumno(MdlAlumno objAlumno,String foto) {
+	public int daoRegistrarAlumno(MdlAlumno objAlumno,InputStream[] archivo) {
 		
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
-		
 		try {
+			            
+			this.sql = "insert into usuario(nomUsuario,passUsuario,idInfoUsuario,idTipoUsuario,estado_acceso,archivo) values(?,?,?,?,?,?)";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setString(1,objAlumno.getCodAlumno());
+			consultaPreparada.setString(2,"");
+			consultaPreparada.setString(3,objAlumno.getCodAlumno());
+			consultaPreparada.setInt(4,3);
+			consultaPreparada.setInt(5,2);
+			consultaPreparada.setBlob(6,archivo[0]);
+			consultaPreparada.execute();
 			
-			this.sql = "insert into alumnos(idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,idTipoUsuario,estado_acceso,imgPerfil)" +
+			this.sql = "insert into alumnos(idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,idTipoUsuario,estado_acceso,archivo)" +
 					   " values(?,?,?,?,?,?,?,?)";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,objAlumno.getCodAlumno());
@@ -135,7 +145,7 @@ public class Dao_Admin_Crud_Alumno {
 			consultaPreparada.setInt(5,objAlumno.getDniAlumno());
 			consultaPreparada.setInt(6,3);
 			consultaPreparada.setInt(7,2);
-			consultaPreparada.setString(8,foto);
+			consultaPreparada.setBlob(8,archivo[1]);
 			
 			consultaPreparada.execute();
 			
@@ -144,17 +154,6 @@ public class Dao_Admin_Crud_Alumno {
 			consultaPreparada.setString(1,objAlumno.getCodAlumno());
 			consultaPreparada.setString(2,objAlumno.getNomAlumno());
 			consultaPreparada.setString(3,objAlumno.getApeAlumno());
-			consultaPreparada.execute();
-			
-		
-			this.sql = "insert into usuario(nomUsuario,passUsuario,idInfoUsuario,idTipoUsuario,estado_acceso,imgPerfil) values(?,?,?,?,?,?)";
-			consultaPreparada = this.cn.prepareStatement(this.sql);
-			consultaPreparada.setString(1,objAlumno.getCodAlumno());
-			consultaPreparada.setString(2,"");
-			consultaPreparada.setString(3,objAlumno.getCodAlumno());
-			consultaPreparada.setInt(4,3);
-			consultaPreparada.setInt(5,2);
-			consultaPreparada.setString(6,foto);
 			consultaPreparada.execute();
 			
 			this.cn.close();
@@ -289,6 +288,5 @@ public int daoSetAccesoUsuario(String codigo, int valorEstado) {
 	
 	return cambioOk;
 }
-
 
 }

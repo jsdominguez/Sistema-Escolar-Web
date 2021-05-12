@@ -1,12 +1,13 @@
 package pkgModel;
 
+
 public class MdlUsuario {
 	
 	private String nombreUsuario;
 	private String apellidoUsuario;
 	private int idTipoUsuario;
 	private String tipoUsuarioString;
-	
+	private String codigo;
 	
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -33,6 +34,12 @@ public class MdlUsuario {
 		this.tipoUsuarioString = tipoUsuarioString;
 	}
 	
+	public String getCodigo() {
+		return codigo;
+	}
 	
-	
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 }

@@ -1,18 +1,15 @@
 package pkgController.administrador;
 
 
-import java.io.File;
-import java.util.ArrayList;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import pkgDao.administrador.Dao_Admin_Crud_Alumno;
-import pkgDao.administrador.Dao_Admin_Crud_Docente;
 import pkgModel.MdlAlumno;
-import pkgModel.MdlDocente;
 
 public class Ctrl_Admin_Crud_Alumno {
 	
@@ -66,14 +63,15 @@ public class Ctrl_Admin_Crud_Alumno {
 
 
 public static int ctrlRegisterAlumno(HttpServletRequest request) {
-		
+	
+	int codigoExitoOperacion = 0;
+	
+	try {
 		String nombre = request.getParameter("txtNombre");
 		String apellido = request.getParameter("txtApellido");
 		String edad = request.getParameter("txtEdad");
 		String dni = request.getParameter("txtDni");
 
-		int codigoExitoOperacion = 0;
-		
 		MdlAlumno objAlumno = new MdlAlumno();
 		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
 		
@@ -84,8 +82,16 @@ public static int ctrlRegisterAlumno(HttpServletRequest request) {
 		objAlumno.setEdadAlumno(Integer.parseInt(edad));
 		objAlumno.setDniAlumno(Integer.parseInt(dni));
 		
-		String foto = guadarArchivo(request,codigoGenerado);
-		codigoExitoOperacion = objDaoAlumno.daoRegistrarAlumno(objAlumno,foto);
+		Part fileForm = request.getPart("fileImagen");
+		InputStream imageBinary[] = new InputStream[2];
+		
+		if(fileForm.getSize()>0) {
+			imageBinary[0] = fileForm.getInputStream();
+			imageBinary[1] = fileForm.getInputStream();
+		}
+		codigoExitoOperacion = objDaoAlumno.daoRegistrarAlumno(objAlumno,imageBinary);
+	}catch(Exception e) { e.printStackTrace();}
+		
 		return codigoExitoOperacion;
 	}
 
@@ -130,55 +136,4 @@ public static int ctrlSetAccesoUsuario(HttpServletRequest request) {
 	return cambioOk;
 }
 
-private static String guadarArchivo(HttpServletRequest request,String codigoGenerado) {
-	
-	String UPLOAD_DIR = "C:/Users/Jhosep/Desktop/Eclipse/ProyectoIntegrador2/WebContent/Vistas/Administrador/Alumno/imgAlumnos/";
-	String foto="";
-	
-    try {
-    	
-    	File fileSaveDir = new File(UPLOAD_DIR);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdirs();
-        }
-        
-        //System.out.println("Upload File Directory="+fileSaveDir.getAbsolutePath());
-        
-        String extension = null;
-        
-        for (Part part : request.getParts()) {
-        	extension = obtenerArchivo(part);
-            if(extension!=""){
-            	//System.out.println(UPLOAD_DIR+ codigoGenerado+"."+extension);
-            	foto = codigoGenerado+"."+extension;
-            	part.write(UPLOAD_DIR+ codigoGenerado+"."+extension);
-            }
-        }
-        
-    }catch(Exception e) {
-    	e.printStackTrace();
-    	System.out.println("[*] ERROR : Ctrl_Admin_Crud_Alumno : guadarArchivo [*]");
-    }
-    
-    return foto;
-}
-
-private static String obtenerArchivo(Part part) {
-    
-	String contentDisp = part.getHeader("content-disposition");
-    //System.out.println("content-disposition header= "+contentDisp);
-    String[] tokens = contentDisp.split(";");
-    
-    for (String token : tokens) {
-        if (token.trim().startsWith("filename")) {
-        	
-            String fileName_extension = token.substring(token.indexOf("=") + 2, token.length()-1);
-            String extension = fileName_extension.split("\\.")[1];
-            return extension;
-        }
-    }
-    
-    return "";
-}
-	
 }

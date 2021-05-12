@@ -1,8 +1,11 @@
 package pkgDao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import pkgConexion.Conexion;
 import pkgModel.MdlUsuario;
 
@@ -80,7 +83,7 @@ public class DaoUsuario {
 		MdlUsuario objUsuario = null;
 		
 		try {
-			this.sql = "select inf.nombreUsuario,inf.apellidoUsuario,tuser.tipoUsuarioString,tuser.idTipoUsuario from infoUsuario inf" + 
+			this.sql = "select inf.nombreUsuario,inf.apellidoUsuario,tuser.tipoUsuarioString,tuser.idTipoUsuario,u.nomUsuario from infoUsuario inf" + 
 					   " inner join usuario u" + 
 					   " on inf.idInfUsuario=u.idInfoUsuario" + 
 					   " inner join tipoUsuario tuser" + 
@@ -97,6 +100,7 @@ public class DaoUsuario {
 				objUsuario.setApellidoUsuario(resultadoDatos.getString("apellidoUsuario"));
 				objUsuario.setTipoUsuarioString(resultadoDatos.getString("tipoUsuarioString"));
 				objUsuario.setIdTipoUsuario(resultadoDatos.getInt("idTipoUsuario"));
+				objUsuario.setCodigo(resultadoDatos.getString("nomUsuario"));
 			}
 		}catch(Exception e) {
 			System.out.println("[X] DAO 'DaoObtenerDatosLoguin' FALLIDA [X]");
@@ -109,4 +113,37 @@ public class DaoUsuario {
 		}
 		return objUsuario;
 	}
+	
+	public byte[] obtenerImagenPerfil(String codigo) {
+		
+		Conexion objConectar = new Conexion();
+		this.cn = objConectar.conectar();
+
+		byte[] ip = null;
+		
+		try {
+			
+			this.sql = "select archivo from usuario where nomUsuario=?";
+			consultaPreparada = this.cn.prepareCall(this.sql);
+			consultaPreparada.setString(1,codigo);		
+			this.resultadoDatos = consultaPreparada.executeQuery();
+			this.resultadoDatos.last();
+			ip = resultadoDatos.getBytes("archivo");
+			
+			this.cn.close();
+			
+		}catch(SQLException e){
+			
+			System.out.println("[X] DAO 'Usuario.obtenerImagenPerfil' FALLIDA [X]");
+			e.printStackTrace();
+			
+		}finally {
+			
+			objConectar.desconectar();
+			this.cn = null;
+		}
+		
+		return ip;
+	}
+	
 }
