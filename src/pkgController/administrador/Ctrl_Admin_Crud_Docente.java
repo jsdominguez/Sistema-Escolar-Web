@@ -1,8 +1,11 @@
 package pkgController.administrador;
 
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import pkgDao.administrador.Dao_Admin_Crud_Docente;
@@ -63,27 +66,42 @@ public class Ctrl_Admin_Crud_Docente {
 	
 	public static int ctrlRegisterDocente(HttpServletRequest request) {
 		
-		String nombre = request.getParameter("txtNombre");
-		String apellido = request.getParameter("txtApellido");
-		String edad = request.getParameter("txtEdad");
-		String dni = request.getParameter("txtDni");
-		String fechaNac = request.getParameter("txtFechaNac");
-
 		int codigoExitoOperacion = 0;
 		
-		MdlDocente objDocente = new MdlDocente();
-		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
-		
-		String codigoGenerado = objDaoDocente.daoGetGenerarCodigoDocente();
-		objDocente.setCodDocente(codigoGenerado);
-		objDocente.setNomDocente(nombre);
-		objDocente.setApeDocente(apellido);
-		objDocente.setEdadDocente(Integer.parseInt(edad));
-		objDocente.setDniDocente(Integer.parseInt(dni));
-		objDocente.setFechaNac(fechaNac);
+		try {
+			
+			String nombre = request.getParameter("txtNombre");
+			String apellido = request.getParameter("txtApellido");
+			String edad = request.getParameter("txtEdad");
+			String dni = request.getParameter("txtDni");
+			String fechaNac = request.getParameter("txtFechaNac");
 
-		codigoExitoOperacion = objDaoDocente.daoRegistrarDocente(objDocente);
+			MdlDocente objDocente = new MdlDocente();
+			Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+			
+			String codigoGenerado = objDaoDocente.daoGetGenerarCodigoDocente();
+			objDocente.setCodDocente(codigoGenerado);
+			objDocente.setNomDocente(nombre);
+			objDocente.setApeDocente(apellido);
+			objDocente.setEdadDocente(Integer.parseInt(edad));
+			objDocente.setDniDocente(Integer.parseInt(dni));
+			objDocente.setFechaNac(fechaNac);
+			
+			Part fileForm = request.getPart("fileImagen");
+			InputStream imageBinary[] = new InputStream[2];
+			
+			if(fileForm.getSize()>0) {
+				imageBinary[0] = fileForm.getInputStream();
+				imageBinary[1] = fileForm.getInputStream();
+			}
+			codigoExitoOperacion = objDaoDocente.daoRegistrarDocente(objDocente,imageBinary);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		return codigoExitoOperacion;
+
 	}
 	
 	public static int ctrlUpdateDocente(HttpServletRequest request) {

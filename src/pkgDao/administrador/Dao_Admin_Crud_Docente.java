@@ -1,6 +1,8 @@
 package pkgDao.administrador;
 
 import pkgConexion.Conexion;
+
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,17 +102,15 @@ public class Dao_Admin_Crud_Docente {
 	}
 	
 	
-	public int daoRegistrarDocente(MdlDocente objDocente) {
+	public int daoRegistrarDocente(MdlDocente objDocente,InputStream archivo[]) {
 		
-		//int idDocente = this.daoGetCountListDocente();
-		//idDocente +=1;
 		Conexion objConectar = new Conexion();
 		this.cn = objConectar.conectar();
 		
 		try {
 			
-			this.sql = "insert into docente(codDocente,nomDocente,apeDocente,edadDocente,dniDocente,fechaNac,idTipoUsuario,estado_acceso)" +
-					   " values(?,?,?,?,?,?,?,2)";
+			this.sql = "insert into docente(codDocente,nomDocente,apeDocente,edadDocente,dniDocente,fechaNac,idTipoUsuario,estado_acceso,archivo)" +
+					   " values(?,?,?,?,?,?,?,2,?)";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,objDocente.getCodDocente());
 			consultaPreparada.setString(2,objDocente.getNomDocente());
@@ -119,6 +119,7 @@ public class Dao_Admin_Crud_Docente {
 			consultaPreparada.setInt(5,objDocente.getDniDocente());
 			consultaPreparada.setString(6,objDocente.getFechaNac());
 			consultaPreparada.setInt(7,2);
+			consultaPreparada.setBlob(8,archivo[0]);
 			
 			consultaPreparada.execute();
 			
@@ -130,23 +131,29 @@ public class Dao_Admin_Crud_Docente {
 			consultaPreparada.execute();
 			
 		
-			this.sql = "insert into usuario(nomUsuario,passUsuario,idInfoUsuario,idTipoUsuario,estado_acceso) values(?,?,?,?,?)";
+			this.sql = "insert into usuario(nomUsuario,passUsuario,idInfoUsuario,idTipoUsuario,estado_acceso,archivo) values(?,?,?,?,?,?)";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,objDocente.getCodDocente());
 			consultaPreparada.setString(2,"");
 			consultaPreparada.setString(3,objDocente.getCodDocente());
 			consultaPreparada.setInt(4,2);
 			consultaPreparada.setInt(5,2);
+			consultaPreparada.setBlob(6,archivo[1]);
 			consultaPreparada.execute();
 			
 			this.cn.close();
+			
 		}catch(Exception e) {
+			
 			System.out.println("[X] DAO 'Docente.registrarDocente' FALLIDA [X]");
 			e.printStackTrace();
 			return 500;
+			
 		}finally {
+			
 			objConectar.desconectar();
 			this.cn = null;
+			
 		}
 		
 		return 200;

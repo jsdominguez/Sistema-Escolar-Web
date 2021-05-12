@@ -18,7 +18,7 @@ import pkgController.administrador.Ctrl_Admin_Crud_Docente;
 /**
  * Servlet implementation class CtrlAlumno
  */
-@MultipartConfig
+@MultipartConfig(maxFileSize = 16177215)    // upload file's size up to 16MB
 @WebServlet(name = "Srvlt_Admin_Crud_Docente" , urlPatterns = {"/Srvlt_Admin_Crud_Docente"})
 public class Srvlt_Admin_Crud_Docente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
