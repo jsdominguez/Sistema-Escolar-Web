@@ -78,33 +78,36 @@
                </div>
 
                <div class="form-group">
+                   <label class="col-md-3 control-label">Nivel</label>
+                   <div class="col-md-3 col-xs-6">                
+                        <select class="selectpicker combos form-control" name="selectNivel" id="selectNivel" title="Seleccione">
+                           <option value="P">Primaria</option>
+                           <option value="S">Secundaria</option>
+                       </select>
+                   </div>
+               </div>
+                                    
+
+               <div class="form-group">
                   <label class="col-md-3 col-xs-6 control-label">Grado / Seccion</label>
                   <div class="col-md-3 col-xs-6"> 
-                     <div class="input-group">
-                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                        <select name="selectGrado" id="selectGrado" class="form-control select">
-                           <option>Seleccion</option>
-                           <option value="GR001">1</option>
-                           <option value="GR002">2</option>
-                           <option value="GR003">3</option>
-                           <option value="GR004">4</option>
-                           <option value="GR005">5</option>
+                     <select disabled name="selectGrado" id="selectGrado" class="form-control combos selectpicker" title="Seleccione">
+                           <option value="1">1</option>
+                           <option value="2">2</option>
+                           <option value="3">3</option>
+                           <option value="4">4</option>
+                           <option value="5">5</option>
                        </select>
-                     </div>
                      <span class="help-block hidden">*Campo Requerido</span>
                   </div>
                   <div class="col-md-3 col-xs-6">
-                     <div class="input-group">
-                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                        <select name="selecSeccion" id="selecSeccion" class="form-control select">
-                           <option>Seleccion</option>
-                           <option value="SEC001">A</option>
-                           <option value="SEC002">B</option>
-                           <option value="SEC003">C</option>
-                           <option value="SEC004">D</option>
-                           <option value="SEC005">E</option>
+                     <select disabled name="selecSeccion" id="selecSeccion" class="form-control combos selectpicker" title="Seleccione">
+                           <option value="A">A</option>
+                           <option value="B">B</option>
+                           <option value="C">C</option>
+                           <option value="D">D</option>
+                           <option value="E">E</option>
                        </select>
-                     </div>
                      <span class="help-block hidden">*Campo Requerido</span>
                   </div>
                </div>

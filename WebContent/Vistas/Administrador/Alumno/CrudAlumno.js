@@ -1,21 +1,24 @@
 $(function() {
 
+  $('.combos').selectpicker();
+
   $('body').tooltip({
       selector: "[data-tooltip=tooltip]",
       container: "body"
   });
 
+
 	var tblAlumno = $('#tblAlumno').DataTable({
 	    "filter": true,
    		"searching": true,
-        /*"processing": true,*/
+        "processing": true,
         /*"serverSide": true,*/
         "ajax": {
             url: "/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno",
             type: "POST",
 			      dataSrc: "datos",
             data: {
-                "metodo": "ctrlListarAlumno"
+                "metodo": "ctrlListarAlumno",
             }
         },
 		columns: [
@@ -24,24 +27,24 @@ $(function() {
 			      {"data": "Apellido"},
 			      {"data": "Edad"},
             {"data": "Dni"},
+            {"data": "grado"},
+            {"data": "seccion"},
+            {"data": "nivel"},
             {"data": "Acceso"},
             {"data": "acciones"}
-		],/*
+		],
         columnDefs: [{
-            "orderable": true,
-            "targets": 1
-        }, {
-            "targets": [0], //oculta columna pero estara disponible para su seleccion
+            "targets": [5,6,7], //oculta columna pero estara disponible para su seleccion
             "visible": false,
             "searchable": false
-        }],*/
+        }],
         language: {
             search: "Buqueda:",
             lengthMenu: "Mostrar _MENU_ registros",
-            zeroRecords: "Ningún Dato Disponible",
+            zeroRecords: "Ningun Dato Disponible",
             info: "_START_ al _END_ de _TOTAL_ registros",
-            loadingRecords: "Cargando..",
-            processing: "Procesando",
+            loadingRecords: "<img src='ajax-loader.gif'/>",
+            processing: "<img src='ajax-loader.gif'/>",
             sInfoEmpty: " 0 al 0 de 0 registros",
             sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
             oPaginate: {
@@ -57,18 +60,23 @@ $(function() {
 
   $("#btnModalRegistrar").click(function(){
         document.getElementById("frmModalRegistroAlumno").reset();
+        fnRrefreshSelect();
         $("#frmModalRegistroId").css("display","none");
         $("#opcRegisterorUpdate").val(1);
   });
 
   $('#tblAlumno tbody').on( 'click', '#btnEditDatosModalAlumno', function () {
         document.getElementById("frmModalRegistroAlumno").reset();
+        fnRrefreshSelect();
         var datosFila = tblAlumno.row($(this).parents("tr")).data();
         var idAlumno = datosFila.Codigo;
         var txtNombre = datosFila.Nombre;
         var txtApellido = datosFila.Apellido;
         var txtEdad = datosFila.Edad;
         var txtDni = datosFila.Dni;
+        var selectGrado = datosFila.grado;
+        var selectSeccion = datosFila.seccion;
+        var selectNivel = datosFila.nivel;
 
         $("#frmModalRegistroId").css("display","block");
         $("#opcRegisterorUpdate").val(2);
@@ -77,6 +85,9 @@ $(function() {
         $("#txtApellido").val(txtApellido);
         $("#txtEdad").val(txtEdad);
         $("#txtDni").val(txtDni);
+        $('#selectGrado').selectpicker('val',selectGrado);
+        $('#selecSeccion').selectpicker('val',selectSeccion);
+        $('#selectNivel').selectpicker('val',selectNivel);
     } );
 
   $("#btnSubmitFrmRegistro").click(function(){
@@ -135,6 +146,18 @@ $(function() {
     })
 
 
+    
+
+    $("#selectNivel").on("change",function(){
+      
+        $('#selectGrado').prop('disabled', false);
+        $('#selectGrado').selectpicker('refresh');
+
+        $('#selecSeccion').prop('disabled', false);
+        $('#selecSeccion').selectpicker('refresh');
+
+    })
+
 
   /*******  FUNCIONES ******/
 
@@ -148,7 +171,7 @@ $(function() {
             contentType: false,
              processData: false
     }).done(function(response) {
-              fnShowResponse(response);
+            fnShowResponse(response);
     });
 
   }
@@ -201,5 +224,11 @@ $(function() {
     }
   }
 
+
+  function fnRrefreshSelect(){
+     $('#selectNivel').selectpicker('refresh');
+     $('#selectGrado').selectpicker('refresh');
+     $('#selecSeccion').selectpicker('refresh');
+  }
 
 });

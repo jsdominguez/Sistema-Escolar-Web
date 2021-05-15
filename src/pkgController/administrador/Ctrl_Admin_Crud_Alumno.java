@@ -40,6 +40,9 @@ public class Ctrl_Admin_Crud_Alumno {
 			item.addProperty("Apellido",o.getApeAlumno());
 			item.addProperty("Edad",o.getEdadAlumno());
 			item.addProperty("Dni",o.getDniAlumno());
+			item.addProperty("grado",o.getGrado());
+			item.addProperty("seccion",o.getSeccion());
+			item.addProperty("nivel",o.getNivel());
 			if(o.getEstado_acceso() == 1) {  estado_acceso = "checked"; }
 			if(o.getEstado_acceso() == 2 ) { estado_acceso = "disabled";  }
 			btnSwitchAccess = "<label class='switch switch-small'>" + 
@@ -71,6 +74,10 @@ public static int ctrlRegisterAlumno(HttpServletRequest request) {
 		String apellido = request.getParameter("txtApellido");
 		String edad = request.getParameter("txtEdad");
 		String dni = request.getParameter("txtDni");
+		String grado = request.getParameter("selectGrado");
+		String seccion = request.getParameter("selecSeccion");
+		String nivel = request.getParameter("selectNivel");
+		
 
 		MdlAlumno objAlumno = new MdlAlumno();
 		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
@@ -81,6 +88,9 @@ public static int ctrlRegisterAlumno(HttpServletRequest request) {
 		objAlumno.setApeAlumno(apellido);
 		objAlumno.setEdadAlumno(Integer.parseInt(edad));
 		objAlumno.setDniAlumno(Integer.parseInt(dni));
+		objAlumno.setGrado(Integer.parseInt(grado));
+		objAlumno.setSeccion(seccion);
+		objAlumno.setNivel(nivel);
 		
 		Part fileForm = request.getPart("fileImagen");
 		InputStream imageBinary[] = new InputStream[2];
@@ -102,6 +112,8 @@ public static int ctrlUpdateAlumno(HttpServletRequest request) {
 	String apellido = request.getParameter("txtApellido");
 	String edad = request.getParameter("txtEdad");
 	String dni = request.getParameter("txtDni");
+	String grado = request.getParameter("selectGrado");
+	String seccion = request.getParameter("selecSeccion");
 	
 	int codigoExitoOperacion = 0;
 	
@@ -113,6 +125,8 @@ public static int ctrlUpdateAlumno(HttpServletRequest request) {
 	objAlumno.setApeAlumno(apellido);
 	objAlumno.setEdadAlumno(Integer.parseInt(edad));
 	objAlumno.setDniAlumno(Integer.parseInt(dni));
+	objAlumno.setGrado(Integer.parseInt(grado));
+	objAlumno.setSeccion(seccion);
 
 	codigoExitoOperacion = objDaoAlumno.daoUpdateAlumno(objAlumno);
 	return codigoExitoOperacion;

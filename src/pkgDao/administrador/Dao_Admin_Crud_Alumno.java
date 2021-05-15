@@ -88,7 +88,7 @@ public class Dao_Admin_Crud_Alumno {
 		
 		try {
 			
-			this.sql = "select idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,estado_acceso,archivo from alumnos";
+			this.sql = "select idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,estado_acceso,archivo,grado,seccion,nivel from alumnos";
 			consultaPreparada = this.cn.prepareCall(this.sql);
 			resultadoDatos = consultaPreparada.executeQuery();
 			
@@ -99,7 +99,10 @@ public class Dao_Admin_Crud_Alumno {
 				objAlumno.setApeAlumno(resultadoDatos.getString("apeAlumno"));
 				objAlumno.setEdadAlumno(resultadoDatos.getInt("edadAlumno"));
 				objAlumno.setDniAlumno(resultadoDatos.getInt("dniAlumno"));
+				objAlumno.setGrado(resultadoDatos.getInt("grado"));
+				objAlumno.setSeccion(resultadoDatos.getString("seccion"));
 				objAlumno.setEstado_acceso(resultadoDatos.getInt("estado_acceso"));
+				objAlumno.setNivel(resultadoDatos.getString("nivel"));
 				arrAlumno.add(objAlumno);
 			}
 			
@@ -135,8 +138,8 @@ public class Dao_Admin_Crud_Alumno {
 			consultaPreparada.setBlob(6,archivo[0]);
 			consultaPreparada.execute();
 			
-			this.sql = "insert into alumnos(idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,idTipoUsuario,estado_acceso,archivo)" +
-					   " values(?,?,?,?,?,?,?,?)";
+			this.sql = "insert into alumnos(idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,idTipoUsuario,estado_acceso,archivo,grado,seccion,nivel)" +
+					   " values(?,?,?,?,?,?,?,?,?,?,?)";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,objAlumno.getCodAlumno());
 			consultaPreparada.setString(2,objAlumno.getNomAlumno());
@@ -146,6 +149,9 @@ public class Dao_Admin_Crud_Alumno {
 			consultaPreparada.setInt(6,3);
 			consultaPreparada.setInt(7,2);
 			consultaPreparada.setBlob(8,archivo[1]);
+			consultaPreparada.setInt(9,objAlumno.getGrado());
+			consultaPreparada.setString(10,objAlumno.getSeccion());
+			consultaPreparada.setString(11,objAlumno.getNivel());
 			
 			consultaPreparada.execute();
 			
@@ -177,14 +183,16 @@ public int daoUpdateAlumno(MdlAlumno objAlumno) {
 		
 		try {
 			
-			this.sql = "update alumnos set nomAlumno = ? ,apeAlumno = ?,edadAlumno = ?,dniAlumno = ?"+
+			this.sql = "update alumnos set nomAlumno = ? ,apeAlumno = ?,edadAlumno = ?,dniAlumno = ? , grado = ? , seccion = ?"+
 					   " where idAlumno = ?";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,objAlumno.getNomAlumno());
 			consultaPreparada.setString(2,objAlumno.getApeAlumno());
 			consultaPreparada.setInt(3,objAlumno.getEdadAlumno());
 			consultaPreparada.setInt(4,objAlumno.getDniAlumno());
-			consultaPreparada.setString(5,objAlumno.getCodAlumno());
+			consultaPreparada.setInt(5,objAlumno.getGrado());
+			consultaPreparada.setString(6,objAlumno.getSeccion());
+			consultaPreparada.setString(7,objAlumno.getCodAlumno());
 			
 			consultaPreparada.execute();
 			

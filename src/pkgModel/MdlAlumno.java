@@ -11,8 +11,11 @@ public class MdlAlumno {
 	private int dniAlumno;
 	private String fechaNac;
 	private int idTipoUsuario;
+	private String seccion;
+	private int grado;
 	private int estado_acceso;
 	private InputStream archivo;
+	private String nivel;
 
 	public MdlAlumno() {}
 
@@ -123,5 +126,34 @@ public class MdlAlumno {
 	public void setArchivo(InputStream archivo) {
 		this.archivo = archivo;
 	}
+
+	public String getSeccion() {
+		return seccion;
+	}
+
+	public void setSeccion(String seccion) {
+		this.seccion = seccion;
+	}
+
+	public int getGrado() {
+		return grado;
+	}
+
+	public void setGrado(int grado) {
+		this.grado = grado;
+	}
+
+
+
+	public String getNivel() {
+		return nivel;
+	}
+
+
+
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
+	}
+	
 	
 }

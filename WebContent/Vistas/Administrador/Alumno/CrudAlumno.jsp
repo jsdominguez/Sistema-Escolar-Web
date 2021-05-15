@@ -11,6 +11,7 @@
         <!-- END META SECTION -->
 
         <%@ include file="../../includes/dashboard/LibreriasCss.jsp" %>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap-select/dist/css/bootstrap-select.css">
         
     </head>
 
@@ -59,6 +60,9 @@
 		                                 <th class="text-center" data-priority="2">Apellido</th>
 		                                 <th class="text-center">Edad</th>
 		                                 <th class="text-center">Dni</th>
+                                         <th class="text-center">grado</th>
+                                         <th class="text-center">seccion</th>
+                                         <th class="text-center">nivel</th>
                                          <th class="text-center">Acceso</th>
 		                                 <th class="text-center">acciones</th>
 		                           </thead>

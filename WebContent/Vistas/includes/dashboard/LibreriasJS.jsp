@@ -41,4 +41,4 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-file-input.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-select.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
