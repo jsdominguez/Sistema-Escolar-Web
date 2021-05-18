@@ -3,7 +3,6 @@ package pkgServlet.administrador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.pusher.rest.Pusher;
 
 import pkgController.administrador.Ctrl_Admin_Crud_Alumno;
 
@@ -71,9 +69,10 @@ public class Srvlt_Admin_Crud_Alumno extends HttpServlet {
 				tipoRespuesta = "text/html";
 				res = Ctrl_Admin_Crud_Alumno.ctrlSetAccesoUsuario(request);
 			break;
-				//Ctrl_Admin_Crud_Alumno.ctrlObtenerImagenPerfil(request,response);
 		}
+		
 		response.setContentType(tipoRespuesta);
 		out.print(res);
+		
 	}
 }

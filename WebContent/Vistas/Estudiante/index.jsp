@@ -19,6 +19,8 @@
    </style>
    <body>
 
+      <div id="loader" class="center"></div> 
+      
       <div class="page-container">
          
          <!-- Barra lateral -->

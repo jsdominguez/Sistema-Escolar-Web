@@ -1,10 +1,37 @@
  <!-- CSS INCLUDE -->  
- 		
+ 			<style>
+        #loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444444;
+            width: 70px;
+            height: 70px;
+            animation: spin 1s linear infinite;
+        }
+          
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+          
+        .center {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+ 		</style>
  		<link rel="stylesheet" type="text/css" id="theme" href="${pageContext.request.contextPath}/Vistas/Resources/dashboard/css/theme-default.css"/>
  		
  		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/datatables/DataTables-1.10.24/css/dataTables.bootstrap.min.css"/>
 
  		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/datatables/Responsive-2.2.7/css/responsive.bootstrap.min.css"/> 
+
+ 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/waitme/waitMe.min.css"/> 
 
 		<style type="text/css">
 				@font-face {

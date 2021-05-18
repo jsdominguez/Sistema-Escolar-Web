@@ -5,7 +5,7 @@
 
 <html lang="en">
    <head>
-   
+
  	  <%@ include file="../includes/dashboard/header.jsp" %>
       
       <!-- END META SECTION -->
@@ -21,7 +21,9 @@
    </style>
 
    <body>
-
+      
+      <div id="loader" class="center"></div> 
+      
       <div class="page-container">
          
          <!-- Barra lateral -->

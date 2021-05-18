@@ -27,8 +27,8 @@ public class Ctrl_Admin_Crud_Alumno {
 		
 		arrObjAlumno  = objDaoAlumno.daoGetListaAlumno();
 
-		String btnEditar = "<button type='button' id='btnEditDatosModalAlumno' class='btn btn-info btn-square' data-toggle='modal' data-target='#modalRegisterOrUpdate' data-tooltip='tooltip' data-placement='bottom' title='Editar'><span class='fa fa-edit'></span></button>";
-		String btnSetCredentials = "<button type='button' id='btnShowModalCredentials' class='btn btn-default btn-square' data-toggle='modal' data-target='#mdlSetCredentialAlumno' data-tooltip='tooltip' data-placement='bottom' title='Credenciales'><span class='fa fa-user'></span></button>";
+		String btnEditar = "<button type='button' id='btnEditDatosModalAlumno' class='btn btn-info btn-square' data-toggle='modal' data-target='#modalRegisterOrUpdate'><span data-toggle='tooltip' data-placement='bottom' title='Editar' class='fa fa-edit'></span></button>";
+		String btnSetCredentials = "<button type='button' id='btnShowModalCredentials' class='btn btn-default btn-square' data-toggle='modal' data-target='#mdlSetCredentialAlumno'><span data-toggle='tooltip' data-placement='bottom' title='Credenciales' class='fa fa-user'></span></button>";
 		String btnSwitchAccess = "";
 		String columnAcciones = btnEditar+btnSetCredentials;
 		
@@ -65,89 +65,92 @@ public class Ctrl_Admin_Crud_Alumno {
 
 
 
-public static int ctrlRegisterAlumno(HttpServletRequest request) {
+	public static int ctrlRegisterAlumno(HttpServletRequest request) {
 	
-	int codigoExitoOperacion = 0;
+		int codigoExitoOperacion = 0;
 	
-	try {
+		try {
+			String nombre = request.getParameter("txtNombre");
+			String apellido = request.getParameter("txtApellido");
+			String edad = request.getParameter("txtEdad");
+			String dni = request.getParameter("txtDni");
+			String grado = request.getParameter("selectGrado");
+			String seccion = request.getParameter("selecSeccion");
+			String nivel = request.getParameter("selectNivel");
+			
+	
+			MdlAlumno objAlumno = new MdlAlumno();
+			Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
+			
+			String codigoGenerado = objDaoAlumno.daoGetGenerarCodigoAlumno();
+			objAlumno.setCodAlumno(codigoGenerado);
+			objAlumno.setNomAlumno(nombre);
+			objAlumno.setApeAlumno(apellido);
+			objAlumno.setEdadAlumno(Integer.parseInt(edad));
+			objAlumno.setDniAlumno(Integer.parseInt(dni));
+			objAlumno.setGrado(Integer.parseInt(grado));
+			objAlumno.setSeccion(seccion);
+			objAlumno.setNivel(nivel);
+			
+			Part fileForm = request.getPart("fileImagen");
+			InputStream imageBinary[] = new InputStream[2];
+			
+			if(fileForm.getSize()>0) {
+				imageBinary[0] = fileForm.getInputStream();
+				imageBinary[1] = fileForm.getInputStream();
+			}
+			
+			codigoExitoOperacion = objDaoAlumno.daoRegistrarAlumno(objAlumno,imageBinary);
+		
+		}catch(Exception e) { e.printStackTrace();	}
+			
+			return codigoExitoOperacion;
+	}
+
+	public static int ctrlUpdateAlumno(HttpServletRequest request) {
+		
+		String codAlumno = request.getParameter("txtCodigo");
 		String nombre = request.getParameter("txtNombre");
 		String apellido = request.getParameter("txtApellido");
 		String edad = request.getParameter("txtEdad");
 		String dni = request.getParameter("txtDni");
 		String grado = request.getParameter("selectGrado");
 		String seccion = request.getParameter("selecSeccion");
-		String nivel = request.getParameter("selectNivel");
 		
-
+		int codigoExitoOperacion = 0;
+		
 		MdlAlumno objAlumno = new MdlAlumno();
 		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
 		
-		String codigoGenerado = objDaoAlumno.daoGetGenerarCodigoAlumno();
-		objAlumno.setCodAlumno(codigoGenerado);
+		objAlumno.setCodAlumno(codAlumno);
 		objAlumno.setNomAlumno(nombre);
 		objAlumno.setApeAlumno(apellido);
 		objAlumno.setEdadAlumno(Integer.parseInt(edad));
 		objAlumno.setDniAlumno(Integer.parseInt(dni));
 		objAlumno.setGrado(Integer.parseInt(grado));
 		objAlumno.setSeccion(seccion);
-		objAlumno.setNivel(nivel);
-		
-		Part fileForm = request.getPart("fileImagen");
-		InputStream imageBinary[] = new InputStream[2];
-		
-		if(fileForm.getSize()>0) {
-			imageBinary[0] = fileForm.getInputStream();
-			imageBinary[1] = fileForm.getInputStream();
-		}
-		codigoExitoOperacion = objDaoAlumno.daoRegistrarAlumno(objAlumno,imageBinary);
-	}catch(Exception e) { e.printStackTrace();}
-		
+	
+		codigoExitoOperacion = objDaoAlumno.daoUpdateAlumno(objAlumno);
 		return codigoExitoOperacion;
 	}
-
-public static int ctrlUpdateAlumno(HttpServletRequest request) {
 	
-	String codAlumno = request.getParameter("txtCodigo");
-	String nombre = request.getParameter("txtNombre");
-	String apellido = request.getParameter("txtApellido");
-	String edad = request.getParameter("txtEdad");
-	String dni = request.getParameter("txtDni");
-	String grado = request.getParameter("selectGrado");
-	String seccion = request.getParameter("selecSeccion");
 	
-	int codigoExitoOperacion = 0;
+	public static int ctrlSetCredentialAlumno(HttpServletRequest request) {
+		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
+		String codigo = request.getParameter("txtCod");
+		String pass = request.getParameter("txtPass");
+		int codigoExitoOperacion = 0;
+		codigoExitoOperacion = objDaoAlumno.daoSetCredentialAlumno(codigo,pass);
+		return codigoExitoOperacion;
+	}
 	
-	MdlAlumno objAlumno = new MdlAlumno();
-	Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
-	
-	objAlumno.setCodAlumno(codAlumno);
-	objAlumno.setNomAlumno(nombre);
-	objAlumno.setApeAlumno(apellido);
-	objAlumno.setEdadAlumno(Integer.parseInt(edad));
-	objAlumno.setDniAlumno(Integer.parseInt(dni));
-	objAlumno.setGrado(Integer.parseInt(grado));
-	objAlumno.setSeccion(seccion);
-
-	codigoExitoOperacion = objDaoAlumno.daoUpdateAlumno(objAlumno);
-	return codigoExitoOperacion;
-}
-
-
-public static int ctrlSetCredentialAlumno(HttpServletRequest request) {
-	Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
-	String codigo = request.getParameter("txtCod");
-	String pass = request.getParameter("txtPass");
-	int codigoExitoOperacion = 0;
-	codigoExitoOperacion = objDaoAlumno.daoSetCredentialAlumno(codigo,pass);
-	return codigoExitoOperacion;
-}
-
-public static int ctrlSetAccesoUsuario(HttpServletRequest request) {
-	Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
-	String codigo = request.getParameter("codAlumno");
-	String valorEstado = request.getParameter("valorEstado");
-	int cambioOk = objDaoAlumno.daoSetAccesoUsuario(codigo, Integer.parseInt(valorEstado));
-	return cambioOk;
-}
+	public static int ctrlSetAccesoUsuario(HttpServletRequest request) {
+		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
+		String codigo = request.getParameter("codAlumno");
+		String valorEstado = request.getParameter("valorEstado");
+		int parseValorEstado = Integer.parseInt(valorEstado);
+		int cambioOk = objDaoAlumno.daoSetAccesoUsuario(codigo,parseValorEstado);
+		return cambioOk;
+	}
 
 }

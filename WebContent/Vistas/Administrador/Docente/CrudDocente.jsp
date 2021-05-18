@@ -1,3 +1,4 @@
+
 <%@ include file="../../includes/validarSesion.jsp" %>
 
 <!DOCTYPE html>
@@ -5,7 +6,6 @@
 <html lang="en">
     
     <head>
-        
         <%@ include file="../../includes/dashboard/header.jsp" %>
 
         <!-- END META SECTION -->
@@ -13,9 +13,11 @@
         <%@ include file="../../includes/dashboard/LibreriasCss.jsp" %>
 
     </head>
-
+   
     <body>
-
+ 		
+ 		<div id="loader" class="center"></div> 
+        
         <div class="page-container">
             
             <!-- Barra lateral -->
@@ -40,17 +42,20 @@
                 <%@ include file="../../includes/dashboard/ruta.jsp" %>
 
                 <!-- area de contenido -->
-                <div class="page-content-wrap" style="background-color: #f1f1f0 !important;">
+                <div class="page-content-wrap" style="background-color: #f1f1f0 !important;" id="contenido">
                     
                     <div class="row">
                         
                         <div class="panel-body">
                             
+                            
                             <div class="col-md-12">
                                 
                                 <div id="alertMessageResponse"></div>
-                               
-                                <button type="button" class="btn btn-primary" id="btnModalRegistrar" data-toggle="modal" data-target="#modalRegisterOrUpdate">Registrar</button>
+
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary" id="btnModalRegistrar" data-toggle="modal" data-target="#modalRegisterOrUpdate">Registrar</button>
+                                 </div>
 
                                 <table id="tblDocente" class="table table-bordered dt-responsive text-center">
                                     <thead>

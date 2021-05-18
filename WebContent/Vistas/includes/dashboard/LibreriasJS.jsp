@@ -1,7 +1,32 @@
 
-<script type="text/javascript"></script>
+<script type="text/javascript">
+  
+  document.onreadystatechange = function() {
+        
+    if (document.readyState !== "complete") {
+        
+        document.querySelector("body").style.visibility = "hidden";
+        document.querySelector("#loader").style.visibility = "visible";
+                     
+      
+    } else {
+
+       setTimeout(function () {
+       
+         document.querySelector("#loader").style.visibility = "visible";
+         document.querySelector("body").style.visibility = "visible";
+        
+      }, 1000); 
+       
+    }
+
+  };
+
+</script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/jquery/jquery.min.js"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/waitme/waitMe.min.js"></script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/jquery/jquery-ui.min.js"></script>
 
@@ -39,6 +64,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-timepicker.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-colorpicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-file-input.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-select.js"></script>
+<!--<script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/bootstrap/bootstrap-select.js"></script>-->
 <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/Resources/dashboard/js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
