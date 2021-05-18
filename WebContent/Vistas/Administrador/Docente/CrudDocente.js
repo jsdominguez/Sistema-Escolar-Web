@@ -5,11 +5,12 @@ $("document").ready(function () {
 	var tblDocente = $('#tblDocente').DataTable({
 	    "filter": true,
    		"searching": true,
+      "responsive" : true,
       	//"processing": true,
         /*"serverSide": true,*/
       	"ajax": {
 	          
-	          url: 		"/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente",
+	          url: 		"/ProyectoIntegrador2/Srvlt_Crud_Docente",
 	          type: 	"POST",
 			  dataSrc: 	"datos",
 	          data: {
@@ -157,7 +158,7 @@ $("document").ready(function () {
 
     $.ajax({
 
-            url: "/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente",
+            url: "/ProyectoIntegrador2/Srvlt_Crud_Docente",
             type: "POST",
             data: formData,
             cache: false,
@@ -195,7 +196,7 @@ $("document").ready(function () {
         
       $('#modalRegisterOrUpdate').modal('hide')    
       
-      tblDocente.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Docente?metodo=ctrlListarDocente').load();
+      tblDocente.ajax.url( '/ProyectoIntegrador2/Srvlt_Crud_Docente?metodo=ctrlListarDocente').load();
       
       var tipoAlert = "<div class='alert alert-danger' "; 
       var msg = "<strong>Error!</strong> Ha ocurrido un evento inesperado internamente .</div>";

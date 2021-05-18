@@ -55,26 +55,18 @@
 		                       
 		                        <button type="button" class="btn btn-primary" id="btnModalRegistrar" data-toggle='modal' data-target='#modalRegisterOrUpdate'>Registrar</button>
 		                        
-		                        <table id="tblAlumno" class="table responsive dt-responsive text-center" width="100%">
+		                        <table id="tblCursos" class="table responsive dt-responsive text-center" width="100%">
 		                           <thead>
-		                                 <th class="text-center" data-priority="1">Codigo</th>
-		                                 <th class="text-center" data-priority="2">Nombre</th>
-		                                 <th class="text-center">Apellido</th>
-		                                 <th class="text-center">Edad</th>
-		                                 <th class="text-center">Dni</th>
-                                         <th class="text-center">grado</th>
-                                         <th class="text-center">seccion</th>
-                                         <th class="text-center">nivel</th>
-                                         <th class="text-center">Acceso</th>
-		                                 <th class="text-center" data-priority="3">acciones</th>
+		                                 <th class="text-center">Codigo</th>
+		                                 <th class="text-center">Curso</th>
+		                                 <th class="text-center">Nivel</th>
 		                           </thead>
 		                        </table>
 
 		                    </div>
 
 		                 	<!-- modals -->
-					      	 <%@ include file="../Modals/modal_Register_Update_Alumno.jsp" %>
-					         <%@ include file="../Modals/modal_Register_Credencial_Alumno.jsp" %>
+					      	 <%@ include file="../Modals/modal_Register_Update_Cursos.jsp" %>
                             <!-- Fin modal -->
 
                         </div>
@@ -91,6 +83,6 @@
     </body>
 
     <%@ include file="../../includes/dashboard/LibreriasJS.jsp" %>
-	<script type="text/javascript" src="CrudAlumno.js"></script>
+	<script type="text/javascript" src="CrudCursos.js"></script>
 </html>
 

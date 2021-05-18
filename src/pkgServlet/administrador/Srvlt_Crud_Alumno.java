@@ -1,8 +1,8 @@
 package pkgServlet.administrador;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,22 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonObject;
 
-import pkgController.administrador.Ctrl_Admin_Crud_Docente;
+import pkgController.administrador.Ctrl_Crud_Alumno;
 
 /**
  * Servlet implementation class CtrlAlumno
  */
 @MultipartConfig(maxFileSize = 16177215)    // upload file's size up to 16MB
-@WebServlet(name = "Srvlt_Admin_Crud_Docente" , urlPatterns = {"/Srvlt_Admin_Crud_Docente"})
-public class Srvlt_Admin_Crud_Docente extends HttpServlet {
+@WebServlet(name = "Srvlt_Crud_Alumno" , urlPatterns = {"/Srvlt_Crud_Alumno"})
+public class Srvlt_Crud_Alumno extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Srvlt_Admin_Crud_Docente() {
+    public Srvlt_Crud_Alumno() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +35,6 @@ public class Srvlt_Admin_Crud_Docente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -51,35 +49,30 @@ public class Srvlt_Admin_Crud_Docente extends HttpServlet {
 		String tipoRespuesta = null;
 		
 		switch(metodo) {
-			case "ctrlListarDocente":
+			case "ctrlListarAlumno":
 				tipoRespuesta = "application/json";
-				res = Ctrl_Admin_Crud_Docente.ctrlListarDocente().toString();
+				res = Ctrl_Crud_Alumno.ctrlListarAlumno().toString();
 			break;
-			case "ctrlRegisterDocente":
+			case "ctrlRegisterAlumno":
 				tipoRespuesta = "text/html";
-				res = Ctrl_Admin_Crud_Docente.ctrlRegisterDocente(request);
+				res = Ctrl_Crud_Alumno.ctrlRegisterAlumno(request);
 				break;
-			case "ctrlUpdateDocente":
+			case "ctrlUpdateAlumno":
 				tipoRespuesta = "text/html";
-				res = Ctrl_Admin_Crud_Docente.ctrlUpdateDocente(request);
+				res = Ctrl_Crud_Alumno.ctrlUpdateAlumno(request);
 			break;
-			case "ctrlEliminarAlumno":
+			case "ctrlSetCredentialAlumno":
 				tipoRespuesta = "text/html";
-				String idAlumno = request.getParameter("idAlumno");
-				res = Ctrl_Admin_Crud_Docente.ctrlEliminarDocente(idAlumno);
-			break;
-			case "ctrlSetCredentialDocentes":
-				tipoRespuesta = "text/html";
-				res = Ctrl_Admin_Crud_Docente.ctrlSetCredentialDocentes(request);
+				res = Ctrl_Crud_Alumno.ctrlSetCredentialAlumno(request);
 			break;
 			case "ctrlSetAccesoUsuario":
 				tipoRespuesta = "text/html";
-				res = Ctrl_Admin_Crud_Docente.ctrlSetAccesoUsuario(request);
+				res = Ctrl_Crud_Alumno.ctrlSetAccesoUsuario(request);
 			break;
 		}
 		
 		response.setContentType(tipoRespuesta);
 		out.print(res);
+		
 	}
-
 }

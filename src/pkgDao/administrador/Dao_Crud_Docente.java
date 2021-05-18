@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import pkgModel.MdlDocente;
 
-public class Dao_Admin_Crud_Docente {
+public class Dao_Crud_Docente {
 	
 	Connection cn;
 	PreparedStatement consultaPreparada;

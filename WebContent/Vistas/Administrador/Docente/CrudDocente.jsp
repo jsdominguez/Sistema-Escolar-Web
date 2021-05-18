@@ -57,24 +57,24 @@
                                     <button type="button" class="btn btn-primary" id="btnModalRegistrar" data-toggle="modal" data-target="#modalRegisterOrUpdate">Registrar</button>
                                  </div>
 
-                                <table id="tblDocente" class="table table-bordered dt-responsive text-center">
+                                <table id="tblDocente" class="table responsive dt-responsive text-center" width="100%">
                                     <thead>
-                                        <th class="text-center">Codigo</th>
-                                        <th class="text-center" data-priority="1">Nombre</th>
-                                        <th class="text-center" data-priority="2">Apellido</th>
+                                        <th class="text-center" data-priority="1">Codigo</th>
+                                        <th class="text-center" data-priority="2">Nombre</th>
+                                        <th class="text-center" data-priority="3">Apellido</th>
                                         <th class="text-center">Edad</th>
                                         <th class="text-center">Dni</th>
                                         <th class="text-center">FechaNac</th>
                                         <th class="text-center">Acceso</th>
-                                        <th class="text-center">Acciones</th>
+                                        <th class="text-center" data-priority="4">Acciones</th>
                                     </thead>
                                 </table>
 
                             </div>
 
                             <!-- modals -->
-                            <%@ include file="../Modals/modalRegister_Update_Docente.jsp" %> 
-                            <%@ include file="../Modals/modalSetCredencialDocente.jsp" %>
+                            <%@ include file="../Modals/modal_Register_Update_Docente.jsp" %> 
+                            <%@ include file="../Modals/modal_Register_Credencial_Docente.jsp" %>
                             <!-- Fin modal -->
                             
                         </div>

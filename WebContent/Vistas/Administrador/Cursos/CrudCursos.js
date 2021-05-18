@@ -4,14 +4,14 @@ $(function() {
 
   $('[data-toggle="tooltip"]').tooltip(); 
 
-	var tblAlumno = $('#tblAlumno').DataTable({
+	var tblCursos = $('#tblCursos').DataTable({
 	    "filter": true,
    		"searching": true,
       "responsive" : true,
       //"processing": true,
         /*"serverSide": true,*/
       "ajax": {      
-          url: 		  "/ProyectoIntegrador2/Srvlt_Crud_Alumno",
+          url: 		  "/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno",
           type: 		"POST",
 		      dataSrc: 	"datos",
           data: {
@@ -169,7 +169,7 @@ $(function() {
 
     $.ajax({
 
-            url: "/ProyectoIntegrador2/Srvlt_Crud_Alumno",
+            url: "/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno",
             type: "POST",
             data: formData,
             cache: false,
@@ -206,7 +206,7 @@ $(function() {
         
       $('#modalRegisterOrUpdate').modal('hide')    
       
-      tblAlumno.ajax.url( '/ProyectoIntegrador2/Srvlt_Crud_Alumno?metodo=ctrlListarAlumno').load();
+      tblAlumno.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno?metodo=ctrlListarAlumno').load();
       
        var tipoAlert = "<div class='alert alert-danger' "; 
       var msg = "<strong>Error!</strong> Ha ocurrido un evento inesperado internamente .</div>";

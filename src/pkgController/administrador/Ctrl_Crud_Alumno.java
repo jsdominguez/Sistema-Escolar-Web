@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import pkgDao.administrador.Dao_Admin_Crud_Alumno;
+import pkgDao.administrador.Dao_Crud_Alumno;
 import pkgModel.MdlAlumno;
 
-public class Ctrl_Admin_Crud_Alumno {
+public class Ctrl_Crud_Alumno {
 	
 	public static JsonObject ctrlListarAlumno() {
 
-		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
+		Dao_Crud_Alumno objDaoAlumno = new Dao_Crud_Alumno();
 		ArrayList<MdlAlumno> arrObjAlumno = new ArrayList<MdlAlumno>();
 		JsonArray data = new JsonArray();
 		JsonObject item;
@@ -80,7 +80,7 @@ public class Ctrl_Admin_Crud_Alumno {
 			
 	
 			MdlAlumno objAlumno = new MdlAlumno();
-			Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
+			Dao_Crud_Alumno objDaoAlumno = new Dao_Crud_Alumno();
 			
 			String codigoGenerado = objDaoAlumno.daoGetGenerarCodigoAlumno();
 			objAlumno.setCodAlumno(codigoGenerado);
@@ -120,7 +120,7 @@ public class Ctrl_Admin_Crud_Alumno {
 		int codigoExitoOperacion = 0;
 		
 		MdlAlumno objAlumno = new MdlAlumno();
-		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
+		Dao_Crud_Alumno objDaoAlumno = new Dao_Crud_Alumno();
 		
 		objAlumno.setCodAlumno(codAlumno);
 		objAlumno.setNomAlumno(nombre);
@@ -136,7 +136,7 @@ public class Ctrl_Admin_Crud_Alumno {
 	
 	
 	public static int ctrlSetCredentialAlumno(HttpServletRequest request) {
-		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
+		Dao_Crud_Alumno objDaoAlumno = new Dao_Crud_Alumno();
 		String codigo = request.getParameter("txtCod");
 		String pass = request.getParameter("txtPass");
 		int codigoExitoOperacion = 0;
@@ -145,7 +145,7 @@ public class Ctrl_Admin_Crud_Alumno {
 	}
 	
 	public static int ctrlSetAccesoUsuario(HttpServletRequest request) {
-		Dao_Admin_Crud_Alumno objDaoAlumno = new Dao_Admin_Crud_Alumno();
+		Dao_Crud_Alumno objDaoAlumno = new Dao_Crud_Alumno();
 		String codigo = request.getParameter("codAlumno");
 		String valorEstado = request.getParameter("valorEstado");
 		int parseValorEstado = Integer.parseInt(valorEstado);

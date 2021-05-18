@@ -8,14 +8,14 @@ import javax.servlet.http.Part;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import pkgDao.administrador.Dao_Admin_Crud_Docente;
+import pkgDao.administrador.Dao_Crud_Docente;
 import pkgModel.MdlDocente;
 
-public class Ctrl_Admin_Crud_Docente {
+public class Ctrl_Crud_Docente {
 	
 	public static JsonObject ctrlListarDocente() {
 
-		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		Dao_Crud_Docente objDaoDocente = new Dao_Crud_Docente();
 		ArrayList<MdlDocente> arrObjDocente = new ArrayList<MdlDocente>();
 		JsonArray data = new JsonArray();
 		JsonObject item;
@@ -77,7 +77,7 @@ public class Ctrl_Admin_Crud_Docente {
 			String fechaNac = request.getParameter("txtFechaNac");
 
 			MdlDocente objDocente = new MdlDocente();
-			Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+			Dao_Crud_Docente objDaoDocente = new Dao_Crud_Docente();
 			
 			String codigoGenerado = objDaoDocente.daoGetGenerarCodigoDocente();
 			objDocente.setCodDocente(codigoGenerado);
@@ -116,7 +116,7 @@ public class Ctrl_Admin_Crud_Docente {
 		int codigoExitoOperacion = 0;
 		
 		MdlDocente objDocente = new MdlDocente();
-		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		Dao_Crud_Docente objDaoDocente = new Dao_Crud_Docente();
 		
 		objDocente.setCodDocente(codDocente);
 		objDocente.setNomDocente(nombre);
@@ -132,13 +132,13 @@ public class Ctrl_Admin_Crud_Docente {
 	public static int ctrlEliminarDocente(String idDocente) {
 		int codigoExitoOperacion = 0;
 		int parseIdDocente = Integer.parseInt(idDocente);
-		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		Dao_Crud_Docente objDaoDocente = new Dao_Crud_Docente();
 		codigoExitoOperacion = objDaoDocente.daoEliminarDocente(parseIdDocente);
 		return codigoExitoOperacion;
 	}
 	
 	public static int ctrlSetCredentialDocentes(HttpServletRequest request) {
-		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		Dao_Crud_Docente objDaoDocente = new Dao_Crud_Docente();
 		String codigo = request.getParameter("txtCod");
 		String pass = request.getParameter("txtPass");
 		int codigoExitoOperacion = 0;
@@ -147,7 +147,7 @@ public class Ctrl_Admin_Crud_Docente {
 	}
 	
 	public static int ctrlSetAccesoUsuario(HttpServletRequest request) {
-		Dao_Admin_Crud_Docente objDaoDocente = new Dao_Admin_Crud_Docente();
+		Dao_Crud_Docente objDaoDocente = new Dao_Crud_Docente();
 		String codigo = request.getParameter("codDocente");
 		String valorEstado = request.getParameter("valorEstado");
 		int cambioOk = objDaoDocente.daoSetAccesoUsuario(codigo, Integer.parseInt(valorEstado));
