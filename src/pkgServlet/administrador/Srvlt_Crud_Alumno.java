@@ -61,14 +61,6 @@ public class Srvlt_Crud_Alumno extends HttpServlet {
 				tipoRespuesta = "text/html";
 				res = Ctrl_Crud_Alumno.ctrlUpdateAlumno(request);
 			break;
-			case "ctrlSetCredentialAlumno":
-				tipoRespuesta = "text/html";
-				res = Ctrl_Crud_Alumno.ctrlSetCredentialAlumno(request);
-			break;
-			case "ctrlSetAccesoUsuario":
-				tipoRespuesta = "text/html";
-				res = Ctrl_Crud_Alumno.ctrlSetAccesoUsuario(request);
-			break;
 		}
 		
 		response.setContentType(tipoRespuesta);

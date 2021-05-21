@@ -24,7 +24,6 @@ $("document").ready(function () {
     		{"data": "Edad"},
           	{"data": "Dni"},
           	{"data": "FechaNac"},
-          	{"data": "Acceso"},
           	{"data": "acciones"}
   		],/*
         columnDefs: [{
@@ -104,52 +103,6 @@ $("document").ready(function () {
         fnEnviarPeticion(formData);
 
     });
-
-
-    $("#tblDocente tbody").on( 'click', '#btnSwitchAccess', function () {
-        
-        var datosFila = tblDocente.row($(this).parents("tr")).data();
-        var codigoDocente = datosFila.Codigo;
-        var valorEstado = $(this).attr("value");
-        var formData = new FormData();
-
-        (valorEstado == 1) ? valorEstado = 0 : valorEstado = 1;
-        
-        $(this).val(valorEstado);
-        
-        valorEstado = $(this).attr("value");
-
-       
-        formData.append("valorEstado",  valorEstado );
-        formData.append("codDocente", codigoDocente );
-        formData.append("metodo", "ctrlSetAccesoUsuario");
-
-       fnEnviarPeticion(formData);
-
-    })
-
-
-    $("#tblDocente tbody").on( 'click', '#btnShowModalCredentials', function () {
-        
-        document.getElementById("frmCredentialDocente").reset();
-        
-        var datosFila = tblDocente.row($(this).parents("tr")).data();
-        var IdDocente = datosFila.Codigo;
-        
-        $("#txtCod").val(IdDocente);       
-    })
-
-    $("#btnSubmitSetPassword").click(function(){
-        
-        var formData = new FormData(document.getElementById("frmCredentialDocente"));
-        
-        formData.append("metodo","ctrlSetCredentialDocentes");
-
-        $('#mdlSetCredentialDocente').modal('hide');
-        
-        fnEnviarPeticion(formData);
-    })
-
 
 
   /*******  FUNCIONES ******/
@@ -236,7 +189,6 @@ $("document").ready(function () {
   function fnConfigModals(){
 
     $('#modalRegisterOrUpdate').modal( fnOptions() );
-    $('#mdlSetCredentialDocente').modal( fnOptions() );
 
   }
 

@@ -92,7 +92,7 @@
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" id="btnSubmitFrmRegistro" class="btn btn-primary pull-right">Aceptar</button>
+            <button type="button" id="btnSubmitFrmRegistro" class="btn btn-primary pull-right">Confirmar</button>
          </div>
       </div>
    </div>

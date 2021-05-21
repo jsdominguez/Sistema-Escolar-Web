@@ -1,4 +1,4 @@
-<div class="modal fade" id="mdlSetCredentialDocente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="mdlSetCredentialUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
          <div class="modal-header">
@@ -7,8 +7,10 @@
          </div>
          <div class="modal-body">
             
-            <form role="form" class="form-horizontal" enctype="multipart/form-data" name="frmCredentialDocente" id="frmCredentialDocente">
+            <form role="form" class="form-horizontal" enctype="multipart/form-data" name="frmCredentialUsuario" id="frmCredentialUsuario">
                
+               <input type="hidden" id="tipousuario" name="tipousuario">
+
                <div class="form-group">
                   <label class="col-md-3 col-xs-12 control-label">Codigo</label>
                   <div class="col-md-6 col-xs-12">
@@ -38,7 +40,7 @@
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" id="btnSubmitSetPassword" class="btn btn-primary pull-right">Aceptar</button>
+            <button type="button" id="btnSubmitSetPassword" class="btn btn-primary pull-right">Confirmar</button>
          </div>
       </div>
    </div>

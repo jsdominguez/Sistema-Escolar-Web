@@ -92,7 +92,7 @@
 
         if(result == 1){
             tipoMsg = "info";
-            msg = "<strong>Info!</strong> Su usuario aun no esta habilitado para acceder al sistema";
+            msg = "<strong>Info!</strong> Su usuario no esta habilitado para acceder al sistema";
         }else{
             tipoMsg = "danger";
              msg ="<strong>Error!</strong> Datos incorrectos";

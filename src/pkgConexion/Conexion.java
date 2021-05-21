@@ -20,7 +20,7 @@ public class Conexion {
 		String dbgestor,server,port,database,user,password;
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			prop = new Properties();
 			//fileReader = lee caracter por caracter un archivo que contiene texto
 			//BufferedReader = le ayuda a obtener toda una linea de caracteres y potencia para ser mas rapida la lectura  
@@ -35,9 +35,8 @@ public class Conexion {
 			database=prop.getProperty("database");
 			user=prop.getProperty("user");
 			password=prop.getProperty("password");
-			
 			//unimos la ruta y obtenemos de conexion
-			this.conn = DriverManager.getConnection("jdbc:"+dbgestor+"://"+server+":"+port+"/"+database,user,password);
+			this.conn = DriverManager.getConnection("jdbc:"+dbgestor+"://"+server+":"+port+"/"+database+"?serverTimezone=UTC",user,password);
 		
 		}catch(Exception e){
 			log.error("[X] CONEXION FALLIDA[X]");

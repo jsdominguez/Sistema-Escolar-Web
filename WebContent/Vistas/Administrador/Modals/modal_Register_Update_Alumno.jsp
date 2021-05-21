@@ -91,7 +91,7 @@
                <div class="form-group">
                   <label class="col-md-3 col-xs-6 control-label">Grado / Seccion</label>
                   <div class="col-md-3 col-xs-6"> 
-                     <select disabled name="selectGrado" id="selectGrado" class="form-control combos selectpicker" title="Seleccione">
+                     <select name="selectGrado" id="selectGrado" class="form-control combos selectpicker" title="Seleccione">
                            <option value="1">1</option>
                            <option value="2">2</option>
                            <option value="3">3</option>
@@ -101,7 +101,7 @@
                      <span class="help-block hidden">*Campo Requerido</span>
                   </div>
                   <div class="col-md-3 col-xs-6">
-                     <select disabled name="selecSeccion" id="selecSeccion" class="form-control combos selectpicker" title="Seleccione">
+                     <select name="selecSeccion" id="selecSeccion" class="form-control combos selectpicker" title="Seleccione">
                            <option value="A">A</option>
                            <option value="B">B</option>
                            <option value="C">C</option>
@@ -127,7 +127,7 @@
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" id="btnSubmitFrmRegistro" class="btn btn-primary pull-right">Aceptar</button>
+            <button type="button" id="btnSubmitFrmRegistro" class="btn btn-primary pull-right">Confirmar</button>
          </div>
       </div>
    </div>

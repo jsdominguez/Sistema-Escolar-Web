@@ -8,6 +8,7 @@ public class MdlUsuario {
 	private int idTipoUsuario;
 	private String tipoUsuarioString;
 	private String codigo;
+	private int estado_acceso_sistema;
 	
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -41,5 +42,12 @@ public class MdlUsuario {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+	public int getEstado_acceso_sistema() {
+		return estado_acceso_sistema;
+	}
+	public void setEstado_acceso_sistema(int estado_acceso_sistema) {
+		this.estado_acceso_sistema = estado_acceso_sistema;
+	}
 
+	
 }

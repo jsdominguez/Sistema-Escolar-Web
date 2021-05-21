@@ -65,7 +65,6 @@
                                          <th class="text-center">grado</th>
                                          <th class="text-center">seccion</th>
                                          <th class="text-center">nivel</th>
-                                         <th class="text-center">Acceso</th>
 		                                 <th class="text-center" data-priority="3">acciones</th>
 		                           </thead>
 		                        </table>
@@ -74,7 +73,6 @@
 
 		                 	<!-- modals -->
 					      	 <%@ include file="../Modals/modal_Register_Update_Alumno.jsp" %>
-					         <%@ include file="../Modals/modal_Register_Credencial_Alumno.jsp" %>
                             <!-- Fin modal -->
 
                         </div>

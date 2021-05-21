@@ -38,6 +38,15 @@
         margin: auto;
     }
 
+
+    table.responsive tbody tr:hover {
+  		background-color: #d4d4d4;
+	}
+ 
+	table.responsive tbody tr:hover > .sorting_1 {
+ 		 background-color: #d4d4d4;
+	}
+
 </style>
 
  		<link rel="stylesheet" type="text/css" id="theme" href="${pageContext.request.contextPath}/Vistas/Resources/dashboard/css/theme-default.css"/>

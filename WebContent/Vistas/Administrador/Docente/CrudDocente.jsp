@@ -65,7 +65,6 @@
                                         <th class="text-center">Edad</th>
                                         <th class="text-center">Dni</th>
                                         <th class="text-center">FechaNac</th>
-                                        <th class="text-center">Acceso</th>
                                         <th class="text-center" data-priority="4">Acciones</th>
                                     </thead>
                                 </table>
@@ -74,7 +73,6 @@
 
                             <!-- modals -->
                             <%@ include file="../Modals/modal_Register_Update_Docente.jsp" %> 
-                            <%@ include file="../Modals/modal_Register_Credencial_Docente.jsp" %>
                             <!-- Fin modal -->
                             
                         </div>

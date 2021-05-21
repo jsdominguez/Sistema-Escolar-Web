@@ -27,7 +27,6 @@ $(function() {
             {"data": "grado"},
             {"data": "seccion"},
             {"data": "nivel"},
-            {"data": "Acceso"},
             {"data": "acciones"}
 		  ],
         columnDefs: [{
@@ -57,10 +56,10 @@ $(function() {
 
   $("#btnModalRegistrar").click(function(){
         
-        document.getElementById("frmModalRegistroAlumno").reset();
-        fnRrefreshSelect();
-        $("#frmModalRegistroId").css("display","none");
-        $("#opcRegisterorUpdate").val(1);
+      document.getElementById("frmModalRegistroAlumno").reset();
+      fnRrefreshSelect();
+      $("#frmModalRegistroId").css("display","none");
+      $("#opcRegisterorUpdate").val(1);
 
   });
 
@@ -108,59 +107,15 @@ $(function() {
   })
 
 
-  $("#tblAlumno tbody").on( 'click', '#btnShowModalCredentials', function () {
-        
-        document.getElementById("frmCredentialAlumno").reset();
-        var datosFila = tblAlumno.row($(this).parents("tr")).data();
-        var idAlumno = datosFila.Codigo;
-        $("#txtCod").val(idAlumno);   
-
-    })
-
-    $("#btnSubmitSetPassword").click(function(){
-        
-        var formData = new FormData(document.getElementById("frmCredentialAlumno"));
-        formData.append("metodo","ctrlSetCredentialAlumno");
-        fnEnviarPeticion(formData);
-        $('#mdlSetCredentialAlumno').modal('hide');
-        
-    })
-
-
-    $("#tblAlumno tbody").on( 'click', '#btnSwitchAccess', function () {
-        
-        var formData = new FormData();
-        var datosFila = tblAlumno.row($(this).parents("tr")).data();
-        var codigoAlumno = datosFila.Codigo;
-        var valorEstado = $(this).attr("value");
-        
-        (valorEstado == 1) ? valorEstado = 0 : valorEstado = 1;
-        
-        $(this).val(valorEstado);
-        
-        valorEstado = $(this).attr("value");
-
-        
-        formData.append("valorEstado",  valorEstado );
-        formData.append("codAlumno", codigoAlumno );
-        formData.append("metodo", "ctrlSetAccesoUsuario");
-
-       fnEnviarPeticion(formData);
-
-    })
-
-
+  $("#selectNivel").on("change",function(){
     
+      $('#selectGrado').prop('disabled', false);
+      $('#selectGrado').selectpicker('refresh');
 
-    $("#selectNivel").on("change",function(){
-      
-        $('#selectGrado').prop('disabled', false);
-        $('#selectGrado').selectpicker('refresh');
+      $('#selecSeccion').prop('disabled', false);
+      $('#selecSeccion').selectpicker('refresh');
 
-        $('#selecSeccion').prop('disabled', false);
-        $('#selecSeccion').selectpicker('refresh');
-
-    })
+  })
 
 
   /*******  FUNCIONES ******/
@@ -250,8 +205,6 @@ $(function() {
   function fnConfigModals(){
 
     $('#modalRegisterOrUpdate').modal( fnOptions() );
-    $('#mdlSetCredentialAlumno').modal( fnOptions() );
-
   }
 
   function fnOptions(){

@@ -61,19 +61,6 @@ public class Srvlt_Crud_Docente extends HttpServlet {
 				tipoRespuesta = "text/html";
 				res = Ctrl_Crud_Docente.ctrlUpdateDocente(request);
 			break;
-			case "ctrlEliminarAlumno":
-				tipoRespuesta = "text/html";
-				String idAlumno = request.getParameter("idAlumno");
-				res = Ctrl_Crud_Docente.ctrlEliminarDocente(idAlumno);
-			break;
-			case "ctrlSetCredentialDocentes":
-				tipoRespuesta = "text/html";
-				res = Ctrl_Crud_Docente.ctrlSetCredentialDocentes(request);
-			break;
-			case "ctrlSetAccesoUsuario":
-				tipoRespuesta = "text/html";
-				res = Ctrl_Crud_Docente.ctrlSetAccesoUsuario(request);
-			break;
 		}
 		
 		response.setContentType(tipoRespuesta);

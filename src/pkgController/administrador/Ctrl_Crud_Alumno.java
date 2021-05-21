@@ -28,12 +28,9 @@ public class Ctrl_Crud_Alumno {
 		arrObjAlumno  = objDaoAlumno.daoGetListaAlumno();
 
 		String btnEditar = "<button type='button' id='btnEditDatosModalAlumno' class='btn btn-info btn-square' data-toggle='modal' data-target='#modalRegisterOrUpdate'><span data-toggle='tooltip' data-placement='bottom' title='Editar' class='fa fa-edit'></span></button>";
-		String btnSetCredentials = "<button type='button' id='btnShowModalCredentials' class='btn btn-default btn-square' data-toggle='modal' data-target='#mdlSetCredentialAlumno'><span data-toggle='tooltip' data-placement='bottom' title='Credenciales' class='fa fa-user'></span></button>";
-		String btnSwitchAccess = "";
-		String columnAcciones = btnEditar+btnSetCredentials;
+		String columnAcciones = btnEditar;
 		
 		for(MdlAlumno o : arrObjAlumno) {
-			String estado_acceso = "";
 			item = new JsonObject();
 			item.addProperty("Codigo",o.getCodAlumno());
 			item.addProperty("Nombre",o.getNomAlumno());
@@ -43,13 +40,6 @@ public class Ctrl_Crud_Alumno {
 			item.addProperty("grado",o.getGrado());
 			item.addProperty("seccion",o.getSeccion());
 			item.addProperty("nivel",o.getNivel());
-			if(o.getEstado_acceso() == 1) {  estado_acceso = "checked"; }
-			if(o.getEstado_acceso() == 2 ) { estado_acceso = "disabled";  }
-			btnSwitchAccess = "<label class='switch switch-small'>" + 
-								 "<input type='checkbox' id='btnSwitchAccess' "+estado_acceso+" value= '"+ o.getEstado_acceso() +"'>" + 
-								 "<span></span>" + 
-							   "</label>";
-			item.addProperty("Acceso",btnSwitchAccess);
 			item.addProperty("acciones",columnAcciones);
 			data.add(item);
 		}
@@ -132,25 +122,6 @@ public class Ctrl_Crud_Alumno {
 	
 		codigoExitoOperacion = objDaoAlumno.daoUpdateAlumno(objAlumno);
 		return codigoExitoOperacion;
-	}
-	
-	
-	public static int ctrlSetCredentialAlumno(HttpServletRequest request) {
-		Dao_Crud_Alumno objDaoAlumno = new Dao_Crud_Alumno();
-		String codigo = request.getParameter("txtCod");
-		String pass = request.getParameter("txtPass");
-		int codigoExitoOperacion = 0;
-		codigoExitoOperacion = objDaoAlumno.daoSetCredentialAlumno(codigo,pass);
-		return codigoExitoOperacion;
-	}
-	
-	public static int ctrlSetAccesoUsuario(HttpServletRequest request) {
-		Dao_Crud_Alumno objDaoAlumno = new Dao_Crud_Alumno();
-		String codigo = request.getParameter("codAlumno");
-		String valorEstado = request.getParameter("valorEstado");
-		int parseValorEstado = Integer.parseInt(valorEstado);
-		int cambioOk = objDaoAlumno.daoSetAccesoUsuario(codigo,parseValorEstado);
-		return cambioOk;
 	}
 
 }

@@ -5,6 +5,10 @@
 </li> 
 
 <li>
+    <a href="../Usuarios/usuarios.jsp"><span class="fa fa-file-text-o"></span> <span class="xn-text">Usuarios</span></a>
+</li>
+
+<li>
     <a href="../Docente/CrudDocente.jsp"><span class="fa fa-file-text-o"></span> <span class="xn-text">Docente</span></a>
 </li>
 
@@ -12,13 +16,10 @@
     <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Alumnos</span></a>
 </li>
 
-<li class="xn-openable">
+<li>
+    <a href="../Cursos/CrudCursos.jsp"><span class="fa fa-envelope"></span> <span class="xn-text">Cursos</span></a>
+</li>
 
-    <a href="#"><span class="fa fa-envelope"></span> <span class="xn-text">Cursos</span></a>
-    
-    <ul>
-        <li><a href="layout-boxed.html">Cursos</a></li>
-        <li><a href="blank.html">Reportes</a></li>
-    </ul>
-
+<li>
+    <a href="../Grado_Seccion/Grado_Seccion.jsp"><span class="fa fa-file-text-o"></span> <span class="xn-text">Grado / Seccion</span></a>
 </li>

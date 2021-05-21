@@ -7,9 +7,9 @@
          </div>
          <div class="modal-body">
             
-            <form class="form-horizontal" enctype="multipart/form-data" name="frmModalRegistroCurso" id="frmModalRegistroCurso">
+            <form class="form-horizontal" name="frmModalRegistroCurso" id="frmModalRegistroCurso">
                
-               <input type="hidden" id="opcRegisterorUpdate" name="opcRegisterorUpdate">
+               <input type="hidden" id="opcRegisterorUpdateCurso" name="opcRegisterorUpdateCurso">
                
                <div class="form-group" id="frmModalRegistroId">
                   <label class="col-md-3 col-xs-12 control-label">Codigo</label>
@@ -43,11 +43,26 @@
                    </div>
                </div>
 
+               <div class="form-group">
+                   <label class="col-md-3 control-label">Grado</label>
+                   <div class="col-md-3 col-xs-6">                
+                        <select disabled class="selectpicker combos form-control" name="selectGrado" id="selectGrado" title="Seleccione">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">Todos</option>
+                       </select>
+                   </div>
+               </div>
+
             </form>
+
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="button" id="btnSubmitFrmRegistro" class="btn btn-primary pull-right">Registrar</button>
+            <button type="button" id="btnSubmitFrmRegistro" class="btn btn-primary pull-right">Confirmar</button>
          </div>
       </div>
    </div>

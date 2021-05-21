@@ -60,8 +60,6 @@ public class DaoUsuario {
 			
 			if(resultadoDatos.last()) {
 				accessOk = true;
-			}else {
-				System.out.println("Usuario sin Acceso");
 			}
 			
 		}catch(Exception e) {

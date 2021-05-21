@@ -53,13 +53,15 @@
 		                        
 		                        <div id="alertMessageResponse"></div>
 		                       
-		                        <button type="button" class="btn btn-primary" id="btnModalRegistrar" data-toggle='modal' data-target='#modalRegisterOrUpdate'>Registrar</button>
+		                        <button type="button" class="btn btn-primary" id="btnModalRegistrar" data-toggle='modal' data-target='#modalRegisterOrUpdateCursos'>Registrar</button>
 		                        
 		                        <table id="tblCursos" class="table responsive dt-responsive text-center" width="100%">
 		                           <thead>
 		                                 <th class="text-center">Codigo</th>
 		                                 <th class="text-center">Curso</th>
-		                                 <th class="text-center">Nivel</th>
+                                         <th class="text-center">Nivel</th>
+                                         <th class="text-center">Codigo Nivel</th>
+                                         <th class="text-center">Acciones</th>
 		                           </thead>
 		                        </table>
 

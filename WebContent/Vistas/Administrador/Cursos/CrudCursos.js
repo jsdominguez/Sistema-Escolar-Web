@@ -8,159 +8,101 @@ $(function() {
 	    "filter": true,
    		"searching": true,
       "responsive" : true,
+      "ordering": false,
       //"processing": true,
         /*"serverSide": true,*/
       "ajax": {      
-          url: 		  "/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno",
+          url: 		  "/ProyectoIntegrador2/Srvlt_Crud_Curso",
           type: 		"POST",
 		      dataSrc: 	"datos",
           data: {
-              		  "metodo": "ctrlListarAlumno"
+              		  "metodo": "ctrlListarCursos"
           }
       },
 		  columns: [
-            {"data": "Codigo"},
-		      	{"data": "Nombre"},
-			      {"data": "Apellido"},
-			      {"data": "Edad"},
-            {"data": "Dni"},
-            {"data": "grado"},
-            {"data": "seccion"},
-            {"data": "nivel"},
-            {"data": "Acceso"},
+            {"data": "codigo"},
+		      	{"data": "nomCurso"},
+			      {"data": "nivel"},
+            {"data": "nivelCodigo"},
             {"data": "acciones"}
 		  ],
-        columnDefs: [{
-            "targets": [5,6,7], //oculta columna pero estara disponible para su seleccion
-            "visible": false,
-            "searchable": false
-        }],
-        language: {
-            search: "Buqueda:",
-            lengthMenu: "Mostrar _MENU_ registros",
-            zeroRecords: "Ningun Dato Disponible",
-            info: "_START_ al _END_ de _TOTAL_ registros",
-            loadingRecords: "",
-            processing: "",
-            sInfoEmpty: " 0 al 0 de 0 registros",
-            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-            oPaginate: {
-                sFirst: "Primero",
-                sLast: "Último",
-                sNext: "Siguiente",
-                sPrevious: "Anterior"
-            }
-        }
+      columnDefs: [{
+          "targets": [0,3],
+          "visible": false,
+          "searchable": false
+      }],
+      language: {
+          search: "Buqueda:",
+          lengthMenu: "Mostrar _MENU_ registros",
+          zeroRecords: "Ningun Dato Disponible",
+          info: "_START_ al _END_ de _TOTAL_ registros",
+          loadingRecords: "",
+          processing: "",
+          sInfoEmpty: " 0 al 0 de 0 registros",
+          sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+          oPaginate: {
+              sFirst: "Primero",
+              sLast: "Último",
+              sNext: "Siguiente",
+              sPrevious: "Anterior"
+          }
+      }
     });
 
-  fnConfigModals();
+   fnConfigModals();
 
   $("#btnModalRegistrar").click(function(){
         
-        document.getElementById("frmModalRegistroAlumno").reset();
-        fnRrefreshSelect();
-        $("#frmModalRegistroId").css("display","none");
-        $("#opcRegisterorUpdate").val(1);
+      document.getElementById("frmModalRegistroCurso").reset();
+      fnRrefreshSelect();
+      $("#frmModalRegistroId").css("display","none");
+      $("#opcRegisterorUpdateCurso").val(1);
 
   });
 
-  $('#tblAlumno tbody').on( 'click', '#btnEditDatosModalAlumno', function () {
+  $('#tblCursos tbody').on( 'click', '#btnEditDatosModalCurso', function () {
        
-        document.getElementById("frmModalRegistroAlumno").reset();
-        fnRrefreshSelect();
-        var datosFila = tblAlumno.row($(this).parents("tr")).data();
-        var idAlumno = datosFila.Codigo;
-        var txtNombre = datosFila.Nombre;
-        var txtApellido = datosFila.Apellido;
-        var txtEdad = datosFila.Edad;
-        var txtDni = datosFila.Dni;
+        document.getElementById("frmModalRegistroCurso").reset();
+        var datosFila   = tblCursos.row($(this).parents("tr")).data();
+        var idCodigo    = datosFila.codigo;
+        var txtNombre   = datosFila.nomCurso;
         var selectGrado = datosFila.grado;
-        var selectSeccion = datosFila.seccion;
-        var selectNivel = datosFila.nivel;
+        var selectNivel = datosFila.nivelCodigo;
 
         $("#frmModalRegistroId").css("display","block");
-        $("#opcRegisterorUpdate").val(2);
-        $("#txtCodigo").val(idAlumno);
-        $("#txtNombre").val(txtNombre);
-        $("#txtApellido").val(txtApellido);
-        $("#txtEdad").val(txtEdad);
-        $("#txtDni").val(txtDni);
+        $("#opcRegisterorUpdateCurso").val(2);
+        $("#txtCodigo").val(idCodigo);
+        $("#txtCurso").val(txtNombre);
         $('#selectGrado').selectpicker('val',selectGrado);
-        $('#selecSeccion').selectpicker('val',selectSeccion);
         $('#selectNivel').selectpicker('val',selectNivel);
+        $('#selectGrado').prop('disabled', false);
+    	$('#selectGrado').selectpicker('refresh');
 
     } );
 
   $("#btnSubmitFrmRegistro").click(function(){
 
-      var formData = new FormData(document.getElementById("frmModalRegistroAlumno"));
+      var formData = new FormData(document.getElementById("frmModalRegistroCurso"));
       
-      var opcRegisterOrUpdate = $("#opcRegisterorUpdate").val();
+      var opcRegisterorUpdateCurso = $("#opcRegisterorUpdateCurso").val();
 
-      if(opcRegisterOrUpdate == 1){   formData.append("metodo","ctrlRegisterAlumno");	}
+      if(opcRegisterorUpdateCurso == 1){   formData.append("metodo","ctrlRegisterCurso"); }
 
-      if(opcRegisterOrUpdate == 2){   formData.append("metodo","ctrlUpdateAlumno");		}
+      if(opcRegisterorUpdateCurso == 2){   formData.append("metodo","ctrlUpdateCurso");   }
 
       fnEnviarPeticion(formData);
 
-      $('#modalRegisterOrUpdate').modal('hide');
+      $('#modalRegisterOrUpdateCursos').modal('hide');
 
   })
 
 
-  $("#tblAlumno tbody").on( 'click', '#btnShowModalCredentials', function () {
-        
-        document.getElementById("frmCredentialAlumno").reset();
-        var datosFila = tblAlumno.row($(this).parents("tr")).data();
-        var idAlumno = datosFila.Codigo;
-        $("#txtCod").val(idAlumno);   
-
-    })
-
-    $("#btnSubmitSetPassword").click(function(){
-        
-        var formData = new FormData(document.getElementById("frmCredentialAlumno"));
-        formData.append("metodo","ctrlSetCredentialAlumno");
-        fnEnviarPeticion(formData);
-        $('#mdlSetCredentialAlumno').modal('hide');
-        
-    })
-
-
-    $("#tblAlumno tbody").on( 'click', '#btnSwitchAccess', function () {
-        
-        var formData = new FormData();
-        var datosFila = tblAlumno.row($(this).parents("tr")).data();
-        var codigoAlumno = datosFila.Codigo;
-        var valorEstado = $(this).attr("value");
-        
-        (valorEstado == 1) ? valorEstado = 0 : valorEstado = 1;
-        
-        $(this).val(valorEstado);
-        
-        valorEstado = $(this).attr("value");
-
-        
-        formData.append("valorEstado",  valorEstado );
-        formData.append("codAlumno", codigoAlumno );
-        formData.append("metodo", "ctrlSetAccesoUsuario");
-
-       fnEnviarPeticion(formData);
-
-    })
-
-
+  $("#selectNivel").on("change",function(){
     
+      $('#selectGrado').prop('disabled', false);
+      $('#selectGrado').selectpicker('refresh');
 
-    $("#selectNivel").on("change",function(){
-      
-        $('#selectGrado').prop('disabled', false);
-        $('#selectGrado').selectpicker('refresh');
-
-        $('#selecSeccion').prop('disabled', false);
-        $('#selecSeccion').selectpicker('refresh');
-
-    })
+  })
 
 
   /*******  FUNCIONES ******/
@@ -169,7 +111,7 @@ $(function() {
 
     $.ajax({
 
-            url: "/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno",
+            url: "/ProyectoIntegrador2/Srvlt_Crud_Curso",
             type: "POST",
             data: formData,
             cache: false,
@@ -177,26 +119,26 @@ $(function() {
             processData: false,
             beforeSend: function(){
 
-            	fnWaitResponse();
+              fnWaitResponse();
             }
     }).done(function(response) {
 
         fnShowResponse(response);
-        $('#tblAlumno').waitMe('hide');
+        $('#tblCursos').waitMe('hide');
 
     });
 
   }
 
   function fnWaitResponse(){
-  	
-  	//https://www.jqueryscript.net/loading/jQuery-Plugin-For-Creating-Loading-Overlay-with-CSS3-Animations-waitMe.html
-      $('#tblAlumno').waitMe({
+    
+    //https://www.jqueryscript.net/loading/jQuery-Plugin-For-Creating-Loading-Overlay-with-CSS3-Animations-waitMe.html
+      $('#tblCursos').waitMe({
 
-	      effect : 'roundBounce',
-	      text 	 : '',
-	      bg 	   : 'rgba(255,255,255,0.7)',
-	      color  : '#000'
+        effect : 'roundBounce',
+        text   : '',
+        bg     : 'rgba(255,255,255,0.7)',
+        color  : '#000'
 
       });
 
@@ -204,11 +146,11 @@ $(function() {
 
   function fnShowResponse(response){
         
-      $('#modalRegisterOrUpdate').modal('hide')    
+      $('#modalRegisterOrUpdateCursos').modal('hide')    
       
-      tblAlumno.ajax.url( '/ProyectoIntegrador2/Srvlt_Admin_Crud_Alumno?metodo=ctrlListarAlumno').load();
+      tblCursos.ajax.url( '/ProyectoIntegrador2/Srvlt_Crud_Curso?metodo=ctrlListarCursos').load();
       
-       var tipoAlert = "<div class='alert alert-danger' "; 
+      var tipoAlert = "<div class='alert alert-danger' "; 
       var msg = "<strong>Error!</strong> Ha ocurrido un evento inesperado internamente .</div>";
       var alertContent = "";
 
@@ -234,7 +176,7 @@ $(function() {
 
   function fnTimeHide(){
 
-	window.setTimeout(function() {
+  window.setTimeout(function() {
 
       $("#alertMsg").fadeTo(1000, 0).slideUp(1000, function(){
 
@@ -249,9 +191,7 @@ $(function() {
 
   function fnConfigModals(){
 
-    $('#modalRegisterOrUpdate').modal( fnOptions() );
-    $('#mdlSetCredentialAlumno').modal( fnOptions() );
-
+    $('#modalRegisterOrUpdateCursos').modal( fnOptions() );
   }
 
   function fnOptions(){
@@ -266,10 +206,10 @@ $(function() {
 
 
   function fnRrefreshSelect(){
-
-     $('#selectNivel').selectpicker('refresh');
+  	 $('#selectGrado').prop('disabled', true);
      $('#selectGrado').selectpicker('refresh');
-     $('#selecSeccion').selectpicker('refresh');
+     $('#selectNivel').selectpicker('refresh');
   }
+
 
 }); //fin jquery

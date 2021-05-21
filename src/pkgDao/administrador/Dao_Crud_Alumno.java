@@ -25,7 +25,7 @@ public class Dao_Crud_Alumno {
 		
 		try {
 			
-			this.sql = "select concat('E00',(select count(*)+1 from alumnos)) as codigo_Generado";
+			this.sql = "select concat('E000',(select count(*)+1 from alumnos)) as codigo_Generado";
 			consultaPreparada = this.cn.prepareCall(this.sql);
 			this.resultadoDatos = consultaPreparada.executeQuery();
 			this.resultadoDatos.last();
@@ -88,7 +88,7 @@ public class Dao_Crud_Alumno {
 		
 		try {
 			
-			this.sql = "select idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,estado_acceso,archivo,grado,seccion,nivel from alumnos";
+			this.sql = "select idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,archivo,grado,seccion,nivel from alumnos";
 			consultaPreparada = this.cn.prepareCall(this.sql);
 			resultadoDatos = consultaPreparada.executeQuery();
 			
@@ -101,7 +101,6 @@ public class Dao_Crud_Alumno {
 				objAlumno.setDniAlumno(resultadoDatos.getInt("dniAlumno"));
 				objAlumno.setGrado(resultadoDatos.getInt("grado"));
 				objAlumno.setSeccion(resultadoDatos.getString("seccion"));
-				objAlumno.setEstado_acceso(resultadoDatos.getInt("estado_acceso"));
 				objAlumno.setNivel(resultadoDatos.getString("nivel"));
 				arrAlumno.add(objAlumno);
 			}
@@ -138,8 +137,8 @@ public class Dao_Crud_Alumno {
 			consultaPreparada.setBlob(6,archivo[0]);
 			consultaPreparada.execute();
 			
-			this.sql = "insert into alumnos(idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,idTipoUsuario,estado_acceso,archivo,grado,seccion,nivel)" +
-					   " values(?,?,?,?,?,?,?,?,?,?,?)";
+			this.sql = "insert into alumnos(idAlumno,nomAlumno,apeAlumno,edadAlumno,dniAlumno,idTipoUsuario,archivo,grado,seccion,nivel)" +
+					   " values(?,?,?,?,?,?,?,?,?,?)";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,objAlumno.getCodAlumno());
 			consultaPreparada.setString(2,objAlumno.getNomAlumno());
@@ -147,11 +146,10 @@ public class Dao_Crud_Alumno {
 			consultaPreparada.setInt(4,objAlumno.getEdadAlumno());
 			consultaPreparada.setInt(5,objAlumno.getDniAlumno());
 			consultaPreparada.setInt(6,3);
-			consultaPreparada.setInt(7,2);
-			consultaPreparada.setBlob(8,archivo[1]);
-			consultaPreparada.setInt(9,objAlumno.getGrado());
-			consultaPreparada.setString(10,objAlumno.getSeccion());
-			consultaPreparada.setString(11,objAlumno.getNivel());
+			consultaPreparada.setBlob(7,archivo[1]);
+			consultaPreparada.setInt(8,objAlumno.getGrado());
+			consultaPreparada.setString(9,objAlumno.getSeccion());
+			consultaPreparada.setString(10,objAlumno.getNivel());
 			
 			consultaPreparada.execute();
 			
@@ -161,6 +159,17 @@ public class Dao_Crud_Alumno {
 			consultaPreparada.setString(2,objAlumno.getNomAlumno());
 			consultaPreparada.setString(3,objAlumno.getApeAlumno());
 			consultaPreparada.execute();
+			
+			this.sql = "update grado_seccion set cantidad_alumnos = (select (cantidad_alumnos+1) from grado_seccion where grado = ? and seccion = ? and nivel = ?) where grado = ? and seccion = ?  and nivel = ?";
+			consultaPreparada = this.cn.prepareStatement(this.sql);
+			consultaPreparada.setInt(1,objAlumno.getGrado());
+			consultaPreparada.setString(2,objAlumno.getSeccion());
+			consultaPreparada.setString(3,objAlumno.getNivel());
+			consultaPreparada.setInt(4,objAlumno.getGrado());
+			consultaPreparada.setString(5,objAlumno.getSeccion());
+			consultaPreparada.setString(6,objAlumno.getNivel());
+			consultaPreparada.execute();
+			
 			
 			this.cn.close();
 		}catch(Exception e) {
@@ -221,80 +230,5 @@ public int daoUpdateAlumno(MdlAlumno objAlumno) {
 		
 		return 200;
 	}
-
-public int daoSetCredentialAlumno(String codigo,String pass) {
-	
-	Conexion objConectar = new Conexion();
-	this.cn = objConectar.conectar();
-	int finalizadoOk = 0;
-	
-	try {
-		this.sql = "update usuario set passUsuario=?,estado_acceso = ? where idInfoUsuario = ?";
-		consultaPreparada = this.cn.prepareStatement(this.sql);
-		consultaPreparada.setString(1,pass);
-		consultaPreparada.setInt(2,0);
-		consultaPreparada.setString(3,codigo);
-		consultaPreparada.execute();
-		
-		this.sql = "update alumnos set estado_acceso = ? where idAlumno = ?";
-		consultaPreparada = this.cn.prepareStatement(this.sql);
-		consultaPreparada.setInt(1,0);
-		consultaPreparada.setString(2,codigo);
-		consultaPreparada.execute();
-		
-		finalizadoOk = 1;
-		
-	}catch(Exception e) {
-		
-		System.out.println("[X] DAO 'Alumno.daoSetCredentialAlumno' FALLIDA [X]");
-		e.printStackTrace();
-		
-	}finally {
-		
-		objConectar.desconectar();
-		this.cn = null;
-		
-	}
-	
-	return finalizadoOk;
-}
-
-public int daoSetAccesoUsuario(String codigo, int valorEstado) {
-	
-	Conexion objConectar = new Conexion();
-	this.cn = objConectar.conectar();
-	int cambioOk = 500;
-	
-	try {
-		
-		this.sql = "update usuario set estado_acceso = ? where idInfoUsuario = ?";
-		consultaPreparada = this.cn.prepareStatement(this.sql);
-		consultaPreparada.setInt(1,valorEstado);
-		consultaPreparada.setString(2,codigo);
-		consultaPreparada.execute();
-		
-		
-		this.sql = "update alumnos set estado_acceso = ? where idAlumno = ?";
-		consultaPreparada = this.cn.prepareStatement(this.sql);
-		consultaPreparada.setInt(1,valorEstado);
-		consultaPreparada.setString(2,codigo);
-		consultaPreparada.execute();
-		
-		cambioOk = 200;
-		
-	}catch(Exception e) {
-		
-		System.out.println("[X] DAO 'Alumnos.daoSetAccesoAlumnos' FALLIDA [X]");
-		e.printStackTrace();
-		
-	}finally {
-		
-		objConectar.desconectar();
-		this.cn = null;
-		
-	}
-	
-	return cambioOk;
-}
 
 }
