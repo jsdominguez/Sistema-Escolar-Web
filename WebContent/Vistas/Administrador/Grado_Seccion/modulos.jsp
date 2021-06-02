@@ -23,3 +23,7 @@
 <li class="active">
     <a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">Grado / Seccion</span></a>
 </li>
+
+<li>
+    <a href="../Reportes/index.jsp><span class="fa fa-envelope"></span> <span class="xn-text">Reportes</span></a>
+</li>
