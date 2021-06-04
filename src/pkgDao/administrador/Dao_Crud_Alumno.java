@@ -127,7 +127,7 @@ public class Dao_Crud_Alumno {
 		this.cn = objConectar.conectar();
 		try {
 			            
-			this.sql = "insert into usuario(nomUsuario,passUsuario,idInfoUsuario,idTipoUsuario,estado_acceso,archivo) values(?,?,?,?,?,?)";
+			this.sql = "insert into usuario(nomUsuario,passUsuario,idInfoUsuario,idTipoUsuario,estado_acceso,archivo,userCreate) values(?,?,?,?,?,?,date(now()))";
 			consultaPreparada = this.cn.prepareStatement(this.sql);
 			consultaPreparada.setString(1,objAlumno.getCodAlumno());
 			consultaPreparada.setString(2,"");

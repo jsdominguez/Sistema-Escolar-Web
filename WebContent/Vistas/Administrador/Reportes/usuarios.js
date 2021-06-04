@@ -86,6 +86,11 @@ $(function() {
 
     })
 
+
+    $("#btnDownloadReporteExcel01").click(function(){
+
+    })
+    
     function fnEnviarPeticion(formData){
 
         $.ajax({

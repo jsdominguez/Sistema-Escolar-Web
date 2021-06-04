@@ -57,8 +57,7 @@
                      <%@ include file="infoInicio.jsp" %>
                      
                   </div>
-                  <a href="/ProyectoIntegrador2/Srvlt_Reportes?download=pdf">Descargar PDF</a>
-                  <a href="/ProyectoIntegrador2/Srvlt_Reportes?download=excel">Descargar Excel</a>
+                
                </div>
             </div>
             <!-- fin area de contenido -->                                

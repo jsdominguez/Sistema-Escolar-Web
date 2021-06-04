@@ -252,13 +252,6 @@ export interface DoughnutControllerDatasetOptions
    * @default 1
    */
   weight: number;
-
-  /**
-   * Similar to the `offset` option, but applies to all arcs. This can be used to to add spaces
-   * between arcs
-   * @default 0
-   */
-  spacing: number;
 }
 
 export interface DoughnutAnimationOptions {
@@ -300,12 +293,6 @@ export interface DoughnutControllerChartOptions {
    * @default 0
    */
   rotation: number;
-
-  /**
-   * Spacing between the arcs
-   * @default 0
-   */
-  spacing: number;
 
   animation: DoughnutAnimationOptions;
 }
