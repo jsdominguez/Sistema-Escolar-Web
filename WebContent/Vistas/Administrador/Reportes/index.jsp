@@ -62,7 +62,7 @@
 
                   <center>
 
-                  	<button class="btn btn-danger">PDF</button>
+                  	<button class="btn btn-danger" id="btnDownloadReportePdf01" type="button">PDF</button>
 
                  	<button class="btn btn-success" id="btnDownloadReporteExcel01" type="button">Excel</button><br><br><br>
 
@@ -85,7 +85,7 @@
 
                     <center>
 
-                  	<button class="btn btn-danger" type="button" onclick="window.location='/ProyectoIntegrador2/Srvlt_Reportes?chart=2&report=pdf'">PDF</button>
+                  	<button class="btn btn-danger" id="btnDownloadReportePdf02" type="button">PDF</button>
 
                  	<button class="btn btn-success" type="button" id="btnDownloadReporteExcel02">Excel</button><br><br><br>
                  	
@@ -107,7 +107,7 @@
                  
                     <center>
 
-                  	<button class="btn btn-danger" role="link" onclick="window.location='/ProyectoIntegrador2/Srvlt_Reportes?download=pdf'">PDF</button>
+                  <button class="btn btn-danger" id="btnDownloadReportePdf03" type="button">PDF</button>
 
                  		<button class="btn btn-success" type="button" id="btnDownloadReporteExcel03">Excel</button><br><br>
                  	

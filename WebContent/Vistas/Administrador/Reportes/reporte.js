@@ -191,6 +191,33 @@ $("#btnDownloadReporteExcel03").click(function(){
 })
 
 
+$("#btnDownloadReportePdf01").click(function(){
+    var datos = [];
+    $("#reporte01 > input").each(function(i){
+        datos[i] = $(this).val();
+    })
+
+    window.location="/ProyectoIntegrador2/Srvlt_Reportes?chart=1&report=pdf&fechaMin="+datos[1]+"&fechaMax="+datos[2];
+})
+
+$("#btnDownloadReportePdf02").click(function(){
+    var datos = [];
+    $("#reporte02 > input").each(function(i){
+        datos[i] = $(this).val();
+    })
+
+    window.location="/ProyectoIntegrador2/Srvlt_Reportes?chart=2&report=pdf&fechaMin="+datos[1]+"&fechaMax="+datos[2];
+})
+
+$("#btnDownloadReportePdf03").click(function(){
+    var datos = [];
+    $("#reporte03 > input").each(function(i){
+        datos[i] = $(this).val();
+    })
+
+    window.location="/ProyectoIntegrador2/Srvlt_Reportes?chart=3&report=pdf&fechaMin="+datos[1]+"&fechaMax="+datos[2];
+})
+
     function fnEnviarPeticion(formData,numChart){
 
         $.ajax({

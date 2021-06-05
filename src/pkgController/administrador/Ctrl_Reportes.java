@@ -24,8 +24,8 @@ public class Ctrl_Reportes {
 		objDaoReportes.opGenerarReporteExcel03(objDaoReportes.daoGetListaAlumno03(fechaInicio,fechaFin),response);
 	}
 	
-	public void ctrlGenerarReportePdf(HttpServletResponse response) throws JRException, IOException {
+	public void ctrlGenerarReportePdf(HttpServletResponse response, int num,String fechaInicio,String fechaFin ) throws JRException, IOException {
 		Dao_Reportes objDaoReportes = new Dao_Reportes();
-		objDaoReportes.opGenerarReportePDF(response);
+		objDaoReportes.opGenerarReportePDF(response,num,fechaInicio,fechaFin);
 	}
 }

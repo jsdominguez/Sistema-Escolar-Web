@@ -35,6 +35,7 @@ public class Srvlt_Reportes extends HttpServlet {
 		String fechaFin = request.getParameter("fechaMax"); 
 		String reporte = request.getParameter("report"); 
 		String chart = request.getParameter("chart"); 
+		
 		if(chart.equals("1") || chart.equals(1)) {
 			if(reporte.equals("xlsx")) {
 				Ctrl_Reportes demo = new Ctrl_Reportes();
@@ -42,8 +43,16 @@ public class Srvlt_Reportes extends HttpServlet {
 				response.setHeader("Content-Disposition", "attachment; filename=Reporte01.xlsx");
 				demo.ctrlGenerarReporteExcel(response,fechaInicio,fechaFin);
 			}else {
-				response.setContentType("application/pdf");
-				response.setHeader("Content-Disposition", "attachment; filename=Reporte01.pdf");
+				response.setContentType("application/x-download");
+				response.addHeader("Content-disposition", "attachment; filename=reporte01.pdf");
+				Ctrl_Reportes controller = new Ctrl_Reportes();
+				try {
+					controller.ctrlGenerarReportePdf(response,1,fechaInicio,fechaFin);
+				} catch (JRException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
@@ -54,11 +63,11 @@ public class Srvlt_Reportes extends HttpServlet {
 				response.setHeader("Content-Disposition", "attachment; filename=Reporte02.xlsx");
 				demo.ctrlGenerarReporteExcel02(response,fechaInicio,fechaFin);
 			}else {
-				response.setContentType("application/pdf");
-				response.setHeader("Content-Disposition",  "inline; filename=reporte.pdf");
+				response.setContentType("application/x-download");
+				response.addHeader("Content-disposition", "attachment; filename=reporte02.pdf");
 				Ctrl_Reportes controller = new Ctrl_Reportes();
 				try {
-					controller.ctrlGenerarReportePdf(response);
+					controller.ctrlGenerarReportePdf(response,2,fechaInicio,fechaFin);
 				} catch (JRException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -73,6 +82,17 @@ public class Srvlt_Reportes extends HttpServlet {
 				response.setContentType("application/xlsx");
 				response.setHeader("Content-Disposition", "attachment; filename=Reporte03.xlsx");
 				demo.ctrlGenerarReporteExcel03(response,fechaInicio,fechaFin);
+			}else {
+				response.setContentType("application/x-download");
+				response.addHeader("Content-disposition", "attachment; filename=reporte03.pdf");
+				Ctrl_Reportes controller = new Ctrl_Reportes();
+				try {
+					controller.ctrlGenerarReportePdf(response,3,fechaInicio,fechaFin);
+				} catch (JRException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

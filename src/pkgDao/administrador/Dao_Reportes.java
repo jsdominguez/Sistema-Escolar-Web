@@ -505,15 +505,21 @@ public void opGenerarReporteExcel03(ResultSet resultadoDatos,HttpServletResponse
 		e.printStackTrace();
 	}
 }
-	public void opGenerarReportePDF(HttpServletResponse response) throws JRException, IOException {
+	public void opGenerarReportePDF(HttpServletResponse response,int num,String fechaInicio,String fechaFin) throws JRException, IOException {
 		
 		Conexion objConectar = new Conexion();
 		
 		Map parametro = new HashMap();
-		parametro.put("fechaInicio","2017-01-01");
-		parametro.put("fechaFin","2020-12-31");
+		parametro.put("fechaInicio",fechaInicio);
+		parametro.put("fechaFin",fechaFin);
+		File jasperFile;
 		
-		File jasperFile = new File("C:/Users/Jhosep/Desktop/Eclipse/ProyectoIntegrador2/src/Reportes/Reporte01.jasper");
+		if(num == 1){  jasperFile = new File("C:/Users/Jhosep/Desktop/Eclipse/ProyectoIntegrador2/src/Reportes/Reporte01.jasper"); }
+		
+		else if(num == 2){  jasperFile = new File("C:/Users/Jhosep/Desktop/Eclipse/ProyectoIntegrador2/src/Reportes/Reporte02.jasper"); }
+		
+		else{   jasperFile = new File("C:/Users/Jhosep/Desktop/Eclipse/ProyectoIntegrador2/src/Reportes/Reporte03.jasper"); }
+		
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperFile.getPath(),parametro,objConectar.conectar());
 		OutputStream out = response.getOutputStream();
 		JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
